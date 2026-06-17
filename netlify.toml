@@ -1,5 +1,5 @@
 [build]
-  command = "echo 'Deploying static site and functions...'"
+  command = "npm install && echo 'Deploying static site and functions...'"
   functions = "netlify/functions"
   publish = "."
 
