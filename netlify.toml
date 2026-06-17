@@ -1,0 +1,25 @@
+[build]
+  command = "npm install"
+  functions = "netlify/functions"
+  publish = "."
+
+[[redirects]]
+  from = "/create-checkout-session"
+  to = "/.netlify/functions/create-checkout-session"
+  status = 200
+
+[dev]
+  framework = "#custom"
+  command = "npm run dev"
+
+[[context.production.environment]]
+  STRIPE_SECRET_KEY = "sk_live_YOUR_STRIPE_SECRET_KEY"
+  ANTHROPIC_API_KEY = "sk-ant-YOUR_ANTHROPIC_API_KEY"
+
+[[context.preview.environment]]
+  STRIPE_SECRET_KEY = "sk_test_YOUR_STRIPE_TEST_KEY"
+  ANTHROPIC_API_KEY = "sk-ant-YOUR_ANTHROPIC_API_KEY"
+
+[[context.deploy-preview.environment]]
+  STRIPE_SECRET_KEY = "sk_test_YOUR_STRIPE_TEST_KEY"
+  ANTHROPIC_API_KEY = "sk-ant-YOUR_ANTHROPIC_API_KEY"

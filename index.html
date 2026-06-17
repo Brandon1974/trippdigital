@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tripp Digital - Virginia Beach Web Agency</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">TRIPP</span>
+                <span class="logo-accent">DIGITAL</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#books">Books</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#search" class="icon">🔍</a>
+                <a href="#account" class="icon">👤</a>
+                <a href="#cart" class="icon cart-icon">🛒<span class="cart-badge">0</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-tagline">YOUR LOCAL WEB PARTNER</div>
+                <h1 class="hero-title">
+                    <span>PROFESSIONAL</span>
+                    <span class="accent">WEB SOLUTIONS</span>
+                    <span>FOR GROWING BUSINESSES</span>
+                </h1>
+                <p class="hero-description">
+                    Professional websites, digital products, and strategic business tools designed to help your business grow online — all at prices you can afford.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">EXPLORE SERVICES →</button>
+                    <button class="btn btn-secondary">GET FREE AUDIT</button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="product-showcase">
+                    <div class="showcase-card card-1">
+                        <div class="card-content">
+                            <h3>WEBSITES</h3>
+                            <p class="price">$97-$297</p>
+                            <p>/month</p>
+                        </div>
+                    </div>
+                    <div class="showcase-card card-2">
+                        <div class="card-content">
+                            <h3>DIGITAL</h3>
+                            <p class="price">$12-$47</p>
+                            <p>PRODUCTS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURE ICONS -->
+        <div class="features">
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-text">
+                    <h4>FAST SETUP</h4>
+                    <p>Get online in days, not months</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✓</div>
+                <div class="feature-text">
+                    <h4>PROVEN RESULTS</h4>
+                    <p>Built to convert visitors</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💰</div>
+                <div class="feature-text">
+                    <h4>AFFORDABLE</h4>
+                    <p>No hidden fees or long contracts</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-text">
+                    <h4>EXPERT SUPPORT</h4>
+                    <p>Real people, real solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services" class="services-section">
+        <div class="section-header">
+            <div class="section-label">WEBSITE SOLUTIONS</div>
+            <h2>Professional Websites Starting at $97/month</h2>
+            <p class="section-description">Choose the perfect plan for your business</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- STARTER -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h3>Starter Website</h3>
+                    <div class="price-tag">$97<span>/month</span></div>
+                </div>
+                <ul class="service-features">
+                    <li>✓ Up to 5 pages</li>
+                    <li>✓ Mobile responsive</li>
+                    <li>✓ Basic SEO setup</li>
+                    <li>✓ Contact form</li>
+                    <li>✓ Email support</li>
+                </ul>
+                <button class="btn btn-service" data-price="97" data-name="Starter Website - $97/month">
+                    SELECT PLAN
+                </button>
+            </div>
+
+            <!-- BUSINESS -->
+            <div class="service-card featured">
+                <div class="badge">MOST POPULAR</div>
+                <div class="service-header">
+                    <h3>Business Website</h3>
+                    <div class="price-tag">$197<span>/month</span></div>
+                </div>
+                <ul class="service-features">
+                    <li>✓ Up to 15 pages</li>
+                    <li>✓ Mobile responsive</li>
+                    <li>✓ Full SEO optimization</li>
+                    <li>✓ Blog setup</li>
+                    <li>✓ Payment integration</li>
+                    <li>✓ Phone support</li>
+                </ul>
+                <button class="btn btn-service" data-price="197" data-name="Business Website - $197/month">
+                    SELECT PLAN
+                </button>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="service-card">
+                <div class="service-header">
+                    <h3>Premium Website</h3>
+                    <div class="price-tag">$297<span>/month</span></div>
+                </div>
+                <ul class="service-features">
+                    <li>✓ Unlimited pages</li>
+                    <li>✓ Mobile responsive</li>
+                    <li>✓ Advanced SEO</li>
+                    <li>✓ E-commerce setup</li>
+                    <li>✓ Custom integrations</li>
+                    <li>✓ Priority support</li>
+                </ul>
+                <button class="btn btn-service" data-price="297" data-name="Premium Website - $297/month">
+                    SELECT PLAN
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="products-section">
+        <div class="section-header">
+            <div class="section-label">DIGITAL PRODUCTS</div>
+            <h2>Business Tools & Templates</h2>
+            <a href="#all-products" class="view-all">VIEW ALL PRODUCTS →</a>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">📊</div>
+                </div>
+                <h3>How to Build a Local Web Agency</h3>
+                <p>Complete guide to starting your own web agency business</p>
+                <div class="product-price">$47.00</div>
+                <button class="btn btn-cart" data-price="47" data-name="How to Build a Local Web Agency">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">📚</div>
+                </div>
+                <h3>Make Money With Puzzle Books on KDP</h3>
+                <p>Step-by-step blueprint for creating and selling puzzle books</p>
+                <div class="product-price">$27.00</div>
+                <button class="btn btn-cart" data-price="27" data-name="Make Money With Puzzle Books on KDP">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">✍️</div>
+                </div>
+                <h3>How to Start a Grant Writing Business</h3>
+                <p>Comprehensive guide to building a grant writing service</p>
+                <div class="product-price">$37.00</div>
+                <button class="btn btn-cart" data-price="37" data-name="How to Start a Grant Writing Business">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">📋</div>
+                </div>
+                <h3>Invoice & Contract Templates Bundle</h3>
+                <p>Professional templates for invoicing and client contracts</p>
+                <div class="product-price">$12.00</div>
+                <button class="btn btn-cart" data-price="12" data-name="Invoice & Contract Templates Bundle">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">🎯</div>
+                </div>
+                <h3>Business Plan Template</h3>
+                <p>Complete business plan template for any industry</p>
+                <div class="product-price">$17.00</div>
+                <button class="btn btn-cart" data-price="17" data-name="Business Plan Template">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">🚀</div>
+                </div>
+                <h3>Client Onboarding Kit</h3>
+                <p>Complete system for onboarding new clients</p>
+                <div class="product-price">$12.00</div>
+                <button class="btn btn-cart" data-price="12" data-name="Client Onboarding Kit">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">📝</div>
+                </div>
+                <h3>Grant Proposal Template</h3>
+                <p>Professional grant proposal template</p>
+                <div class="product-price">$15.00</div>
+                <button class="btn btn-cart" data-price="15" data-name="Grant Proposal Template">
+                    ADD TO CART
+                </button>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <div class="placeholder">👨‍👩‍👧</div>
+                </div>
+                <h3>Build With AI Complete Pack</h3>
+                <p>Everything you need to leverage AI in your business</p>
+                <div class="product-price">$19.00</div>
+                <button class="btn btn-cart" data-price="19" data-name="Build With AI Complete Pack">
+                    ADD TO CART
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKS SECTION -->
+    <section id="books" class="books-section">
+        <div class="section-header">
+            <div class="section-label">FICTION SERIES</div>
+            <h2>The Traveling Dice Shooter Series</h2>
+            <p class="section-description">Noir thrillers from Brandon Tripp</p>
+        </div>
+
+        <div class="books-grid">
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <h3>Bones: Snake Eyes</h3>
+                <p class="book-subtitle">Book 1</p>
+                <p class="book-description">The first installment in the Traveling Dice Shooter series</p>
+                <a href="#" class="btn btn-secondary">Coming Soon</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <h3>Maya: Lost but Now Found</h3>
+                <p class="book-subtitle">Book 1.5</p>
+                <p class="book-description">A companion story in the universe</p>
+                <a href="#" class="btn btn-secondary">Coming Soon</a>
+            </div>
+
+            <div class="book-card">
+                <div class="book-cover">📖</div>
+                <h3>MagnetMind Puzzle Books</h3>
+                <p class="book-subtitle">Logic Puzzle Collection</p>
+                <p class="book-description">Premium puzzle books available on KDP</p>
+                <a href="#" class="btn btn-secondary">Coming Soon</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION -->
+    <section class="newsletter-section">
+        <div class="newsletter-content">
+            <div class="newsletter-icon">🎁</div>
+            <div class="newsletter-text">
+                <div class="newsletter-label">EXCLUSIVE RESOURCES</div>
+                <h3>Join Our Community</h3>
+                <p>Get free resources, templates, exclusive offers, and everything you need to grow your business.</p>
+            </div>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn btn-primary">JOIN NOW</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <div class="section-header">
+            <h2>About Tripp Digital</h2>
+        </div>
+        <div class="about-content">
+            <p>Tripp Digital is a Virginia Beach-based web agency dedicated to helping local businesses build their online presence. We combine professional web development with affordable pricing to make quality digital solutions accessible to everyone.</p>
+            <p>Beyond websites, we create educational digital products and business resources to help entrepreneurs succeed.</p>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="contact-section">
+        <div class="section-header">
+            <h2>Get In Touch</h2>
+        </div>
+        <div class="contact-content">
+            <p>📧 Email: <a href="mailto:trippdigital@gmail.com">trippdigital@gmail.com</a></p>
+            <p>🌐 Website: <a href="https://trippdigital.com">trippdigital.com</a></p>
+            <p>📍 Virginia Beach, VA</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <div class="footer-logo">
+                    <span>TRIPP</span>
+                    <span class="accent">DIGITAL</span>
+                </div>
+                <p>Professional websites and digital products for growing businesses.</p>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📺</a>
+                    <a href="#">💼</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>SERVICES</h4>
+                <ul>
+                    <li><a href="#services">Starter Website</a></li>
+                    <li><a href="#services">Business Website</a></li>
+                    <li><a href="#services">Premium Website</a></li>
+                    <li><a href="#products">Digital Products</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>COMPANY</h4>
+                <ul>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>STAY UPDATED</h4>
+                <form class="footer-newsletter" id="footerNewsletterForm">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">→</button>
+                </form>
+                <p class="footer-text">New products, guides and exclusive offers straight to your inbox.</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tripp Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- STRIPE CHECKOUT MODAL -->
+    <div id="checkoutModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Checkout</h2>
+            <div id="checkout-items"></div>
+            <div id="checkout-total"></div>
+            <button id="checkout-btn" class="btn btn-primary">Proceed to Payment</button>
+        </div>
+    </div>
+
+    <!-- CHATBOT WIDGET -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-header">
+            <h3>Tripp Digital Assistant</h3>
+            <button id="closeChatbot" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatMessages" class="chatbot-messages"></div>
+        <div class="chatbot-input-area">
+            <form id="chatForm">
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask about our services, products, or anything else..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="chatbot-send">→</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHATBOT TOGGLE BUTTON -->
+    <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
+        💬
+    </button>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+</html>
