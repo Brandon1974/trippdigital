@@ -12,14 +12,3 @@
   framework = "#custom"
   command = "npm run dev"
 
-[context.production.environment]
-  STRIPE_SECRET_KEY = "sk_live_YOUR_STRIPE_SECRET_KEY"
-  ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_API_KEY"
-
-[context.preview.environment]
-  STRIPE_SECRET_KEY = "sk_test_YOUR_STRIPE_TEST_KEY"
-  ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_API_KEY"
-
-[context.deploy-preview.environment]
-  STRIPE_SECRET_KEY = "sk_test_YOUR_STRIPE_TEST_KEY"
-  ANTHROPIC_API_KEY = "YOUR_ANTHROPIC_API_KEY"
