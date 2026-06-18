@@ -51,6 +51,15 @@ exports.handler = async (event, context) => {
   }
 
   try {
+    // Debug: Check if API key is loaded
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error("ANTHROPIC_API_KEY is not set!");
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "API key not configured" }),
+      };
+    }
+
     const { messages } = JSON.parse(event.body);
 
     if (!messages || !Array.isArray(messages)) {
