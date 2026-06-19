@@ -1,11 +1,16 @@
 [build]
   command = "npm install && echo 'Deploying static site and functions...'"
   functions = "netlify/functions"
-  publish = "."
+  publish = "./"
 
 [[redirects]]
   from = "/create-checkout-session"
   to = "/.netlify/functions/create-checkout-session"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200
 
 [dev]
