@@ -43,6 +43,10 @@ document.querySelectorAll('.btn-cart').forEach(btn => {
         e.preventDefault();
         const price = btn.getAttribute('data-price');
         const name = btn.getAttribute('data-name');
+        if (!price || !name) {
+            showNotification('Product information is missing. Please refresh the page.');
+            return;
+        }
         addToCart(price, name);
     });
 });
@@ -101,7 +105,11 @@ function openCheckout(items = null) {
 }
 
 function processCheckout(items) {
-    // Create line items for Stripe
+    if (!items || items.length === 0) {
+        showNotification('No items to checkout.');
+        return;
+    }
+
     const lineItems = items.map(item => ({
         price_data: {
             currency: 'usd',
@@ -113,7 +121,8 @@ function processCheckout(items) {
         quantity: 1,
     }));
 
-    // Redirect to Stripe Checkout
+    showNotification('Processing payment...');
+
     fetch('/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -121,13 +130,21 @@ function processCheckout(items) {
         },
         body: JSON.stringify({ lineItems }),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
+        if (!data.url) {
+            throw new Error('No checkout URL returned from server');
+        }
         window.location.href = data.url;
     })
     .catch(error => {
-        console.error('Error:', error);
-        showNotification('Payment processing error. Please try again.');
+        console.error('Checkout error:', error);
+        showNotification('Payment error. Please check your browser console and contact support.');
     });
 }
 
