@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tripp Digital Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #1a1a1a;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar-logo .accent {
+            color: #FF6B00;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            color: #ccc;
+            text-decoration: none;
+            padding: 12px 16px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: #FF6B00;
+            color: white;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 10px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: #b71c1c;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="url"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="url"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: #FF6B00;
+            box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #FF6B00;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a00;
+        }
+
+        .btn-danger {
+            background: #d32f2f;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b71c1c;
+        }
+
+        .btn-secondary {
+            background: #ddd;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #ccc;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            color: #FF6B00;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .product-actions button {
+            flex: 1;
+            padding: 8px;
+            font-size: 12px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 10px 20px;
+            background: #FF6B00;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .file-input-label:hover {
+            background: #e55a00;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #4caf50;
+            color: white;
+            display: block;
+        }
+
+        .message.error {
+            background: #f44336;
+            color: white;
+            display: block;
+        }
+
+        .blog-post-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .blog-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .blog-meta {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .blog-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .rich-editor {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .editor-toolbar {
+            background: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .editor-toolbar button {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .editor-toolbar button:hover {
+            background: #f0f0f0;
+        }
+
+        .editor-content {
+            padding: 15px;
+            min-height: 250px;
+            background: white;
+            border: none;
+            font-family: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+
+            .sidebar-nav a span {
+                display: none;
+            }
+
+            .product-list {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <span>TRIPP</span>
+                <span class="accent">ADMIN</span>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li><a class="nav-link active" data-section="dashboard">📊 Dashboard</a></li>
+                <li><a class="nav-link" data-section="products">🛍️ Products</a></li>
+                <li><a class="nav-link" data-section="blog">📝 Blog</a></li>
+                <li><a class="nav-link" data-section="videos">🎬 Videos</a></li>
+                <li><a class="nav-link" data-section="files">📁 Files</a></li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h1>Admin Dashboard</h1>
+                <div id="userInfo" style="font-size: 14px; color: #666;">Logged in as Admin</div>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section active">
+                <div class="card">
+                    <h2>Welcome to Tripp Digital Admin</h2>
+                    <p style="margin-top: 10px; color: #666;">Use the sidebar to manage your website content:</p>
+                    <ul style="margin-top: 15px; margin-left: 20px; color: #666;">
+                        <li>📦 <strong>Products</strong> - Add, edit, or remove products with images</li>
+                        <li>📝 <strong>Blog</strong> - Write and publish blog posts</li>
+                        <li>🎬 <strong>Videos</strong> - Embed YouTube and Vimeo videos</li>
+                        <li>📁 <strong>Files</strong> - Manage product files and images</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Products Section -->
+            <div id="products" class="section">
+                <div class="card">
+                    <h2>Manage Products</h2>
+                    <button class="btn btn-primary" id="newProductBtn" style="margin-top: 15px;">+ Add New Product</button>
+                </div>
+
+                <div id="productForm" class="card" style="display: none;">
+                    <h3>Product Form</h3>
+                    <form id="productFormElement">
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" id="productName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Price ($)</label>
+                            <input type="number" id="productPrice" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="productDescription" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>PayHip Link</label>
+                            <input type="url" id="productPayhipLink" placeholder="https://payhip.com/b/..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <div class="file-input-wrapper">
+                                <label for="productImage" class="file-input-label">Choose Image</label>
+                                <input type="file" id="productImage" accept="image/*">
+                            </div>
+                            <div class="file-name" id="productImageName"></div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn btn-primary">Save Product</button>
+                            <button type="button" class="btn btn-secondary" id="cancelProductBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="productsList" class="product-list"></div>
+            </div>
+
+            <!-- Blog Section -->
+            <div id="blog" class="section">
+                <div class="card">
+                    <h2>Blog Posts</h2>
+                    <button class="btn btn-primary" id="newBlogBtn" style="margin-top: 15px;">+ Write New Post</button>
+                </div>
+
+                <div id="blogForm" class="card" style="display: none;">
+                    <h3>New Blog Post</h3>
+                    <form id="blogFormElement">
+                        <div class="form-group">
+                            <label>Post Title</label>
+                            <input type="text" id="blogTitle" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Content</label>
+                            <div class="rich-editor">
+                                <div class="editor-toolbar">
+                                    <button type="button" data-command="bold" title="Bold">B</button>
+                                    <button type="button" data-command="italic" title="Italic">I</button>
+                                    <button type="button" data-command="underline" title="Underline">U</button>
+                                    <button type="button" data-command="formatBlock" data-value="h2" title="Heading">H2</button>
+                                    <button type="button" data-command="formatBlock" data-value="h3" title="Subheading">H3</button>
+                                    <button type="button" data-command="createLink" title="Link">🔗</button>
+                                    <button type="button" data-command="insertUnorderedList" title="Bullet List">• List</button>
+                                </div>
+                                <div id="blogContent" class="editor-content" contenteditable="true" required></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Featured Image</label>
+                            <div class="file-input-wrapper">
+                                <label for="blogImage" class="file-input-label">Choose Image</label>
+                                <input type="file" id="blogImage" accept="image/*">
+                            </div>
+                            <div class="file-name" id="blogImageName"></div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn btn-primary">Publish Post</button>
+                            <button type="button" class="btn btn-secondary" id="cancelBlogBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="blogList"></div>
+            </div>
+
+            <!-- Videos Section -->
+            <div id="videos" class="section">
+                <div class="card">
+                    <h2>Promotional Videos</h2>
+                    <button class="btn btn-primary" id="newVideoBtn" style="margin-top: 15px;">+ Add Video</button>
+                </div>
+
+                <div id="videoForm" class="card" style="display: none;">
+                    <h3>Add Video</h3>
+                    <form id="videoFormElement">
+                        <div class="form-group">
+                            <label>Video Title</label>
+                            <input type="text" id="videoTitle" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Video URL (YouTube or Vimeo)</label>
+                            <input type="url" id="videoUrl" placeholder="https://youtube.com/watch?v=... or https://vimeo.com/..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="videoDescription"></textarea>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn btn-primary">Add Video</button>
+                            <button type="button" class="btn btn-secondary" id="cancelVideoBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="videoList"></div>
+            </div>
+
+            <!-- Files Section -->
+            <div id="files" class="section">
+                <div class="card">
+                    <h2>File Manager</h2>
+                    <button class="btn btn-primary" id="uploadFileBtn" style="margin-top: 15px;">+ Upload File</button>
+                </div>
+
+                <div id="fileUploadForm" class="card" style="display: none;">
+                    <h3>Upload File</h3>
+                    <form id="fileFormElement">
+                        <div class="form-group">
+                            <label>File</label>
+                            <div class="file-input-wrapper">
+                                <label for="fileInput" class="file-input-label">Choose File</label>
+                                <input type="file" id="fileInput" required>
+                            </div>
+                            <div class="file-name" id="fileName"></div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                            <button type="button" class="btn btn-secondary" id="cancelFileBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="fileList"></div>
+            </div>
+
+            <div id="message" class="message"></div>
+        </div>
+    </div>
+
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>
