@@ -1,12 +1,7 @@
 [build]
-  command = "npm install && echo 'Deploying static site and functions...'"
+  command = "npm install && echo 'Deploying static site with PayHip products...'"
   functions = "netlify/functions"
   publish = "./"
-
-[[redirects]]
-  from = "/create-checkout-session"
-  to = "/.netlify/functions/create-checkout-session"
-  status = 200
 
 [[redirects]]
   from = "/*"
