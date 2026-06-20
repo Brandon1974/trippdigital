@@ -508,9 +508,20 @@ section {
     background-color: var(--color-bg-secondary);
     border: 2px solid var(--color-bg-secondary);
     border-radius: 12px;
-    padding: 40px;
+    padding: 30px;
     text-align: center;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card.featured-book {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    border-color: var(--color-orange);
+    padding: 40px;
 }
 
 .book-card:hover {
@@ -519,9 +530,7 @@ section {
 }
 
 .book-cover {
-    font-size: 5rem;
-    margin-bottom: 20px;
-    height: 200px;
+    height: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -529,10 +538,35 @@ section {
     border: 2px solid var(--color-orange);
     border-radius: 8px;
     margin-bottom: 30px;
+    flex-shrink: 0;
+}
+
+.featured-book .book-cover {
+    height: 320px;
+    width: 220px;
+    min-width: 220px;
+    margin-bottom: 0;
+}
+
+.cover-placeholder {
+    font-size: 6rem;
+}
+
+.featured-book .cover-placeholder {
+    font-size: 7rem;
+}
+
+.book-content {
+    flex: 1;
+    text-align: left;
+}
+
+.featured-book .book-content {
+    text-align: left;
 }
 
 .book-card h3 {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     margin-bottom: 10px;
 }
 
@@ -540,12 +574,49 @@ section {
     color: var(--color-orange);
     font-size: 0.95rem;
     margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .book-description {
     color: var(--color-text-muted);
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.book-meta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
     margin-bottom: 25px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.featured-book .book-meta {
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+
+.book-author, .book-pages {
+    display: inline-block;
+}
+
+.coming-soon {
+    color: var(--color-orange);
+    font-weight: 600;
+    font-style: italic;
+}
+
+.book-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.featured-book .book-actions {
+    justify-content: flex-start;
 }
 
 /* NEWSLETTER SECTION */
