@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 """
-Create slideshow videos with Google Text-to-Speech narration (FREE - no API key needed).
-Requires: ffmpeg, Pillow, gTTS
+Create slideshow videos (no audio) - you'll add voiceover yourself.
+Requires: ffmpeg, Pillow
 """
 
 import os
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import subprocess
-from gtts import gTTS
 
 # Configuration
 OUTPUT_DIR = Path("lead-magnets/videos")
 IMAGES_DIR = Path("lead-magnets/slide-images")
-AUDIO_DIR = Path("lead-magnets/audio")
 
 # Video settings
 VIDEO_WIDTH = 1080
@@ -76,21 +74,11 @@ GUIDES = {
     }
 }
 
-# Narration texts
-NARRATIONS = {
-    "claude": """Welcome to The Complete Guide to Prompting Claude in 2026. The difference between a weak prompt and a powerful one isn't about being clever. It's about structure and clarity. Every great Claude prompt has five essential components. First, give Claude a clear role or persona. Second, state your task explicitly. Third, provide detailed context. Fourth, specify your output format. And fifth, define your success criteria. Claude natively understands XML tags, which help organize complex information. For complex tasks, break them into two or three sequential prompts instead of asking for everything at once. Tell Claude what NOT to do. Strong constraints are as valuable as strong instructions. Common mistakes include vague prompts, asking too many things at once, not specifying format, missing context, and not showing examples. Here's your template: one, your role. Two, explicit task. Three, context. Four, format. Five, success criteria. Pro tips: break complex tasks into sequential prompts, use XML tags, show examples, set clear constraints, and save your best prompts. Remember, structure beats cleverness every single time. Master these five components and you'll get exceptional results from Claude.""",
 
-    "chatgpt": """Welcome to The Complete Guide to Prompting ChatGPT in 2026. Output quality is almost entirely determined by prompt quality. Vague prompts produce vague results. The gap between a mediocre prompt and a great one isn't cleverness, it's specificity. We use the PTCF Framework: Persona, Task, Context, Format. Persona means defining the role ChatGPT should adopt. Task means being crystal clear about what you want. Context means providing all relevant information. And Format means specifying exactly how you want the response structured. Here's your five sentence formula: one, your role with specific expertise. Two, the task you want done. Three, key details about context. Four, how to structure the response. Five, any important constraints. That's it. Under one hundred words, maximum impact. ChatGPT in 2026 has superpowers: web browsing, code execution, image generation with DALL-E, and memory across conversations. Leverage these explicitly. Common mistakes include unclear tasks, no format specified, missing context, too many things at once, and not using available tools. Pro tips: show examples, iterate, front-load important information, use memory, and chain prompts together. Remember: vague input equals vague output. Invest upfront in a clear, specific prompt.""",
-
-    "gemini": """Welcome to The Complete Guide to Prompting Google Gemini in 2026. A single prompt does not work equally well across all Gemini models. Each model has its own personality and rewards different prompting styles. We use the PTCF Framework: Persona, Task, Context, Format. Different Gemini models need different approaches. Gemini 3.5 Flash works best with a task-chain approach. Break complex requests into clear sequential steps. Gemini 3 Standard prefers rich narrative descriptions. Provide detailed context and descriptions for better results. Persona means defining the role and expertise. Task means stating exactly what Gemini should do. Context means providing all relevant information. And Format means telling Gemini exactly how to structure the response. One critical thing: keep Gemini's temperature at its default value of one point zero. Google optimized Gemini's reasoning for the default temperature. Changing it can reduce quality. Gemini in 2026 is multimodal. You can provide text, images, even video. Leverage this. Include relevant images when helpful. Pro tips: match the model to your task, use rich descriptions, be specific about what you want, provide complete context, and use sequential steps for complex tasks. Master the four-part framework and you'll get exceptional results from Gemini."""
-}
-
-
-def create_image_directory():
-    """Create directories for output files."""
+def create_directories():
+    """Create output directories."""
     OUTPUT_DIR.mkdir(exist_ok=True, parents=True)
     IMAGES_DIR.mkdir(exist_ok=True, parents=True)
-    AUDIO_DIR.mkdir(exist_ok=True, parents=True)
 
 
 def create_slide_image(text_content, guide_name, slide_num, colors):
@@ -138,52 +126,30 @@ def create_slide_image(text_content, guide_name, slide_num, colors):
     return image_path
 
 
-def generate_audio(narration_text, guide_name, language="en"):
-    """Generate audio using Google Text-to-Speech (FREE - no API key needed)."""
-    print(f"Generating audio for {guide_name} using Google TTS...")
-
-    try:
-        # Create gTTS object
-        tts = gTTS(text=narration_text, lang=language, slow=False)
-
-        # Save audio
-        audio_path = AUDIO_DIR / f"{guide_name}_narration.mp3"
-        tts.save(str(audio_path))
-
-        print(f"✓ Audio saved to {audio_path}")
-        return audio_path
-    except Exception as e:
-        print(f"✗ Error generating audio: {e}")
-        return None
-
-
-def create_slideshow_video(guide_name, audio_path, slides_info):
-    """Create slideshow video from slides and audio."""
-    print(f"\nCreating slideshow video for {guide_name}...")
+def create_slideshow_video(guide_name, slides_info):
+    """Create slideshow video from slides (no audio)."""
+    print(f"Creating slideshow video for {guide_name}...")
 
     # Create image list file for ffmpeg
     image_list_file = IMAGES_DIR / f"{guide_name}_images.txt"
 
     with open(image_list_file, "w") as f:
         for i, slide in enumerate(slides_info):
-            image_path = IMAGES_DIR / f"{guide_name}_slide_{i:02d}.png"
+            image_path = (IMAGES_DIR / f"{guide_name}_slide_{i:02d}.png").absolute()
             duration = slide.get("duration", 3)
             f.write(f"file '{image_path}'\n")
             f.write(f"duration {duration}\n")
 
     output_video = OUTPUT_DIR / f"{guide_name}-prompting-guide.mp4"
 
-    # Use ffmpeg to create video with audio
+    # Use ffmpeg to create video (no audio)
     cmd = [
         "ffmpeg",
         "-f", "concat",
         "-safe", "0",
         "-i", str(image_list_file),
-        "-i", str(audio_path),
         "-c:v", "libx264",
         "-pix_fmt", "yuv420p",
-        "-c:a", "aac",
-        "-shortest",
         "-y",
         str(output_video)
     ]
@@ -196,10 +162,10 @@ def create_slideshow_video(guide_name, audio_path, slides_info):
 def main():
     """Main function to create all slideshow videos."""
     print("=" * 60)
-    print("Creating Slideshow Videos with Google TTS (FREE)")
+    print("Creating Slideshow Videos (No Audio)")
     print("=" * 60)
 
-    create_image_directory()
+    create_directories()
 
     for guide_name, guide_config in GUIDES.items():
         print(f"\n{'='*60}")
@@ -207,7 +173,7 @@ def main():
         print(f"{'='*60}")
 
         # Create slide images
-        print(f"\nCreating {len(guide_config['slides'])} slide images...")
+        print(f"Creating {len(guide_config['slides'])} slide images...")
         for i, slide in enumerate(guide_config['slides']):
             create_slide_image(slide, guide_name, i, {
                 "color_bg": guide_config["color_bg"],
@@ -216,22 +182,18 @@ def main():
             })
         print(f"✓ {len(guide_config['slides'])} slides created")
 
-        # Generate audio narration
-        narration_text = NARRATIONS[guide_name]
-        audio_path = generate_audio(narration_text, guide_name)
-
-        if not audio_path:
-            print(f"✗ Failed to generate audio for {guide_name}")
-            continue
-
         # Create slideshow video
-        create_slideshow_video(guide_name, audio_path, guide_config['slides'])
+        create_slideshow_video(guide_name, guide_config['slides'])
 
     print(f"\n{'='*60}")
-    print("✓ All slideshow videos created successfully!")
+    print("✓ All slideshow videos created!")
     print(f"{'='*60}")
-    print(f"\nVideos location: {OUTPUT_DIR}")
-    print("\nYour videos are ready for Instagram/TikTok!")
+    print(f"\nVideos ready at: {OUTPUT_DIR}")
+    print("\nNow you can add your own voiceover using:")
+    print("- Adobe Premiere Pro")
+    print("- DaVinci Resolve")
+    print("- CapCut")
+    print("- Any video editor with audio track")
 
 
 if __name__ == "__main__":
