@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /*.pdf$
+
+Sitemap: https://trippdigital.com/sitemap.xml
+
+# Crawl-delay in seconds (optional, helps manage server load)
+Crawl-delay: 1
