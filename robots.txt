@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /admin-login.html
+Disallow: /admin-dashboard.html
+Disallow: /.netlify/
+Disallow: /netlify/
+
+Sitemap: https://trippdigital.com/sitemap.xml
+
+# Crawl delay to be respectful
+Crawl-delay: 1
