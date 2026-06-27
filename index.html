@@ -1,498 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Professional websites, digital products, and business tools for Virginia Beach companies. Affordable web solutions starting at $97/month.">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Tripp Digital - Virginia Beach Web Agency">
-    <meta property="og:description" content="Professional websites, digital products, and business tools for growing businesses.">
-    <meta property="og:url" content="https://trippdigital.com">
-    <meta property="og:type" content="website">
-    <title>Tripp Digital - Virginia Beach Web Agency</title>
-    <link rel="canonical" href="https://trippdigital.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virginia Beach Lead Finder | Tripp Digital</title>
+  <style>
+    :root {
+      --black: #080808;
+      --dark: #111111;
+      --card: #141414;
+      --gold: #D4AF37;
+      --gold-light: #F0CC55;
+      --gold-dim: rgba(212,175,55,0.12);
+      --gold-border: rgba(212,175,55,0.25);
+      --white: #FFFFFF;
+      --muted: #777777;
+      --subtle: #333333;
+      --pitch: #FF6B35;
+      --pitch-bg: rgba(255,107,53,0.08);
+      --pitch-border: rgba(255,107,53,0.25);
+      --green: #4CAF50;
+      --green-bg: rgba(76,175,80,0.08);
+      --green-border: rgba(76,175,80,0.22);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+
+    /* HEADER */
+    header{
+      background:linear-gradient(135deg,#0a0a0a 0%,#150f00 100%);
+      border-bottom:2px solid var(--gold);
+      padding:20px 32px;
+      display:flex;align-items:center;gap:16px;
+    }
+    .logo{
+      width:48px;height:48px;
+      background:var(--gold);
+      border-radius:10px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:26px;flex-shrink:0;
+    }
+    header h1{font-size:26px;color:var(--gold);font-weight:800;letter-spacing:-0.5px}
+    header p{color:var(--muted);font-size:13px;margin-top:3px}
+    .header-badge{
+      margin-left:auto;
+      background:var(--gold-dim);
+      border:1px solid var(--gold-border);
+      color:var(--gold);
+      padding:6px 14px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:600;
+      white-space:nowrap;
+    }
+
+    /* LAYOUT */
+    .container{max-width:1440px;margin:0 auto;padding:28px 24px}
+
+    /* SEARCH PANEL */
+    .panel{
+      background:var(--dark);
+      border:1px solid var(--subtle);
+      border-radius:14px;
+      padding:26px;
+      margin-bottom:24px;
+    }
+    .panel-title{
+      color:var(--gold);
+      font-size:15px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:20px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .search-row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end}
+    .fg{flex:1;min-width:180px}
+    label{
+      display:block;
+      color:var(--muted);
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      margin-bottom:7px;
+    }
+    select,input[type=text]{
+      width:100%;
+      background:#1a1a1a;
+      border:1px solid var(--subtle);
+      color:var(--white);
+      padding:11px 14px;
+      border-radius:8px;
+      font-size:14px;
+      transition:border-color .2s;
+      appearance:none;
+      cursor:pointer;
+    }
+    select:focus,input:focus{outline:none;border-color:var(--gold)}
+
+    /* BUTTONS */
+    .btn{
+      padding:11px 24px;
+      border-radius:8px;
+      font-size:14px;
+      font-weight:700;
+      cursor:pointer;
+      border:none;
+      display:inline-flex;align-items:center;gap:8px;
+      transition:all .18s;
+    }
+    .btn-primary{background:var(--gold);color:#000}
+    .btn-primary:hover{background:var(--gold-light)}
+    .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+    .btn-outline{
+      background:transparent;
+      border:1px solid var(--gold);
+      color:var(--gold);
+    }
+    .btn-outline:hover{background:var(--gold-dim)}
+    .btn-outline:disabled{opacity:.4;cursor:not-allowed}
+    .btn-ghost{
+      background:#1a1a1a;
+      border:1px solid var(--subtle);
+      color:var(--white);
+      width:100%;
+      justify-content:center;
+      margin-top:14px;
+    }
+    .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+    .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
+
+    /* STATS */
+    .stats-row{
+      display:flex;gap:14px;flex-wrap:wrap;
+      margin-bottom:20px;
+    }
+    .stat{
+      background:var(--dark);
+      border:1px solid var(--subtle);
+      border-radius:12px;
+      padding:16px 22px;
+      text-align:center;
+      flex:1;min-width:110px;
+    }
+    .stat .num{font-size:30px;font-weight:800;color:var(--gold)}
+    .stat.pitch-stat .num{color:var(--pitch)}
+    .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
+
+    /* ACTION ROW */
+    .action-row{
+      display:flex;align-items:center;justify-content:space-between;
+      flex-wrap:wrap;gap:12px;
+      margin-bottom:18px;
+    }
+    .filter-bar{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{
+      padding:6px 16px;
+      border-radius:20px;
+      font-size:12px;
+      font-weight:600;
+      cursor:pointer;
+      border:1px solid var(--subtle);
+      background:transparent;
+      color:var(--muted);
+      transition:all .18s;
+    }
+    .filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+    .filter-btn:hover:not(.active){border-color:#555;color:#ccc}
+
+    /* TABLE */
+    .table-wrap{
+      border-radius:12px;
+      border:1px solid var(--subtle);
+      overflow:hidden;
+    }
+    .table-scroll{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead{background:#0f0f0f}
+    th{
+      padding:13px 16px;
+      text-align:left;
+      color:var(--gold);
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      border-bottom:1px solid var(--subtle);
+      white-space:nowrap;
+    }
+    td{
+      padding:14px 16px;
+      border-bottom:1px solid #1a1a1a;
+      vertical-align:middle;
+    }
+    tr:last-child td{border-bottom:none}
+    tr.pitch-row{background:rgba(255,107,53,0.03)}
+    tr:hover td{background:rgba(255,255,255,0.02)}
+
+    /* CELLS */
+    .biz-name{font-weight:700;font-size:15px;color:var(--white);margin-bottom:3px}
+    .biz-addr{color:var(--muted);font-size:12px}
+
+    .badge{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:3px 10px;
+      border-radius:20px;
+      font-size:11px;
+      font-weight:700;
+    }
+    .badge-pitch{background:var(--pitch-bg);color:var(--pitch);border:1px solid var(--pitch-border)}
+    .badge-site{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
+
+    .phone-link{
+      color:var(--white);
+      text-decoration:none;
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:13px;
+    }
+    .phone-link:hover{color:var(--gold)}
+
+    .stars{color:var(--gold);letter-spacing:1px;font-size:13px}
+    .rating-num{color:var(--gold);font-weight:700;margin-left:4px}
+    .rating-cnt{color:var(--muted);font-size:11px;margin-left:3px}
+
+    .site-url{
+      color:var(--gold);
+      text-decoration:none;
+      font-size:12px;
+      display:block;
+      max-width:200px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .site-url:hover{text-decoration:underline}
+
+    /* EMPTY / LOADING */
+    .center-msg{
+      text-align:center;
+      padding:64px 20px;
+      color:var(--muted);
+    }
+    .center-msg .icon{font-size:52px;margin-bottom:16px}
+    .center-msg strong{color:var(--gold)}
+
+    /* SPINNER */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spinner{
+      display:inline-block;
+      width:18px;height:18px;
+      border:2px solid rgba(212,175,55,.3);
+      border-top-color:var(--gold);
+      border-radius:50%;
+      animation:spin .65s linear infinite;
+    }
+    .spinner-lg{
+      width:44px;height:44px;
+      border-width:3px;
+      margin-bottom:14px;
+    }
+
+    /* ERROR */
+    .error-box{
+      background:rgba(220,50,50,.1);
+      border:1px solid rgba(220,50,50,.3);
+      border-radius:10px;
+      padding:14px 18px;
+      color:#FF7070;
+      margin-bottom:18px;
+      font-size:14px;
+    }
+
+    @media(max-width:768px){
+      header{flex-wrap:wrap}
+      .header-badge{margin-left:0}
+      .search-row{flex-direction:column}
+      .stats-row{}
+      .action-row{flex-direction:column;align-items:stretch}
+      .filter-bar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+    }
+  </style>
 </head>
 <body>
-    <!-- NAVIGATION -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-text">TRIPP</span>
-                <span class="logo-accent">DIGITAL</span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#products">Shop</a></li>
-                <li><a href="#books">Books</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <div class="nav-icons">
-                <a href="#search" class="icon">🔍</a>
-                <a href="#account" class="icon">👤</a>
-            </div>
-        </div>
-    </nav>
 
-    <!-- HERO SECTION -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-tagline">YOUR LOCAL WEB PARTNER</div>
-                <h1 class="hero-title">
-                    <span>PROFESSIONAL</span>
-                    <span class="accent">WEB SOLUTIONS</span>
-                    <span>FOR GROWING BUSINESSES</span>
-                </h1>
-                <p class="hero-description">
-                    Professional websites, digital products, and strategic business tools designed to help your business grow online — all at prices you can afford.
-                </p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">EXPLORE SERVICES →</button>
-                    <button class="btn btn-secondary">GET FREE AUDIT</button>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="product-showcase">
-                    <div class="showcase-card card-1">
-                        <div class="card-content">
-                            <h3>WEBSITES</h3>
-                            <p class="price">$97-$297</p>
-                            <p>/month</p>
-                        </div>
-                    </div>
-                    <div class="showcase-card card-2">
-                        <div class="card-content">
-                            <h3>DIGITAL</h3>
-                            <p class="price">$12-$47</p>
-                            <p>PRODUCTS</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header>
+  <div class="logo">&#128205;</div>
+  <div>
+    <h1>Virginia Beach Lead Finder</h1>
+    <p>Discover local businesses that need digital services &mdash; powered by Google Places</p>
+  </div>
+  <div class="header-badge">&#127954; Virginia Beach, VA</div>
+</header>
 
-        <!-- FEATURE ICONS -->
-        <div class="features">
-            <div class="feature-item">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-text">
-                    <h4>FAST SETUP</h4>
-                    <p>Get online in days, not months</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">✓</div>
-                <div class="feature-text">
-                    <h4>PROVEN RESULTS</h4>
-                    <p>Built to convert visitors</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">💰</div>
-                <div class="feature-text">
-                    <h4>AFFORDABLE</h4>
-                    <p>No hidden fees or long contracts</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-icon">🎯</div>
-                <div class="feature-text">
-                    <h4>EXPERT SUPPORT</h4>
-                    <p>Real people, real solutions</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="container">
 
-    <!-- SERVICES SECTION -->
-    <section id="services" class="services-section">
-        <div class="section-header">
-            <div class="section-label">WEBSITE SOLUTIONS</div>
-            <h2>Professional Websites Starting at $97/month</h2>
-            <p class="section-description">Choose the perfect plan for your business</p>
-        </div>
-
-        <div class="services-grid">
-            <!-- STARTER -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3>Starter Website</h3>
-                    <div class="price-tag">$97<span>/month</span></div>
-                </div>
-                <ul class="service-features">
-                    <li>✓ Up to 5 pages</li>
-                    <li>✓ Mobile responsive</li>
-                    <li>✓ Basic SEO setup</li>
-                    <li>✓ Contact form</li>
-                    <li>✓ Email support</li>
-                </ul>
-                <button class="btn btn-service" data-price="97" data-name="Starter Website - $97/month">
-                    SELECT PLAN
-                </button>
-            </div>
-
-            <!-- BUSINESS -->
-            <div class="service-card featured">
-                <div class="badge">MOST POPULAR</div>
-                <div class="service-header">
-                    <h3>Business Website</h3>
-                    <div class="price-tag">$197<span>/month</span></div>
-                </div>
-                <ul class="service-features">
-                    <li>✓ Up to 15 pages</li>
-                    <li>✓ Mobile responsive</li>
-                    <li>✓ Full SEO optimization</li>
-                    <li>✓ Blog setup</li>
-                    <li>✓ Payment integration</li>
-                    <li>✓ Phone support</li>
-                </ul>
-                <button class="btn btn-service" data-price="197" data-name="Business Website - $197/month">
-                    SELECT PLAN
-                </button>
-            </div>
-
-            <!-- PREMIUM -->
-            <div class="service-card">
-                <div class="service-header">
-                    <h3>Premium Website</h3>
-                    <div class="price-tag">$297<span>/month</span></div>
-                </div>
-                <ul class="service-features">
-                    <li>✓ Unlimited pages</li>
-                    <li>✓ Mobile responsive</li>
-                    <li>✓ Advanced SEO</li>
-                    <li>✓ E-commerce setup</li>
-                    <li>✓ Custom integrations</li>
-                    <li>✓ Priority support</li>
-                </ul>
-                <button class="btn btn-service" data-price="297" data-name="Premium Website - $297/month">
-                    SELECT PLAN
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- PRODUCTS SECTION -->
-    <section id="products" class="products-section">
-        <div class="section-header">
-            <div class="section-label">DIGITAL PRODUCTS</div>
-            <h2>Business Tools & Templates</h2>
-            <a href="#all-products" class="view-all">VIEW ALL PRODUCTS →</a>
-        </div>
-
-        <div class="products-grid">
-            <!-- Product 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">👶</div>
-                </div>
-                <h3>Daycare Parent Handbook Template</h3>
-                <p>Professional template for daycare parent handbooks</p>
-                <div class="product-price">$12.00</div>
-                <a href="https://payhip.com/b/ji5NU" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">📚</div>
-                </div>
-                <h3>Make Money With Puzzle Books on KDP</h3>
-                <p>Step-by-step blueprint for creating and selling puzzle books</p>
-                <div class="product-price">$27.00</div>
-                <a href="https://payhip.com/b/Don6g" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">✍️</div>
-                </div>
-                <h3>How to Start a Grant Writing Business</h3>
-                <p>Comprehensive guide to building a grant writing service</p>
-                <div class="product-price">$37.00</div>
-                <a href="https://payhip.com/b/ZbhqB" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">📋</div>
-                </div>
-                <h3>Invoice & Contract Templates Bundle</h3>
-                <p>Professional templates for invoicing and client contracts</p>
-                <div class="product-price">$12.00</div>
-                <a href="https://payhip.com/b/S9dOx" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">🎯</div>
-                </div>
-                <h3>Business Plan Template</h3>
-                <p>Complete business plan template for any industry</p>
-                <div class="product-price">$17.00</div>
-                <a href="https://payhip.com/b/S3lp2" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 6 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">🚀</div>
-                </div>
-                <h3>Client Onboarding Kit</h3>
-                <p>Complete system for onboarding new clients</p>
-                <div class="product-price">$12.00</div>
-                <a href="https://payhip.com/b/h38Js" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 7 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">📝</div>
-                </div>
-                <h3>Grant Proposal Template</h3>
-                <p>Professional grant proposal template</p>
-                <div class="product-price">$15.00</div>
-                <a href="https://payhip.com/b/rjKET" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-
-            <!-- Product 8 -->
-            <div class="product-card">
-                <div class="product-image">
-                    <div class="placeholder">👨‍👩‍👧</div>
-                </div>
-                <h3>Build With AI Complete Pack</h3>
-                <p>Everything you need to leverage AI in your business</p>
-                <div class="product-price">$19.00</div>
-                <a href="https://payhip.com/b/WLKMq" class="btn btn-primary" target="_blank">
-                    BUY NOW
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOOKS SECTION -->
-    <section id="books" class="books-section">
-        <div class="section-header">
-            <div class="section-label">FICTION SERIES</div>
-            <h2>The Traveling Dice Shooter Series</h2>
-            <p class="section-description">Hard-boiled noir thrillers about a professional gambler, high stakes, and dangerous people</p>
-        </div>
-
-        <div class="books-grid">
-            <!-- BOOK 1: FEATURED -->
-            <div class="book-card featured-book">
-                <div class="book-cover">
-                    <div class="cover-design book1-cover">
-                        <div class="cover-title">BONES</div>
-                        <div class="cover-subtitle">SNAKE EYES</div>
-                        <div class="cover-author">Brandon Tripp</div>
-                    </div>
-                </div>
-                <div class="book-content">
-                    <h3>Bones: Snake Eyes</h3>
-                    <p class="book-subtitle">Book 1 of The Traveling Dice Shooter</p>
-                    <p class="book-description">A professional gambler walks into the wrong poker game. What starts as a high-stakes night in underground Virginia becomes a descent into betrayal, corruption, and survival. In a world where the dice don't lie, everyone's luck runs out eventually.</p>
-                    <div class="book-meta">
-                        <span class="book-author">Brandon Tripp</span>
-                        <span class="book-pages">320 pages</span>
-                        <span class="book-genre">Noir Thriller</span>
-                    </div>
-                    <div class="book-rating">
-                        <span class="stars">★★★★★</span>
-                        <span class="rating-text">Now Available</span>
-                    </div>
-                    <div class="book-actions">
-                        <a href="books/Bones_SnakeEyes.pdf" class="btn btn-primary" download>📖 READ PDF</a>
-                        <a href="#" class="btn btn-secondary">🛒 BUY ON AMAZON</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BOOK 1.5: COMPANION -->
-            <div class="book-card">
-                <div class="book-cover">
-                    <div class="cover-design book15-cover">
-                        <div class="cover-title">MAYA</div>
-                        <div class="cover-subtitle">LOST BUT<br>NOW FOUND</div>
-                        <div class="cover-author">Brandon Tripp</div>
-                    </div>
-                </div>
-                <div class="book-content">
-                    <h3>Maya: Lost but Now Found</h3>
-                    <p class="book-subtitle">Book 1.5 — Companion Story</p>
-                    <p class="book-description">Before the shooter, there was Maya. This companion novella reveals the untold story of a woman caught between loyalty and survival in the same dangerous world.</p>
-                    <div class="book-meta">
-                        <span class="status-badge">Coming Soon</span>
-                    </div>
-                    <div class="book-actions">
-                        <a href="#" class="btn btn-secondary">🔔 NOTIFY ME</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BOOK 2 -->
-            <div class="book-card">
-                <div class="book-cover">
-                    <div class="cover-design book2-cover">
-                        <div class="cover-title">THE HOUSE</div>
-                        <div class="cover-subtitle">ALWAYS WINS</div>
-                        <div class="cover-author">Brandon Tripp</div>
-                    </div>
-                </div>
-                <div class="book-content">
-                    <h3>The House Always Wins</h3>
-                    <p class="book-subtitle">Book 2 of The Traveling Dice Shooter</p>
-                    <p class="book-description">The game continues. Our shooter is back, but the rules have changed. New players, higher stakes, and a mystery that will change everything.</p>
-                    <div class="book-meta">
-                        <span class="status-badge">Coming Soon</span>
-                    </div>
-                    <div class="book-actions">
-                        <a href="#" class="btn btn-secondary">🔔 NOTIFY ME</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NEWSLETTER SECTION -->
-    <section class="newsletter-section">
-        <div class="newsletter-content">
-            <div class="newsletter-icon">🎁</div>
-            <div class="newsletter-text">
-                <div class="newsletter-label">EXCLUSIVE RESOURCES</div>
-                <h3>Join Our Community</h3>
-                <p>Get free resources, templates, exclusive offers, and everything you need to grow your business.</p>
-            </div>
-            <form class="newsletter-form" id="newsletterForm">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn btn-primary">JOIN NOW</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- ABOUT SECTION -->
-    <section id="about" class="about-section">
-        <div class="section-header">
-            <h2>About Tripp Digital</h2>
-        </div>
-        <div class="about-content">
-            <p>Tripp Digital is a Virginia Beach-based web agency dedicated to helping local businesses build their online presence. We combine professional web development with affordable pricing to make quality digital solutions accessible to everyone.</p>
-            <p>Beyond websites, we create educational digital products and business resources to help entrepreneurs succeed.</p>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section id="contact" class="contact-section">
-        <div class="section-header">
-            <h2>Get In Touch</h2>
-        </div>
-        <div class="contact-content">
-            <p>📧 Email: <a href="mailto:trippdigital1@gmail.com">trippdigital1@gmail.com</a></p>
-            <p>🌐 Website: <a href="https://trippdigital.com">trippdigital.com</a></p>
-            <p>📍 Virginia Beach, VA</p>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <div class="footer-logo">
-                    <span>TRIPP</span>
-                    <span class="accent">DIGITAL</span>
-                </div>
-                <p>Professional websites and digital products for growing businesses.</p>
-                <div class="social-links">
-                    <a href="#">📘</a>
-                    <a href="#">🐦</a>
-                    <a href="#">📺</a>
-                    <a href="#">💼</a>
-                </div>
-            </div>
-
-            <div class="footer-column">
-                <h4>SERVICES</h4>
-                <ul>
-                    <li><a href="#services">Starter Website</a></li>
-                    <li><a href="#services">Business Website</a></li>
-                    <li><a href="#services">Premium Website</a></li>
-                    <li><a href="#products">Digital Products</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h4>COMPANY</h4>
-                <ul>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Use</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h4>STAY UPDATED</h4>
-                <form class="footer-newsletter" id="footerNewsletterForm">
-                    <input type="email" placeholder="Enter your email" required>
-                    <button type="submit">→</button>
-                </form>
-                <p class="footer-text">New products, guides and exclusive offers straight to your inbox.</p>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 Tripp Digital. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- CHATBOT WIDGET -->
-    <div id="chatbotWidget" class="chatbot-widget">
-        <div class="chatbot-header">
-            <h3>Tripp Digital Assistant</h3>
-            <button id="closeChatbot" class="chatbot-close">&times;</button>
-        </div>
-        <div id="chatMessages" class="chatbot-messages"></div>
-        <div class="chatbot-input-area">
-            <form id="chatForm">
-                <input
-                    type="text"
-                    id="chatInput"
-                    placeholder="Ask about our services, products, or anything else..."
-                    autocomplete="off"
-                >
-                <button type="submit" class="chatbot-send">→</button>
-            </form>
-        </div>
+  <!-- SEARCH -->
+  <div class="panel">
+    <div class="panel-title">&#128269; Search Parameters</div>
+    <div class="search-row">
+      <div class="fg">
+        <label>Business Category</label>
+        <select id="category">
+          <option value="restaurants">Restaurants</option>
+          <option value="hair salons">Hair Salons</option>
+          <option value="nail salons">Nail Salons</option>
+          <option value="plumbers">Plumbers</option>
+          <option value="electricians">Electricians</option>
+          <option value="HVAC contractors">HVAC Contractors</option>
+          <option value="auto repair shops">Auto Repair Shops</option>
+          <option value="dentists">Dentists</option>
+          <option value="chiropractors">Chiropractors</option>
+          <option value="gyms and fitness centers">Gyms &amp; Fitness</option>
+          <option value="real estate agents">Real Estate Agents</option>
+          <option value="landscaping companies">Landscaping</option>
+          <option value="house cleaning services">Cleaning Services</option>
+          <option value="photographers">Photographers</option>
+          <option value="lawyers">Lawyers / Attorneys</option>
+          <option value="accountants">Accountants / CPAs</option>
+          <option value="tattoo shops">Tattoo Shops</option>
+          <option value="pet grooming">Pet Grooming</option>
+          <option value="yoga studios">Yoga Studios</option>
+          <option value="roofing contractors">Roofing Contractors</option>
+          <option value="car dealerships">Car Dealerships</option>
+          <option value="martial arts schools">Martial Arts Schools</option>
+          <option value="insurance agencies">Insurance Agencies</option>
+          <option value="physical therapy">Physical Therapy</option>
+          <option value="bakeries">Bakeries</option>
+          <option value="breweries">Breweries &amp; Bars</option>
+          <option value="hotels">Hotels</option>
+          <option value="spa">Day Spas</option>
+          <option value="florists">Florists</option>
+          <option value="tutoring centers">Tutoring Centers</option>
+        </select>
+      </div>
+      <div class="fg" style="max-width:150px">
+        <label>Max Results</label>
+        <select id="maxResults">
+          <option value="20">20 results</option>
+          <option value="40">40 results</option>
+          <option value="60">60 results</option>
+        </select>
+      </div>
+      <div>
+        <label style="opacity:0">Go</label>
+        <button class="btn btn-primary" id="searchBtn" onclick="startSearch()">
+          <span id="searchBtnInner">&#128269; Find Businesses</span>
+        </button>
+      </div>
     </div>
+  </div>
 
-    <!-- CHATBOT TOGGLE BUTTON -->
-    <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
-        💬
-    </button>
+  <!-- ERROR -->
+  <div id="errorBox" class="error-box" style="display:none"></div>
 
-    <script src="chatbot.js"></script>
+  <!-- STATS -->
+  <div id="statsRow" class="stats-row" style="display:none">
+    <div class="stat">
+      <div class="num" id="sTot">0</div>
+      <div class="lbl">Total Found</div>
+    </div>
+    <div class="stat pitch-stat">
+      <div class="num" id="sPitch">0</div>
+      <div class="lbl">&#127919; Pitch Targets</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="sHas">0</div>
+      <div class="lbl">Have Website</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="sAvg">&mdash;</div>
+      <div class="lbl">Avg Rating</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="sPhone">0</div>
+      <div class="lbl">Have Phone</div>
+    </div>
+  </div>
+
+  <!-- ACTION ROW -->
+  <div id="actionRow" class="action-row" style="display:none">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" onclick="setFilter('pitch',this)">&#127919; Pitch Targets Only</button>
+      <button class="filter-btn" onclick="setFilter('site',this)">&#9989; Has Website</button>
+      <button class="filter-btn" onclick="setFilter('phone',this)">&#128222; Has Phone</button>
+    </div>
+    <button class="btn btn-outline" onclick="exportCSV()">&#128229; Export CSV</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+    <div class="center-msg">
+      <div class="icon">&#127958;</div>
+      <div>Select a category and click <strong>Find Businesses</strong><br>to discover leads in Virginia Beach</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API_KEY = 'AIzaSyCXjupV1F-PT8-TNcDSIQhDqmXf11prhEI';
+const VB = {latitude:36.8529,longitude:-75.9780};
+const FIELDS = 'places.id,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.types';
+
+let results = [];
+let activeFilter = 'all';
+let nextPage = null;
+let activeCat = '';
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+
+function stars(r){
+  if(!r)return '<span style="color:#444">No rating</span>';
+  const full=Math.floor(r),half=(r-full)>=0.5;
+  let s='';
+  for(let i=0;i<full;i++)s+='&#9733;';
+  if(half)s+='&#189;';
+  return '<span class="stars">'+s+'</span>';
+}
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filtered(){
+  if(activeFilter==='pitch') return results.filter(r=>!r.websiteUri);
+  if(activeFilter==='site') return results.filter(r=>r.websiteUri);
+  if(activeFilter==='phone') return results.filter(r=>r.nationalPhoneNumber||r.internationalPhoneNumber);
+  return results;
+}
+
+function updateStats(){
+  const tot=results.length;
+  const pitch=results.filter(r=>!r.websiteUri).length;
+  const has=results.filter(r=>r.websiteUri).length;
+  const phones=results.filter(r=>r.nationalPhoneNumber||r.internationalPhoneNumber).length;
+  const rated=results.filter(r=>r.rating);
+  const avg=rated.length?(rated.reduce((s,r)=>s+r.rating,0)/rated.length).toFixed(1):'&mdash;';
+  document.getElementById('sTot').textContent=tot;
+  document.getElementById('sPitch').textContent=pitch;
+  document.getElementById('sHas').textContent=has;
+  document.getElementById('sPhone').textContent=phones;
+  document.getElementById('sAvg').innerHTML=avg;
+  document.getElementById('statsRow').style.display='flex';
+  document.getElementById('actionRow').style.display='flex';
+}
+
+function renderTable(){
+  const data=filtered();
+  const el=document.getElementById('results');
+  if(!data.length){
+    el.innerHTML='<div class="center-msg"><div class="icon">&#128269;</div><div>No businesses match this filter.</div></div>';
+    return;
+  }
+
+  const rows=data.map(p=>{
+    const isPitch=!p.websiteUri;
+    const name=p.displayName?.text||'Unknown';
+    const addr=p.formattedAddress||'';
+    const phone=p.nationalPhoneNumber||p.internationalPhoneNumber||'';
+    const r=p.rating;
+    const cnt=p.userRatingCount||0;
+    const site=p.websiteUri||'';
+    const domain=site?site.replace(/^https?:\/\/(www\.)?/,'').split('/')[0]:'';
+
+    const nameCell=`<div class="biz-name">${esc(name)}</div><div class="biz-addr">${esc(addr)}</div>`;
+    const pitchBadge=isPitch?'<div style="margin-top:6px"><span class="badge badge-pitch">&#127919; Pitch Target &mdash; No Website</span></div>':'';
+    const phoneCell=phone?`<a class="phone-link" href="tel:${esc(phone)}">&#128222; ${esc(phone)}</a>`:'<span style="color:#555">Not listed</span>';
+    const ratingCell=r?`<div>${stars(r)}<span class="rating-num">${r}</span><span class="rating-cnt">(${cnt.toLocaleString()})</span></div>`:'<span style="color:#555">No rating</span>';
+    const siteCell=site
+      ?`<a class="site-url" href="${esc(site)}" target="_blank" rel="noopener">${esc(domain)}</a><div style="margin-top:4px"><span class="badge badge-site">&#9989; Has Website</span></div>`
+      :'<span style="color:#555;font-size:13px">No website found</span>';
+
+    return `<tr class="${isPitch?'pitch-row':''}">
+      <td>${nameCell}${pitchBadge}</td>
+      <td>${phoneCell}</td>
+      <td>${ratingCell}</td>
+      <td>${siteCell}</td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML=`
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Business &amp; Address</th>
+              <th>Phone</th>
+              <th>Rating</th>
+              <th>Website Status</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+    ${nextPage?'<button class="btn btn-ghost" id="loadMoreBtn" onclick="loadMore()">&#8659; Load More Results</button>':''}
+  `;
+}
+
+async function callApi(pageToken){
+  const body={
+    textQuery:`${document.getElementById('category').value} in Virginia Beach VA`,
+    maxResultCount:20,
+    locationRestriction:{circle:{center:VB,radius:25000}}
+  };
+  if(pageToken) body.pageToken=pageToken;
+  const res=await fetch('https://places.googleapis.com/v1/places:searchText',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','X-Goog-Api-Key':API_KEY,'X-Goog-FieldMask':FIELDS},
+    body:JSON.stringify(body)
+  });
+  if(!res.ok){
+    const e=await res.json().catch(()=>({}));
+    throw new Error((e?.error?.message)||'HTTP '+res.status);
+  }
+  return res.json();
+}
+
+async function startSearch(){
+  const errEl=document.getElementById('errorBox');
+  errEl.style.display='none';
+  results=[];nextPage=null;
+  activeCat=document.getElementById('category').value;
+  const btn=document.getElementById('searchBtn');
+  const inner=document.getElementById('searchBtnInner');
+  btn.disabled=true;
+  inner.innerHTML='<span class="spinner"></span> Searching...';
+  document.getElementById('statsRow').style.display='none';
+  document.getElementById('actionRow').style.display='none';
+  document.getElementById('results').innerHTML='<div class="center-msg"><div class="spinner spinner-lg"></div><div>Searching Virginia Beach...</div></div>';
+
+  try{
+    const max=parseInt(document.getElementById('maxResults').value);
+    let data=await callApi();
+    results=data.places||[];
+    nextPage=data.nextPageToken||null;
+    while(nextPage&&results.length<max){
+      await new Promise(r=>setTimeout(r,600));
+      const more=await callApi(nextPage);
+      results=results.concat(more.places||[]);
+      nextPage=more.nextPageToken||null;
+    }
+    results=results.slice(0,max);
+    updateStats();
+    renderTable();
+  }catch(e){
+    errEl.innerHTML='&#9888;&#65039; <strong>API Error:</strong> '+esc(e.message)+'. Make sure the Places API (New) is enabled for this key in Google Cloud Console.';
+    errEl.style.display='block';
+    document.getElementById('results').innerHTML='';
+  }finally{
+    btn.disabled=false;
+    inner.innerHTML='&#128269; Find Businesses';
+  }
+}
+
+async function loadMore(){
+  if(!nextPage)return;
+  const btn=document.getElementById('loadMoreBtn');
+  btn.disabled=true;btn.textContent='Loading...';
+  try{
+    await new Promise(r=>setTimeout(r,600));
+    const data=await callApi(nextPage);
+    results=results.concat(data.places||[]);
+    nextPage=data.nextPageToken||null;
+    updateStats();renderTable();
+  }catch(e){
+    if(btn){btn.disabled=false;btn.textContent='⇓ Load More Results';}
+  }
+}
+
+function exportCSV(){
+  const data=filtered();
+  if(!data.length)return;
+  const header=['Business Name','Address','Phone','Rating','Review Count','Has Website','Website URL','Pitch Target','Category'];
+  const rows=data.map(p=>[
+    p.displayName?.text||'',
+    p.formattedAddress||'',
+    p.nationalPhoneNumber||p.internationalPhoneNumber||'',
+    p.rating||'',
+    p.userRatingCount||'',
+    p.websiteUri?'Yes':'No',
+    p.websiteUri||'',
+    !p.websiteUri?'YES':'NO',
+    activeCat
+  ].map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(','));
+  const csv=[header.join(','),...rows].join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='virginia-beach-'+activeCat.replace(/\s+/g,'-').toLowerCase()+'-leads-'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
 </body>
 </html>
