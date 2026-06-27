@@ -1,0 +1,33 @@
+name: Deploy VB Lead Finder to Netlify
+
+on:
+  push:
+    branches:
+      - claude/virginia-beach-lead-finder-5waxfb
+      - main
+    paths:
+      - 'index.html'
+      - '.github/workflows/deploy-lead-finder.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: '.'
+          production-branch: main
+          production-deploy: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: 'Deploy from GitHub Actions'
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 57ffa419-e526-40e0-add0-4cff021c470f
+        timeout-minutes: 5
