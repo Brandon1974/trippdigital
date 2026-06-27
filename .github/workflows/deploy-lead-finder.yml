@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'index.html'
+      - 'netlify.toml'
       - '.github/workflows/deploy-lead-finder.yml'
 
 jobs:
@@ -15,6 +16,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Inject API key
+        run: sed -i "s/GOOGLE_MAPS_API_KEY_PLACEHOLDER/$GOOGLE_MAPS_API_KEY/g" index.html
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3.0

@@ -1,14 +1,10 @@
 [build]
-  command = "npm install && echo 'Deploying static site with PayHip products...'"
-  functions = "netlify/functions"
-  publish = "./"
+  command = "sed -i 's/GOOGLE_MAPS_API_KEY_PLACEHOLDER/'"$GOOGLE_MAPS_API_KEY"'/g' index.html"
+  publish = "."
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404
-
-[dev]
-  framework = "#custom"
-  command = "npm run dev"
-
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

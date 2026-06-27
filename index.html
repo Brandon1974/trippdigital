@@ -26,7 +26,6 @@
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--black);color:var(--white);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
 
-    /* HEADER */
     header{
       background:linear-gradient(135deg,#0a0a0a 0%,#150f00 100%);
       border-bottom:2px solid var(--gold);
@@ -54,10 +53,8 @@
       white-space:nowrap;
     }
 
-    /* LAYOUT */
     .container{max-width:1440px;margin:0 auto;padding:28px 24px}
 
-    /* SEARCH PANEL */
     .panel{
       background:var(--dark);
       border:1px solid var(--subtle);
@@ -67,7 +64,7 @@
     }
     .panel-title{
       color:var(--gold);
-      font-size:15px;
+      font-size:13px;
       font-weight:700;
       text-transform:uppercase;
       letter-spacing:1px;
@@ -84,7 +81,7 @@
       letter-spacing:0.8px;
       margin-bottom:7px;
     }
-    select,input[type=text]{
+    select{
       width:100%;
       background:#1a1a1a;
       border:1px solid var(--subtle);
@@ -96,9 +93,8 @@
       appearance:none;
       cursor:pointer;
     }
-    select:focus,input:focus{outline:none;border-color:var(--gold)}
+    select:focus{outline:none;border-color:var(--gold)}
 
-    /* BUTTONS */
     .btn{
       padding:11px 24px;
       border-radius:8px;
@@ -112,110 +108,62 @@
     .btn-primary{background:var(--gold);color:#000}
     .btn-primary:hover{background:var(--gold-light)}
     .btn-primary:disabled{opacity:.5;cursor:not-allowed}
-    .btn-outline{
-      background:transparent;
-      border:1px solid var(--gold);
-      color:var(--gold);
-    }
+    .btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
     .btn-outline:hover{background:var(--gold-dim)}
     .btn-outline:disabled{opacity:.4;cursor:not-allowed}
     .btn-ghost{
-      background:#1a1a1a;
-      border:1px solid var(--subtle);
-      color:var(--white);
-      width:100%;
-      justify-content:center;
-      margin-top:14px;
+      background:#1a1a1a;border:1px solid var(--subtle);color:var(--white);
+      width:100%;justify-content:center;margin-top:14px;
     }
     .btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
     .btn-ghost:disabled{opacity:.4;cursor:not-allowed}
 
-    /* STATS */
-    .stats-row{
-      display:flex;gap:14px;flex-wrap:wrap;
-      margin-bottom:20px;
-    }
+    .stats-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:20px}
     .stat{
-      background:var(--dark);
-      border:1px solid var(--subtle);
-      border-radius:12px;
-      padding:16px 22px;
-      text-align:center;
-      flex:1;min-width:110px;
+      background:var(--dark);border:1px solid var(--subtle);border-radius:12px;
+      padding:16px 22px;text-align:center;flex:1;min-width:110px;
     }
     .stat .num{font-size:30px;font-weight:800;color:var(--gold)}
     .stat.pitch-stat .num{color:var(--pitch)}
     .stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:3px}
 
-    /* ACTION ROW */
     .action-row{
       display:flex;align-items:center;justify-content:space-between;
-      flex-wrap:wrap;gap:12px;
-      margin-bottom:18px;
+      flex-wrap:wrap;gap:12px;margin-bottom:18px;
     }
     .filter-bar{display:flex;gap:8px;flex-wrap:wrap}
     .filter-btn{
-      padding:6px 16px;
-      border-radius:20px;
-      font-size:12px;
-      font-weight:600;
-      cursor:pointer;
-      border:1px solid var(--subtle);
-      background:transparent;
-      color:var(--muted);
-      transition:all .18s;
+      padding:6px 16px;border-radius:20px;font-size:12px;font-weight:600;
+      cursor:pointer;border:1px solid var(--subtle);background:transparent;color:var(--muted);transition:all .18s;
     }
     .filter-btn.active{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
     .filter-btn:hover:not(.active){border-color:#555;color:#ccc}
 
-    /* TABLE */
-    .table-wrap{
-      border-radius:12px;
-      border:1px solid var(--subtle);
-      overflow:hidden;
-    }
+    .table-wrap{border-radius:12px;border:1px solid var(--subtle);overflow:hidden}
     .table-scroll{overflow-x:auto}
     table{width:100%;border-collapse:collapse;font-size:14px}
     thead{background:#0f0f0f}
     th{
-      padding:13px 16px;
-      text-align:left;
-      color:var(--gold);
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:1.2px;
-      border-bottom:1px solid var(--subtle);
-      white-space:nowrap;
+      padding:13px 16px;text-align:left;color:var(--gold);
+      font-size:10px;text-transform:uppercase;letter-spacing:1.2px;
+      border-bottom:1px solid var(--subtle);white-space:nowrap;
     }
-    td{
-      padding:14px 16px;
-      border-bottom:1px solid #1a1a1a;
-      vertical-align:middle;
-    }
+    td{padding:14px 16px;border-bottom:1px solid #1a1a1a;vertical-align:middle}
     tr:last-child td{border-bottom:none}
     tr.pitch-row{background:rgba(255,107,53,0.03)}
     tr:hover td{background:rgba(255,255,255,0.02)}
 
-    /* CELLS */
     .biz-name{font-weight:700;font-size:15px;color:var(--white);margin-bottom:3px}
     .biz-addr{color:var(--muted);font-size:12px}
 
     .badge{
       display:inline-flex;align-items:center;gap:4px;
-      padding:3px 10px;
-      border-radius:20px;
-      font-size:11px;
-      font-weight:700;
+      padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
     }
     .badge-pitch{background:var(--pitch-bg);color:var(--pitch);border:1px solid var(--pitch-border)}
     .badge-site{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border)}
 
-    .phone-link{
-      color:var(--white);
-      text-decoration:none;
-      display:inline-flex;align-items:center;gap:6px;
-      font-size:13px;
-    }
+    .phone-link{color:var(--white);text-decoration:none;display:inline-flex;align-items:center;gap:6px;font-size:13px}
     .phone-link:hover{color:var(--gold)}
 
     .stars{color:var(--gold);letter-spacing:1px;font-size:13px}
@@ -223,58 +171,32 @@
     .rating-cnt{color:var(--muted);font-size:11px;margin-left:3px}
 
     .site-url{
-      color:var(--gold);
-      text-decoration:none;
-      font-size:12px;
-      display:block;
-      max-width:200px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
+      color:var(--gold);text-decoration:none;font-size:12px;
+      display:block;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
     }
     .site-url:hover{text-decoration:underline}
 
-    /* EMPTY / LOADING */
-    .center-msg{
-      text-align:center;
-      padding:64px 20px;
-      color:var(--muted);
-    }
+    .center-msg{text-align:center;padding:64px 20px;color:var(--muted)}
     .center-msg .icon{font-size:52px;margin-bottom:16px}
     .center-msg strong{color:var(--gold)}
 
-    /* SPINNER */
     @keyframes spin{to{transform:rotate(360deg)}}
     .spinner{
-      display:inline-block;
-      width:18px;height:18px;
-      border:2px solid rgba(212,175,55,.3);
-      border-top-color:var(--gold);
-      border-radius:50%;
-      animation:spin .65s linear infinite;
+      display:inline-block;width:18px;height:18px;
+      border:2px solid rgba(212,175,55,.3);border-top-color:var(--gold);
+      border-radius:50%;animation:spin .65s linear infinite;
     }
-    .spinner-lg{
-      width:44px;height:44px;
-      border-width:3px;
-      margin-bottom:14px;
-    }
+    .spinner-lg{width:44px;height:44px;border-width:3px;margin-bottom:14px}
 
-    /* ERROR */
     .error-box{
-      background:rgba(220,50,50,.1);
-      border:1px solid rgba(220,50,50,.3);
-      border-radius:10px;
-      padding:14px 18px;
-      color:#FF7070;
-      margin-bottom:18px;
-      font-size:14px;
+      background:rgba(220,50,50,.1);border:1px solid rgba(220,50,50,.3);
+      border-radius:10px;padding:14px 18px;color:#FF7070;margin-bottom:18px;font-size:14px;
     }
 
     @media(max-width:768px){
       header{flex-wrap:wrap}
       .header-badge{margin-left:0}
       .search-row{flex-direction:column}
-      .stats-row{}
       .action-row{flex-direction:column;align-items:stretch}
       .filter-bar{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
     }
@@ -293,7 +215,6 @@
 
 <div class="container">
 
-  <!-- SEARCH -->
   <div class="panel">
     <div class="panel-title">&#128269; Search Parameters</div>
     <div class="search-row">
@@ -349,10 +270,8 @@
     </div>
   </div>
 
-  <!-- ERROR -->
   <div id="errorBox" class="error-box" style="display:none"></div>
 
-  <!-- STATS -->
   <div id="statsRow" class="stats-row" style="display:none">
     <div class="stat">
       <div class="num" id="sTot">0</div>
@@ -376,7 +295,6 @@
     </div>
   </div>
 
-  <!-- ACTION ROW -->
   <div id="actionRow" class="action-row" style="display:none">
     <div class="filter-bar">
       <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
@@ -387,7 +305,6 @@
     <button class="btn btn-outline" onclick="exportCSV()">&#128229; Export CSV</button>
   </div>
 
-  <!-- RESULTS -->
   <div id="results">
     <div class="center-msg">
       <div class="icon">&#127958;</div>
@@ -398,7 +315,7 @@
 </div>
 
 <script>
-const API_KEY = 'AIzaSyCXjupV1F-PT8-TNcDSIQhDqmXf11prhEI';
+const API_KEY = 'GOOGLE_MAPS_API_KEY_PLACEHOLDER';
 const VB = {latitude:36.8529,longitude:-75.9780};
 const FIELDS = 'places.id,places.displayName,places.formattedAddress,places.nationalPhoneNumber,places.internationalPhoneNumber,places.websiteUri,places.rating,places.userRatingCount,places.types';
 
@@ -410,11 +327,11 @@ let activeCat = '';
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 
 function stars(r){
-  if(!r)return '<span style="color:#444">No rating</span>';
-  const full=Math.floor(r),half=(r-full)>=0.5;
+  if(!r) return '<span style="color:#444">No rating</span>';
+  const full=Math.floor(r), half=(r-full)>=0.5;
   let s='';
-  for(let i=0;i<full;i++)s+='&#9733;';
-  if(half)s+='&#189;';
+  for(let i=0;i<full;i++) s+='&#9733;';
+  if(half) s+='&#189;';
   return '<span class="stars">'+s+'</span>';
 }
 
@@ -569,7 +486,7 @@ async function loadMore(){
     nextPage=data.nextPageToken||null;
     updateStats();renderTable();
   }catch(e){
-    if(btn){btn.disabled=false;btn.textContent='⇓ Load More Results';}
+    if(btn){btn.disabled=false;btn.textContent='&#8659; Load More Results';}
   }
 }
 
