@@ -18,6 +18,7 @@
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -114,6 +115,71 @@
             padding-top: 30px;
             border-top: 1px solid #333;
         }
+
+        .upsell-section {
+            max-width: 800px;
+            margin: 40px auto 0;
+            text-align: center;
+        }
+
+        .upsell-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: #FF6B00;
+            letter-spacing: 0.05em;
+            margin-bottom: 24px;
+        }
+
+        .upsell-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .upsell-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 24px 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .upsell-card:hover {
+            border-color: #FF6B00;
+        }
+
+        .upsell-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .upsell-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FF6B00;
+            margin-bottom: 16px;
+        }
+
+        .upsell-btn {
+            display: inline-block;
+            background-color: #FF6B00;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: 'Bebas Neue', sans-serif;
+            transition: background-color 0.2s ease;
+        }
+
+        .upsell-btn:hover {
+            background-color: #e55a00;
+        }
     </style>
 </head>
 <body>
@@ -137,7 +203,28 @@
 
         <div class="email-notice">
             <p>📧 Check your email for your receipt and download links. If you don't see it within a few minutes, check your spam folder.</p>
-            <p style="margin-top: 15px;">Questions? <a href="mailto:trippdigital@gmail.com" style="color: #FF6B00; text-decoration: none;">Contact us</a></p>
+            <p style="margin-top: 15px;">Questions? <a href="mailto:trippdigital1@gmail.com" style="color: #FF6B00; text-decoration: none;">Contact us</a></p>
+        </div>
+    </div>
+
+    <div class="upsell-section">
+        <h2>You Might Also Like</h2>
+        <div class="upsell-grid">
+            <div class="upsell-card">
+                <div class="upsell-title">Start a Grant Writing Business</div>
+                <div class="upsell-price">$37</div>
+                <a href="https://payhip.com/b/ZbhqB" class="upsell-btn" target="_blank" rel="noopener noreferrer">GET IT NOW</a>
+            </div>
+            <div class="upsell-card">
+                <div class="upsell-title">Publish Puzzle Books on KDP</div>
+                <div class="upsell-price">$27</div>
+                <a href="https://payhip.com/b/Don6g" class="upsell-btn" target="_blank" rel="noopener noreferrer">GET IT NOW</a>
+            </div>
+            <div class="upsell-card">
+                <div class="upsell-title">Build With AI — Complete Pack</div>
+                <div class="upsell-price">$19</div>
+                <a href="https://payhip.com/b/WLKMq" class="upsell-btn" target="_blank" rel="noopener noreferrer">GET IT NOW</a>
+            </div>
         </div>
     </div>
 

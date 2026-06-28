@@ -2,18 +2,30 @@
 document.getElementById('newsletterForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = e.target.querySelector('input[type="email"]').value;
-    handleNewsletter(email);
+    handleNewsletter(email, 'newsletter-section');
 });
 
 document.getElementById('footerNewsletterForm').addEventListener('submit', (e) => {
     e.preventDefault();
     const email = e.target.querySelector('input[type="email"]').value;
-    handleNewsletter(email);
+    handleNewsletter(email, 'footer');
 });
 
-function handleNewsletter(email) {
-    showNotification('Thanks for subscribing!');
-    document.querySelectorAll('input[type="email"]').forEach(input => input.value = '');
+async function handleNewsletter(email, source) {
+    try {
+        const res = await fetch('/.netlify/functions/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, source }),
+        });
+        const data = await res.json();
+        showNotification(data.message || data.error || 'Something went wrong.');
+        if (data.success) {
+            document.querySelectorAll('input[type="email"]').forEach(input => input.value = '');
+        }
+    } catch (_) {
+        showNotification('Something went wrong. Please try again.');
+    }
 }
 
 function showNotification(message) {
