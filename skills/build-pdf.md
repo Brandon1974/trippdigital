@@ -66,7 +66,7 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_RIGHT
 
-# ── Brand Colors ──────────────────────────────────────────
+# ── Brand Colors ───────────────────────────────────────────────────────────
 ORANGE = HexColor('#FF6B00')
 WHITE  = HexColor('#FFFFFF')
 GRAY   = HexColor('#AAAAAA')
@@ -75,7 +75,7 @@ BLACK  = HexColor('#000000')
 PAGEW, PAGEH = letter
 MARGIN = 0.75 * inch
 
-# ── Styles ────────────────────────────────────────────────
+# ── Styles ────────────────────────────────────────────────────────────
 styles = getSampleStyleSheet()
 
 cover_title_style = ParagraphStyle(
@@ -148,7 +148,7 @@ cta_style = ParagraphStyle(
     spaceAfter=8,
 )
 
-# ── Black background canvas callback ─────────────────────
+# ── Black background canvas callback ─────────────────────────────────────────────────
 def black_background(canvas, doc):
     canvas.saveState()
     canvas.setFillColor(BLACK)
@@ -164,7 +164,7 @@ def black_background(canvas, doc):
 def divider():
     return HRFlowable(width='100%', thickness=1, color=ORANGE, spaceAfter=12, spaceBefore=4)
 
-# ── Document Setup ────────────────────────────────────────
+# ── Document Setup ────────────────────────────────────────────────────────────
 OUTPUT_FILE = 'output/[FILENAME].pdf'   # <-- update this
 
 doc = SimpleDocTemplate(
@@ -176,15 +176,13 @@ doc = SimpleDocTemplate(
     bottomMargin=MARGIN,
 )
 
-# ── Content ───────────────────────────────────────────────
+# ── Content ───────────────────────────────────────────────────────────────
 story = []
 
 # COVER PAGE
 story.append(Spacer(1, 1.5 * inch))
 story.append(Paragraph('[PRODUCT TITLE]', cover_title_style))
 story.append(Spacer(1, 0.2 * inch))
-story.append(Paragraph('[Subtitle or tagline]', cover_sub_style))
-story.append(Spacer(1, 0.1 * inch))
 story.append(divider())
 story.append(Spacer(1, 0.3 * inch))
 story.append(Paragraph('By Brandon Tripp | Tripp Digital', cover_brand_style))
@@ -264,7 +262,7 @@ story.append(Paragraph('🌐  trippdigital.com', cta_style))
 story.append(Spacer(1, 0.5 * inch))
 story.append(Paragraph('© Tripp Digital — All rights reserved.', cover_brand_style))
 
-# ── Build ─────────────────────────────────────────────────
+# ── Build ─────────────────────────────────────────────────────────────────
 doc.build(story, onFirstPage=black_background, onLaterPages=black_background)
 print(f'PDF saved to: {OUTPUT_FILE}')
 ```
@@ -346,8 +344,17 @@ Next step: Run skills/update-product-catalog.md once the Payhip listing is live.
 - If a section has a table, use `Table()` with a `TableStyle` that sets `BACKGROUND` to `ORANGE` for header rows and `TEXTCOLOR` to `BLACK` for header text, `WHITE` for body rows.
 - PDFs with more than 40 pages should include a Table of Contents page after the cover. Generate it manually as a bulleted list of section titles with page estimates.
 - Always use `PageBreak()` after each section to keep layout clean and pages skimmable.
+- **For 8–10 page products with many items** (e.g. 10 hustles, 10 tips): use `mini_divider()` (60% width, 0.5pt) between items instead of `PageBreak()` to keep content flowing tightly. A comparison Table page adds ~1 page and significantly increases perceived value at the $7–$12 price point.
 
 ---
 
 ## Example output
-*(Paste a real run here after first use)*
+
+**Run date:** 2026-06-28  
+**Product:** Virginia Beach Side Hustle Guide ($9.99)  
+**Output file:** `output/content/2026-06-28_vb-side-hustle-guide.pdf`  
+**Build script:** `process/build_vb_side_hustle_guide.py`  
+**Pages:** 8  
+**Sections:** Cover → Intro (callout) → At-a-Glance Comparison Table → 10 Hustles (flowing, mini-dividers) → Action Checklist → CTA  
+**Build time:** ~2 seconds  
+**Notes:** For a list-style product at $9.99, mini_divider() between items keeps pages tight and readable without wasted space. Adding a comparison Table page between the intro and the content adds ~1 page, increases perceived value, and helps buyers self-select. CTA page cross-sells the web agency service at $97/month in addition to the store link.

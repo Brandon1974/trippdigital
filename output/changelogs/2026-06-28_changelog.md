@@ -38,3 +38,16 @@
 **Actions taken (2026-06-28):**
 - Removed from `netlify/functions/chat.js` chatbot system prompt
 - Archived as private internal note: `raw/inputs/2026-06-28_private-products.md`
+
+---
+
+## BUILT — Virginia Beach Side Hustle Guide ($9.99)
+
+**Skill used:** `skills/build-pdf.md`  
+**Output:** `output/content/2026-06-28_vb-side-hustle-guide.pdf`  
+**Build script:** `process/build_vb_side_hustle_guide.py`  
+**Pages:** 8  
+**File size:** 14.6 KB  
+**Sections:** Cover → Intro → At-a-Glance Comparison Table → 10 Hustles (flowing, mini-dividers) → Action Checklist → CTA  
+
+**Next step:** Upload to Payhip at payhip.com/Tinytripp. Once live, run `skills/update-product-catalog.md` to add to site grid, wiki/offers.md, and chatbot (price is $9.99 — below the $27 chatbot threshold, so chatbot update is skipped).
