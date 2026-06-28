@@ -1,12 +1,106 @@
 # Tripp Digital — Claude Code Operating Manual
 
-This file is the source of truth for how this repository is organized and how Claude should work within it. Read this first in every session.
+This file is the source of truth for how this repository is organized and how Claude should work within it. Read this first in every session. Everything here is permanent operating context — never ask Brandon to re-explain these details.
 
 ---
 
-## Business Context
+## Business Identity
 
-**Tripp Digital** is a digital marketing and AI consulting business. This repository is the operational brain — it stores raw inputs, structured knowledge, reusable skills, and output artifacts. The goal is a self-improving system: raw content flows in, gets processed into structured knowledge, and that knowledge feeds better outputs over time.
+| Field | Value |
+|---|---|
+| **Business name** | Tripp Digital |
+| **Owner** | Brandon Tripp |
+| **Location** | Virginia Beach, VA |
+| **Type** | Digital products + web agency |
+| **Main site** | trippdigital.com |
+| **Deploy** | Netlify, GitHub: `Brandon1974/trippdigital` |
+| **Facebook Group** | "Make Money From Home — Tripp Digital Community" |
+
+**What Tripp Digital does:**
+- Sells digital products (PDFs, templates, courses) on Payhip, Gumroad, Etsy, Whop
+- Runs a web agency targeting local businesses with no website (Google Maps prospecting → HTML spec site → Netlify deploy → $97/month pitch)
+- Builds AI-driven content, slideshows, and lead magnets
+- Monetizes the Facebook community for product ideas and direct sales
+
+---
+
+## Branding Rules
+
+- **Background:** Black (`#000000` or near-black)
+- **Accent color:** Gold `#f5a623`
+- **Apply to:** All digital products, slideshows, PDFs, web pages, and any visual asset
+- **Never** use white backgrounds or default color schemes on Tripp Digital deliverables
+
+---
+
+## Product Platforms
+
+| Platform | URL / Handle | Use |
+|---|---|---|
+| **Payhip** | payhip.com/Tinytripp | Primary storefront for digital products |
+| **Gumroad** | buildwithaihq.gumroad.com | Secondary digital product storefront |
+| **Etsy** | (Tripp Digital store) | Digital downloads, printables |
+| **Whop** | (Tripp Digital store) | Community/membership products |
+
+**CTA rule:** Every piece of content and every slideshow must include both `payhip.com/Tinytripp` and `trippdigital.com` in the call to action.
+
+---
+
+## Voice & Media
+
+### ElevenLabs
+| Voice | ID |
+|---|---|
+| **Primary voice** | `CwhRBWXzGAHq8TQ4Fs17` |
+| **Bella** | `EXAVITQu4vr4xnSDxMaL` |
+
+Default to Primary voice unless a specific request calls for Bella.
+
+### Higgsfield
+- **Credit budget:** 22–23 credits per video
+- **Model:** Seedance 2.0
+- **Mode:** 480p fast mode
+
+---
+
+## Permanent Build Rules
+
+These rules apply in every session without needing to be re-stated.
+
+### BUILD-FIRST RULE
+Always attempt to build the thing directly. **Never suggest a third-party service as the first answer.** If a tool, service, or platform is already in the stack (ElevenLabs, Higgsfield, ReportLab, Netlify, etc.), use it. Only mention external alternatives if the in-stack approach is truly impossible.
+
+### SLIDESHOW RULE
+- All promotional slideshows use **base64 `atob()` audio decoded via AudioContext / WebAudio API**
+- **Never use `fetch()` for audio** in slideshows
+- Animation style: Ken Burns zoom, fly-in animations, keyword pulse effects
+- Black background, gold `#f5a623` accents
+- CTA always includes `payhip.com/Tinytripp` and `trippdigital.com`
+
+### PDF RULE
+- All PDFs are built with **Python ReportLab**
+- Black background, gold `#f5a623` branding throughout
+- No exceptions — do not suggest Canva, Google Docs, or other tools for PDFs
+
+### PINTEREST RULE
+- Any trending Pinterest topic = immediately build a PDF digital product and list it on Payhip
+- Treat trending Pinterest content as a direct product signal, not just content inspiration
+- Speed matters: identify trend → build PDF → upload to Payhip in the same session if possible
+
+### WEB AGENCY WORKFLOW
+1. Find Google Maps businesses with **no website**
+2. Build an HTML spec site (black/gold branding, professional)
+3. Deploy live to **Netlify**
+4. Send the live link as the sales pitch
+5. Charge **$97/month recurring**
+6. Never pitch before the site is live — the live link is the pitch
+
+### FACEBOOK GROUP RULE
+- Monitor "Make Money From Home — Tripp Digital Community" for:
+  - Product ideas (what members ask about or struggle with)
+  - Sales opportunities (direct pitches when appropriate)
+  - Content angles (what gets engagement = what to build next)
+- Posts in the group should drive to Payhip and/or the email list
 
 ---
 
@@ -68,6 +162,9 @@ Example skills:
 - `skills/write-fb-post.md` — how to draft a Facebook group post from a topic
 - `skills/generate-lead-magnet.md` — steps to create a lead magnet from a wiki topic
 - `skills/weekly-review.md` — how to produce the weekly output review
+- `skills/build-pdf.md` — how to build a black/gold PDF with ReportLab
+- `skills/build-slideshow.md` — how to build a promotional slideshow (WebAudio rules)
+- `skills/web-agency-prospect.md` — Google Maps prospecting to Netlify pitch workflow
 
 ---
 
@@ -96,7 +193,7 @@ If a file sits in `/process` with no recent activity, treat it as stalled and fl
 ## How Claude Should Work in This Repo
 
 ### Starting a session
-1. Read `CLAUDE.md` (this file).
+1. Read `CLAUDE.md` (this file) — all context is here, ask no clarifying questions about permanent rules.
 2. Check `/process` for any stalled in-flight work.
 3. Check `/output/improvements/` for queued suggestions.
 4. Ask the user what they want to work on.
@@ -117,6 +214,11 @@ If a file sits in `/process` with no recent activity, treat it as stalled and fl
 - Skills must be self-contained: someone reading only that file should be able to execute the task.
 - Test a skill by running it once and saving the example output as a comment at the bottom of the skill file.
 
+### When building anything
+- Apply the BUILD-FIRST RULE: attempt it directly with tools already in the stack.
+- Apply branding: black background, gold `#f5a623` accents.
+- Apply the relevant build rule (Slideshow Rule, PDF Rule, etc.) without being asked.
+
 ---
 
 ## Self-Improvement Protocol
@@ -127,16 +229,6 @@ At the end of any significant work session:
 3. If a skill file broke or produced poor output, revise it before closing the session.
 
 The system improves every time it is used. The goal is that each session leaves the repo slightly more useful than when it started.
-
----
-
-## Key Contacts & Context
-
-- **Owner:** Brandon (Tripp Digital)
-- **Primary platforms:** Facebook Groups, YouTube, Email
-- **Core offer:** AI + digital marketing consulting/training
-- **Repository:** `brandon1974/trippdigital`
-- **Deploy:** Netlify (see `netlify.toml`)
 
 ---
 
