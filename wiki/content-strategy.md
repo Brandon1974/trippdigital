@@ -64,7 +64,7 @@ FREE LEAD MAGNET → EMAIL LIST / FACEBOOK GROUP → PAID PRODUCT → NEWSLETTER
 
 | Content Type | Tool |
 |---|---|
-| PDF digital products | Python ReportLab (black/gold branding) |
+| PDF digital products | Python ReportLab (black/orange `#FF6B00` branding) |
 | Promotional slideshows | HTML + WebAudio API (base64 audio, Ken Burns, fly-in, pulse) |
 | AI voiceovers | ElevenLabs (Primary: CwhRBWXzGAHq8TQ4Fs17 / Bella: EXAVITQu4vr4xnSDxMaL) |
 | AI video | Higgsfield Seedance 2.0, 480p fast, 22–23 credits |

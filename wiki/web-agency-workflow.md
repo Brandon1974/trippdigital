@@ -25,7 +25,7 @@ The live link IS the pitch. Never pitch before the site is built and deployed.
 
 ### Step 2: Build the Spec Site
 - Build in pure HTML/CSS/JavaScript
-- Apply Tripp Digital branding: black background, gold `#f5a623` accents
+- Apply Tripp Digital branding: black background, orange `#FF6B00` accents
 - Include: business name, services, contact info, location, call to action
 - Source business info from Google Maps listing, Facebook page, Yelp, etc.
 - Keep it clean and professional — 1 to 3 pages is fine for a spec

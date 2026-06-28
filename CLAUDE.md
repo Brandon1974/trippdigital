@@ -27,7 +27,7 @@ This file is the source of truth for how this repository is organized and how Cl
 ## Branding Rules
 
 - **Background:** Black (`#000000` or near-black)
-- **Accent color:** Gold `#f5a623`
+- **Accent color:** Orange `#FF6B00`
 - **Apply to:** All digital products, slideshows, PDFs, web pages, and any visual asset
 - **Never** use white backgrounds or default color schemes on Tripp Digital deliverables
 
@@ -74,12 +74,12 @@ Always attempt to build the thing directly. **Never suggest a third-party servic
 - All promotional slideshows use **base64 `atob()` audio decoded via AudioContext / WebAudio API**
 - **Never use `fetch()` for audio** in slideshows
 - Animation style: Ken Burns zoom, fly-in animations, keyword pulse effects
-- Black background, gold `#f5a623` accents
+- Black background, orange `#FF6B00` accents
 - CTA always includes `payhip.com/Tinytripp` and `trippdigital.com`
 
 ### PDF RULE
 - All PDFs are built with **Python ReportLab**
-- Black background, gold `#f5a623` branding throughout
+- Black background, orange `#FF6B00` branding throughout
 - No exceptions — do not suggest Canva, Google Docs, or other tools for PDFs
 
 ### PINTEREST RULE
@@ -89,7 +89,7 @@ Always attempt to build the thing directly. **Never suggest a third-party servic
 
 ### WEB AGENCY WORKFLOW
 1. Find Google Maps businesses with **no website**
-2. Build an HTML spec site (black/gold branding, professional)
+2. Build an HTML spec site (black/orange branding, professional)
 3. Deploy live to **Netlify**
 4. Send the live link as the sales pitch
 5. Charge **$97/month recurring**
@@ -162,7 +162,7 @@ Example skills:
 - `skills/write-fb-post.md` — how to draft a Facebook group post from a topic
 - `skills/generate-lead-magnet.md` — steps to create a lead magnet from a wiki topic
 - `skills/weekly-review.md` — how to produce the weekly output review
-- `skills/build-pdf.md` — how to build a black/gold PDF with ReportLab
+- `skills/build-pdf.md` — how to build a black/orange PDF with ReportLab
 - `skills/build-slideshow.md` — how to build a promotional slideshow (WebAudio rules)
 - `skills/web-agency-prospect.md` — Google Maps prospecting to Netlify pitch workflow
 
@@ -216,7 +216,7 @@ If a file sits in `/process` with no recent activity, treat it as stalled and fl
 
 ### When building anything
 - Apply the BUILD-FIRST RULE: attempt it directly with tools already in the stack.
-- Apply branding: black background, gold `#f5a623` accents.
+- Apply branding: black background, orange `#FF6B00` accents.
 - Apply the relevant build rule (Slideshow Rule, PDF Rule, etc.) without being asked.
 
 ---

@@ -45,7 +45,6 @@ Extracted from: /home/user/trippdigital/
 - @anthropic-ai/sdk ^0.24.0
 - netlify-cli ^16.0.0 (dev)
 
-## Branding Note (DISCREPANCY)
-README.md references: orange #FF6B00 accent
-CLAUDE.md (user-specified): gold #f5a623
-Resolution needed — see output/changelogs/2026-06-28_changelog.md
+## Branding
+Official accent color: orange `#FF6B00` — confirmed by site CSS (styles.css) and owner.
+Background: black `#0a0a0a`. Text: white `#ffffff`.

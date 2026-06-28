@@ -46,7 +46,7 @@ Five audience segments with pain points and language patterns: work-from-home se
 ---
 
 ### `wiki/brand-voice.md` — Brand Identity & Voice
-Authoritative color palette (black + gold `#f5a623`), typography (Bebas Neue + Inter), tone guidelines, phrases to use/avoid, CTA rules. Includes flagged discrepancy between current CSS (orange `#FF6B00`) and intended branding (gold `#f5a623`).
+Official color palette (black + orange `#FF6B00`), typography (Bebas Neue + Inter), tone guidelines, phrases to use/avoid, CTA rules.
 
 **Quick lookup:**
 - Brand colors → brand-voice.md
@@ -94,7 +94,7 @@ Full step-by-step workflow: Google Maps prospecting → spec site build → Netl
 |---|---|
 | `2026-06-28_site-audit-products-services.md` | Full product/service catalog extracted from index.html |
 | `2026-06-28_chatbot-system-prompt.md` | Chatbot config, product discrepancies found |
-| `2026-06-28_tech-stack-audit.md` | Tech stack, env vars, branding discrepancy |
+| `2026-06-28_tech-stack-audit.md` | Tech stack, env vars, branding color confirmed |
 | `2026-06-28_admin-panel-docs.md` | Admin panel capabilities and data storage |
 | `2026-06-28_books-fiction-series.md` | Fiction series details from index.html |
 

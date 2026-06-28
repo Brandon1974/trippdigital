@@ -1,13 +1,24 @@
 # Changelog — 2026-06-28
 
-## AUTO APPROVED
+---
 
-- **wiki/brand-voice.md created**: Documented branding color discrepancy. Current site CSS uses orange `#FF6B00`; CLAUDE.md (owner-specified) uses gold `#f5a623`. Gold is authoritative for all new builds. Website CSS (`styles.css`) needs to be updated — flagged as NEEDS SIGNOFF.
+## RESOLVED — Brand color corrected across all files
 
-## NEEDS SIGNOFF
+**What changed:** All references to `#f5a623` (gold) and "gold" branding replaced with `#FF6B00` (orange) across 6 files.
 
-- [ ] **APPROVE** / [ ] **REJECT**
-  Update `styles.css` CSS variable `--color-orange: #FF6B00` → `--color-gold: #f5a623` and all references throughout the site to align with intended brand color.
+**Files updated:**
+- `CLAUDE.md` — Branding Rules, SLIDESHOW RULE, PDF RULE, WEB AGENCY WORKFLOW, "When building anything", skills list example
+- `wiki/brand-voice.md` — Color palette corrected; discrepancy warning removed; logo accent updated
+- `wiki/web-agency-workflow.md` — Spec site branding instruction updated
+- `wiki/content-strategy.md` — ReportLab branding description updated
+- `wiki/master-index.md` — brand-voice.md description updated
+- `raw/inputs/2026-06-28_tech-stack-audit.md` — Branding note updated to confirmed/resolved
+
+**Reason:** `#FF6B00` is the official Tripp Digital brand color, matching the existing website CSS (`styles.css`). The earlier `#f5a623` (gold) value was incorrect and introduced during initial CLAUDE.md setup.
+
+---
+
+## STILL NEEDS SIGNOFF
 
 - [ ] **APPROVE** / [ ] **REJECT**
   Reconcile two contact email addresses found:

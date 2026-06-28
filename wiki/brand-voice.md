@@ -9,19 +9,19 @@ Last updated: 2026-06-28
 
 ## Visual Identity
 
-### Colors (AUTHORITATIVE — from CLAUDE.md)
+### Colors
 - **Background:** Black (`#000000` or near-black `#0a0a0a`)
-- **Accent:** Gold `#f5a623`
+- **Accent:** Orange `#FF6B00`
 - **Text:** White `#ffffff`
 
-> ⚠️ **DISCREPANCY NOTED:** The current website CSS (`styles.css`) uses orange `#FF6B00` as the accent color. The README.md also references `#FF6B00`. Brandon's explicit instruction in CLAUDE.md specifies gold `#f5a623`. The gold value is authoritative for all NEW builds. The website CSS should be updated to match.
+The accent color `#FF6B00` matches the existing website CSS and is the official Tripp Digital brand color. Use it on all new builds — PDFs, slideshows, spec sites, and digital products.
 
 ### Typography
 - **Headings:** Bebas Neue (bold, condensed, all-caps feel)
 - **Body:** Inter (clean, readable, professional)
 
 ### Logo style
-- "TRIPP" in white + "DIGITAL" in gold accent
+- "TRIPP" in white + "DIGITAL" in orange accent
 - All caps, spaced lettering
 
 ---
