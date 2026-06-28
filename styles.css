@@ -753,6 +753,14 @@ section {
     font-style: italic;
 }
 
+.book-cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
 .book-actions {
     display: flex;
     gap: 15px;
