@@ -1,4 +1,5 @@
 const { getStore } = require('@netlify/blobs');
+const nodemailer = require('nodemailer');
 
 exports.handler = async (event, context) => {
   const headers = {
@@ -43,8 +44,30 @@ exports.handler = async (event, context) => {
       };
     }
 
-    list.push({ email: clean, source: source || 'newsletter', date: new Date().toISOString() });
+    const timestamp = new Date().toISOString();
+    list.push({ email: clean, source: source || 'newsletter', date: timestamp });
     await store.set('list', JSON.stringify(list));
+
+    // Notify owner — non-blocking so a mail failure never breaks the user response
+    if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
+          },
+        });
+        await transporter.sendMail({
+          from: process.env.GMAIL_USER,
+          to: 'trippdigital1@gmail.com',
+          subject: 'New Lead — Tripp Digital',
+          text: `New email captured: ${clean}\nTime: ${timestamp}\nSource: trippdigital.com`,
+        });
+      } catch (mailErr) {
+        console.error('Notification email failed:', mailErr);
+      }
+    }
 
     return {
       statusCode: 200,
