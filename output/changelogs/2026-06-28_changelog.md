@@ -30,10 +30,11 @@
 
 ---
 
-## STILL NEEDS SIGNOFF
+## REJECTED — How to Build a Local Web Agency ($47) — public listing decisions
 
-- [ ] **APPROVE** / [ ] **REJECT**
-  Add "How to Build a Local Web Agency" ($47) to the main site product grid in index.html. Currently listed only in chatbot system prompt, not visible to site visitors.
+- [x] **REJECT** — Do NOT add "How to Build a Local Web Agency" ($47) to the main site product grid in `index.html`. Product is not for public promotion at this time.
+- [x] **REJECT** — Do NOT add Payhip link to `wiki/offers.md`. No public listing until owner decides to launch it.
 
-- [ ] **APPROVE** / [ ] **REJECT**
-  Add Payhip link for "How to Build a Local Web Agency" ($47) to wiki/offers.md (currently listed as TBD).
+**Actions taken (2026-06-28):**
+- Removed from `netlify/functions/chat.js` chatbot system prompt
+- Archived as private internal note: `raw/inputs/2026-06-28_private-products.md`

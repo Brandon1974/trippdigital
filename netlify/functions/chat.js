@@ -17,7 +17,6 @@ Services offered:
 - Premium Website: $297/month (unlimited pages, advanced SEO, e-commerce, custom integrations)
 
 Digital Products:
-- How to Build a Local Web Agency ($47)
 - Make Money With Puzzle Books on KDP ($27)
 - How to Start a Grant Writing Business ($37)
 - Invoice & Contract Templates Bundle ($12)
