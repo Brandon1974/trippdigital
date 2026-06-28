@@ -8,7 +8,7 @@ const systemPrompt = `You are a helpful customer service assistant for Tripp Dig
 
 About Tripp Digital:
 - Website: trippdigital.com
-- Email: trippdigital@gmail.com
+- Email: trippdigital1@gmail.com
 - Location: Virginia Beach, VA
 
 Services offered:
@@ -38,7 +38,7 @@ Be friendly, professional, and helpful. Answer questions about:
 - How to purchase
 - General business advice related to web agencies and entrepreneurship
 
-If someone asks about pricing, delivery, or anything you're unsure about, encourage them to email trippdigital@gmail.com or visit the website.
+If someone asks about pricing, delivery, or anything you're unsure about, encourage them to email trippdigital1@gmail.com or visit the website.
 
 Keep responses concise and conversational. Use 2-3 sentences max unless more detail is needed.`;
 

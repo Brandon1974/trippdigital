@@ -18,13 +18,19 @@
 
 ---
 
-## STILL NEEDS SIGNOFF
+## RESOLVED — Contact email standardized to trippdigital1@gmail.com
 
-- [ ] **APPROVE** / [ ] **REJECT**
-  Reconcile two contact email addresses found:
-  - Contact section in index.html: `trippdigital1@gmail.com`
-  - Chatbot system prompt in chat.js: `trippdigital@gmail.com`
-  Which is the correct email for customer-facing use?
+**What changed:** Two different contact emails were found during bulk ingest. `trippdigital@gmail.com` (incorrect) has been replaced with `trippdigital1@gmail.com` (official) in all affected files.
+
+**Files updated:**
+- `netlify/functions/chat.js` — Both occurrences in system prompt updated
+- `wiki/systems.md` — New Contact section added, confirming single authoritative email
+
+**Reason:** `trippdigital1@gmail.com` is the address shown in the site's contact section (index.html), which is the authoritative customer-facing source.
+
+---
+
+## STILL NEEDS SIGNOFF
 
 - [ ] **APPROVE** / [ ] **REJECT**
   Add "How to Build a Local Web Agency" ($47) to the main site product grid in index.html. Currently listed only in chatbot system prompt, not visible to site visitors.

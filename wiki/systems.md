@@ -7,6 +7,18 @@ Last updated: 2026-06-28
 
 ---
 
+## Contact
+
+| Field | Value |
+|---|---|
+| **Official email** | trippdigital1@gmail.com |
+| **Website** | trippdigital.com |
+| **Location** | Virginia Beach, VA |
+
+This is the single authoritative contact email for all customer-facing communication, chatbot referrals, and business correspondence.
+
+---
+
 ## Main Website
 
 - **URL:** trippdigital.com
@@ -49,6 +61,7 @@ Last updated: 2026-06-28
 - Required env var: `ANTHROPIC_API_KEY`
 - Persona: Tripp Digital customer service assistant
 - Response style: 2–3 sentences, friendly, professional
+- Contact email in system prompt: trippdigital1@gmail.com
 
 ---
 
