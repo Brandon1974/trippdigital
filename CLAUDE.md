@@ -15,6 +15,7 @@ This file is the source of truth for how this repository is organized and how Cl
 | **Main site** | trippdigital.com |
 | **Deploy** | Netlify, GitHub: `Brandon1974/trippdigital` |
 | **Facebook Group** | "Make Money From Home — Tripp Digital Community" |
+| **Twitter/X** | @benroyal578 |
 
 **What Tripp Digital does:**
 - Sells digital products (PDFs, templates, courses) on Payhip, Gumroad, Etsy, Whop
@@ -94,6 +95,11 @@ Always attempt to build the thing directly. **Never suggest a third-party servic
 4. Send the live link as the sales pitch
 5. Charge **$97/month recurring**
 6. Never pitch before the site is live — the live link is the pitch
+
+### SPEC SITE PHOTO RULE
+- **Always include the client's real work photos in the spec site** — photos are what sell the site when the prospect sees their own work on a professional page
+- When Brandon sends photos along with a spec site request, upload them to the GitHub repo and embed them as a dedicated photo gallery or work portfolio section
+- A spec site without work photos is incomplete — never launch without them if photos were provided
 
 ### FACEBOOK GROUP RULE
 - Monitor "Make Money From Home — Tripp Digital Community" for:
@@ -232,4 +238,4 @@ The system improves every time it is used. The goal is that each session leaves 
 
 ---
 
-*Last updated: 2026-06-28*
+*Last updated: 2026-06-29*
