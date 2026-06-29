@@ -96,6 +96,11 @@ Always attempt to build the thing directly. **Never suggest a third-party servic
 5. Charge **$97/month recurring**
 6. Never pitch before the site is live — the live link is the pitch
 
+### SPEC SITE PHOTO RULE
+- **Always include the client's real work photos in the spec site** — photos are what sell the site when the prospect sees their own work on a professional page
+- When Brandon sends photos along with a spec site request, upload them to the GitHub repo and embed them as a dedicated photo gallery or work portfolio section
+- A spec site without work photos is incomplete — never launch without them if photos were provided
+
 ### FACEBOOK GROUP RULE
 - Monitor "Make Money From Home — Tripp Digital Community" for:
   - Product ideas (what members ask about or struggle with)
