@@ -7,241 +7,315 @@
     <meta name="description" content="B & D Handyman Services — trusted handyman in Chesapeake & Virginia Beach. Electrical, plumbing, carpentry, drywall, painting and more. Call Bear: (757) 377-9689.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --orange: #FF6B00;
-            --dark: #0a0a0a;
-            --dark2: #111111;
-            --dark3: #1a1a1a;
-            --gray: #b0b0b0;
+            --navy: #1B3A6B;
+            --navy-dark: #122a52;
+            --yellow: #F5A623;
             --white: #ffffff;
+            --light: #F4F6F9;
+            --gray: #666666;
+            --dark: #222222;
+            --border: #e0e4ea;
         }
 
         body {
-            background-color: var(--dark);
-            color: var(--white);
-            font-family: 'Inter', sans-serif;
+            background-color: var(--white);
+            color: var(--dark);
+            font-family: 'Open Sans', sans-serif;
             line-height: 1.6;
         }
 
+        /* TOP BAR */
+        .top-bar {
+            background: var(--navy-dark);
+            color: #c8d4e8;
+            padding: 8px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+        }
+
+        .top-bar a { color: var(--yellow); text-decoration: none; font-weight: 600; }
+
+        /* NAV */
         nav {
-            background: var(--dark);
-            border-bottom: 2px solid var(--orange);
+            background: var(--white);
             padding: 18px 40px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .logo {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            letter-spacing: 0.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--navy);
+            line-height: 1.1;
         }
 
-        .logo span { color: var(--orange); }
-
-        .nav-phone a {
-            color: var(--orange);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0800 50%, #0a0a0a 100%);
-            padding: 90px 40px 80px;
-            text-align: center;
-            border-bottom: 1px solid #2a1500;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: var(--orange);
-            color: var(--white);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.15em;
-            padding: 6px 16px;
-            border-radius: 2px;
-            margin-bottom: 24px;
+        .logo span {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--gray);
+            letter-spacing: 0.12em;
             text-transform: uppercase;
         }
 
-        .hero h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.8rem, 7vw, 5rem);
-            line-height: 1.05;
-            letter-spacing: 0.03em;
-            margin-bottom: 20px;
+        .nav-cta {
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 12px 28px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background 0.2s;
         }
 
-        .hero h1 span { color: var(--orange); }
+        .nav-cta:hover { background: #e09510; }
 
-        .hero-sub {
-            color: var(--gray);
-            font-size: 1.1rem;
-            max-width: 580px;
-            margin: 0 auto 36px;
-        }
-
-        .hero-buttons {
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+            padding: 80px 40px;
             display: flex;
-            gap: 16px;
-            justify-content: center;
+            align-items: center;
+            gap: 60px;
             flex-wrap: wrap;
         }
 
-        .btn-primary {
-            background: var(--orange);
-            color: var(--white);
-            padding: 16px 36px;
-            border: none;
+        .hero-content { flex: 1; min-width: 300px; }
+
+        .hero-tag {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--dark);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            padding: 5px 14px;
             border-radius: 3px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 0.08em;
-            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 em {
+            color: var(--yellow);
+            font-style: normal;
+        }
+
+        .hero p {
+            color: #b8c8e0;
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+            max-width: 500px;
+        }
+
+        .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        .btn-yellow {
+            background: var(--yellow);
+            color: var(--dark);
+            padding: 16px 32px;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
             text-decoration: none;
             display: inline-block;
             transition: background 0.2s;
         }
 
-        .btn-primary:hover { background: #e05e00; }
+        .btn-yellow:hover { background: #e09510; }
 
-        .btn-secondary {
+        .btn-outline {
             background: transparent;
             color: var(--white);
-            padding: 16px 36px;
-            border: 2px solid #333;
-            border-radius: 3px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.1rem;
-            letter-spacing: 0.08em;
-            cursor: pointer;
+            padding: 16px 32px;
+            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.4);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
             text-decoration: none;
             display: inline-block;
-            transition: border-color 0.2s, color 0.2s;
+            transition: border-color 0.2s;
         }
 
-        .btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
+        .btn-outline:hover { border-color: var(--white); }
 
-        .trust-bar {
-            background: var(--dark3);
-            padding: 22px 40px;
+        /* HERO STATS BOX */
+        .hero-stats {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            padding: 32px 28px;
             display: flex;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid #222;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 220px;
         }
 
-        .trust-item { text-align: center; }
+        .stat { text-align: center; }
 
-        .trust-item .number {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: var(--orange);
+        .stat-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--yellow);
             line-height: 1;
         }
 
-        .trust-item .label {
+        .stat-label {
             font-size: 0.78rem;
-            color: var(--gray);
+            color: #b8c8e0;
+            text-transform: uppercase;
             letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
-        section {
-            padding: 72px 40px;
-            max-width: 1100px;
-            margin: 0 auto;
+        .stat-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); }
+
+        /* BADGES */
+        .badges {
+            background: var(--light);
+            padding: 24px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
         }
 
-        .section-label {
-            font-size: 0.75rem;
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            font-size: 0.88rem;
+            color: var(--navy);
+        }
+
+        .badge-icon { font-size: 1.3rem; }
+
+        /* SERVICES */
+        .services { padding: 72px 40px; max-width: 1100px; margin: 0 auto; }
+
+        .section-tag {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
-            color: var(--orange);
-            margin-bottom: 10px;
+            color: var(--yellow);
+            margin-bottom: 8px;
         }
 
         .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            letter-spacing: 0.04em;
-            margin-bottom: 14px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            color: var(--navy);
+            margin-bottom: 12px;
         }
 
-        .section-desc {
+        .section-sub {
             color: var(--gray);
-            max-width: 600px;
+            max-width: 560px;
             margin-bottom: 48px;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2px;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
         }
 
         .service-card {
-            background: var(--dark2);
-            padding: 28px 24px;
-            border-left: 3px solid transparent;
-            transition: border-color 0.2s, background 0.2s;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 22px;
+            transition: box-shadow 0.2s, border-color 0.2s;
         }
 
-        .service-card:hover { border-left-color: var(--orange); background: #141414; }
+        .service-card:hover {
+            box-shadow: 0 6px 24px rgba(27,58,107,0.12);
+            border-color: var(--navy);
+        }
 
-        .service-icon { font-size: 1.8rem; margin-bottom: 12px; }
+        .service-icon { font-size: 2rem; margin-bottom: 14px; }
 
         .service-card h3 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.2rem;
-            letter-spacing: 0.05em;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--navy);
             margin-bottom: 8px;
         }
 
-        .service-card p { color: var(--gray); font-size: 0.88rem; line-height: 1.5; }
+        .service-card p { color: var(--gray); font-size: 0.875rem; line-height: 1.55; }
 
-        .why-section {
-            background: var(--dark2);
-            padding: 72px 40px;
-            border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
+        /* WHY STRIP */
+        .why-strip {
+            background: var(--navy);
+            padding: 64px 40px;
         }
 
         .why-inner { max-width: 1100px; margin: 0 auto; }
 
+        .why-strip .section-title { color: var(--white); margin-bottom: 40px; }
+
         .why-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 32px;
-            margin-top: 48px;
         }
 
-        .why-item { display: flex; gap: 16px; align-items: flex-start; }
-
-        .why-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--orange);
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-top: 6px;
+        .why-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 24px 20px;
         }
 
-        .why-item h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
-        .why-item p { color: var(--gray); font-size: 0.85rem; }
+        .why-card-icon { font-size: 1.6rem; margin-bottom: 10px; }
+
+        .why-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--yellow);
+            margin-bottom: 6px;
+        }
+
+        .why-card p { color: #b8c8e0; font-size: 0.85rem; }
+
+        /* REVIEWS */
+        .reviews { padding: 72px 40px; max-width: 1100px; margin: 0 auto; }
 
         .reviews-grid {
             display: grid;
@@ -250,162 +324,317 @@
         }
 
         .review-card {
-            background: var(--dark2);
-            border: 1px solid #1f1f1f;
-            border-radius: 4px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             padding: 28px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-        .stars { color: var(--orange); font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
-        .review-text { color: var(--gray); font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; font-style: italic; }
-        .reviewer { font-weight: 700; font-size: 0.85rem; }
-        .reviewer span { color: #555; font-weight: 400; margin-left: 6px; }
+        .stars { color: #F5A623; font-size: 1rem; letter-spacing: 2px; margin-bottom: 14px; }
 
-        .contact-section {
-            background: linear-gradient(135deg, #0f0500 0%, #1a0800 100%);
-            border-top: 2px solid var(--orange);
+        .review-text {
+            color: #444;
+            font-size: 0.9rem;
+            line-height: 1.65;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .reviewer {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--navy);
+        }
+
+        .reviewer span { color: var(--gray); font-weight: 400; margin-left: 4px; }
+
+        /* CONTACT */
+        .contact-band {
+            background: var(--light);
+            border-top: 4px solid var(--yellow);
             padding: 72px 40px;
             text-align: center;
         }
 
-        .contact-inner { max-width: 600px; margin: 0 auto; }
+        .contact-band .section-title { margin-bottom: 8px; }
 
-        .contact-phone {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            color: var(--orange);
-            letter-spacing: 0.05em;
-            margin: 24px 0 8px;
+        .contact-band p { color: var(--gray); margin-bottom: 32px; font-size: 1rem; }
+
+        .big-phone {
             display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            color: var(--navy);
+            text-decoration: none;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .big-phone:hover { color: var(--yellow); }
+
+        .contact-email-link {
+            color: var(--gray);
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 32px;
             text-decoration: none;
         }
 
-        .contact-email { color: var(--gray); font-size: 0.95rem; margin-bottom: 32px; display: block; }
+        .contact-email-link:hover { color: var(--navy); }
 
-        .contact-details {
+        .contact-chips {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 16px;
             flex-wrap: wrap;
             margin-top: 32px;
-            padding-top: 32px;
-            border-top: 1px solid #2a1500;
         }
 
-        .contact-detail { text-align: center; }
-        .contact-detail .label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: #555; margin-bottom: 4px; }
-        .contact-detail .value { font-weight: 600; font-size: 0.9rem; }
+        .chip {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--navy);
+        }
 
+        /* FOOTER */
         footer {
-            background: var(--dark);
-            border-top: 1px solid #1a1a1a;
+            background: var(--navy-dark);
+            color: #7a96bf;
             padding: 28px 40px;
             text-align: center;
-            color: #444;
             font-size: 0.82rem;
         }
 
-        footer span { color: var(--orange); }
+        footer strong { color: var(--white); }
 
-        @media (max-width: 600px) {
-            nav { padding: 16px 20px; }
-            .hero { padding: 60px 20px; }
-            .trust-bar { gap: 28px; padding: 20px; }
-            section { padding: 52px 20px; }
-            .why-section { padding: 52px 20px; }
-            .contact-section { padding: 52px 20px; }
+        @media (max-width: 640px) {
+            .top-bar { display: none; }
+            nav { padding: 14px 20px; }
+            .hero { padding: 50px 20px; }
+            .badges { padding: 18px 20px; gap: 20px; }
+            .services { padding: 48px 20px; }
+            .why-strip { padding: 48px 20px; }
+            .reviews { padding: 48px 20px; }
+            .contact-band { padding: 48px 20px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <span>Serving Chesapeake & Virginia Beach, VA &nbsp;&middot;&nbsp; Open 24 Hours</span>
+        <a href="tel:7573779689">(757) 377-9689</a>
+    </div>
+
+    <!-- NAV -->
     <nav>
-        <div class="logo">B & D <span>Handyman</span></div>
-        <div class="nav-phone"><a href="tel:7573779689">(757) 377-9689</a></div>
+        <div class="logo">
+            B & D Handyman Services
+            <span>Chesapeake &middot; Virginia Beach &middot; Hampton Roads</span>
+        </div>
+        <a href="tel:7573779689" class="nav-cta">Call (757) 377-9689</a>
     </nav>
 
+    <!-- HERO -->
     <div class="hero">
-        <div class="hero-badge">BBB Accredited · Chesapeake & Virginia Beach</div>
-        <h1>Your Home.<br><span>Fixed Right.</span><br>Every Time.</h1>
-        <p class="hero-sub">Professional handyman services from Bear and the B&D team. No overtime charges. Same fair price 7 days a week. Available 24 hours.</p>
-        <div class="hero-buttons">
-            <a href="tel:7573779689" class="btn-primary">CALL NOW — (757) 377-9689</a>
-            <a href="mailto:banddhandymanservices@gmail.com" class="btn-secondary">EMAIL US</a>
+        <div class="hero-content">
+            <div class="hero-tag">BBB Accredited &middot; No Overtime Charges</div>
+            <h1>Your Home.<br><em>Fixed Right.</em><br>Every Time.</h1>
+            <p>Professional handyman services from Bear and the B&D team. Fast response, honest pricing, and clean job sites &mdash; guaranteed.</p>
+            <div class="hero-buttons">
+                <a href="tel:7573779689" class="btn-yellow">Call Now: (757) 377-9689</a>
+                <a href="mailto:banddhandymanservices@gmail.com" class="btn-outline">Email Us</a>
+            </div>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-num">4.9&#9733;</div>
+                <div class="stat-label">Google Rating</div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat">
+                <div class="stat-num">149+</div>
+                <div class="stat-label">5-Star Reviews</div>
+            </div>
+            <hr class="stat-divider">
+            <div class="stat">
+                <div class="stat-num">20+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
         </div>
     </div>
 
-    <div class="trust-bar">
-        <div class="trust-item"><div class="number">4.9★</div><div class="label">Google Rating</div></div>
-        <div class="trust-item"><div class="number">149+</div><div class="label">5-Star Reviews</div></div>
-        <div class="trust-item"><div class="number">24/7</div><div class="label">Available</div></div>
-        <div class="trust-item"><div class="number">BBB</div><div class="label">Accredited</div></div>
-        <div class="trust-item"><div class="number">20+</div><div class="label">Years Experience</div></div>
+    <!-- BADGES -->
+    <div class="badges">
+        <div class="badge"><span class="badge-icon">&#10003;</span> BBB Accredited Business</div>
+        <div class="badge"><span class="badge-icon">&#128336;</span> Available 24 Hours / 7 Days</div>
+        <div class="badge"><span class="badge-icon">&#128176;</span> No Overtime Charges</div>
+        <div class="badge"><span class="badge-icon">&#127894;</span> Military & Elderly Discounts</div>
     </div>
 
-    <section id="services">
-        <div class="section-label">What We Do</div>
-        <h2 class="section-title">No Job Too Big.<br>No Job Too Small.</h2>
-        <p class="section-desc">From electrical to plumbing, drywall to decks — the B&D team handles it all with the same professional care on every job.</p>
+    <!-- SERVICES -->
+    <div class="services">
+        <div class="section-tag">Our Services</div>
+        <h2 class="section-title">No Job Too Big. No Job Too Small.</h2>
+        <p class="section-sub">From quick repairs to full remodels &mdash; Bear and the B&D crew handle it all with professional skill and honest pricing.</p>
+
         <div class="services-grid">
-            <div class="service-card"><div class="service-icon">⚡</div><h3>Electrical</h3><p>Light fixtures, outlets, ceiling fans, and electrical repairs done safely and up to code.</p></div>
-            <div class="service-card"><div class="service-icon">🔧</div><h3>Plumbing</h3><p>Faucet replacement, dryer venting, leak repairs, and kitchen & bathroom plumbing.</p></div>
-            <div class="service-card"><div class="service-icon">🪵</div><h3>Carpentry & Framing</h3><p>Custom carpentry, framing, trim work, cabinet repairs, and wood rot replacement.</p></div>
-            <div class="service-card"><div class="service-icon">🏠</div><h3>Drywall</h3><p>Drywall installation, patching, and repair — finished smooth and ready to paint.</p></div>
-            <div class="service-card"><div class="service-icon">🎨</div><h3>Painting</h3><p>Interior and exterior painting, touch-ups, and full room transformations.</p></div>
-            <div class="service-card"><div class="service-icon">🛁</div><h3>Bathroom Remodeling</h3><p>Full bathroom renovations, fixture upgrades, tile, and vanity installation.</p></div>
-            <div class="service-card"><div class="service-icon">🏡</div><h3>Deck & Fence</h3><p>Deck building, repair, staining, fence installation, and gate replacement.</p></div>
-            <div class="service-card"><div class="service-icon">📦</div><h3>Garage Storage</h3><p>Overhead storage systems, shelving, and garage organization solutions.</p></div>
-            <div class="service-card"><div class="service-icon">🏗️</div><h3>Exterior Repairs</h3><p>Siding, mailbox, gutters, porch railings, steps, and exterior light fixtures.</p></div>
+            <div class="service-card">
+                <div class="service-icon">&#9889;</div>
+                <h3>Electrical</h3>
+                <p>Light fixtures, ceiling fans, outlets, and electrical repairs done safely and up to code.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#128295;</div>
+                <h3>Plumbing</h3>
+                <p>Faucet replacement, dryer venting, leak repairs, and kitchen & bathroom plumbing.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#129717;</div>
+                <h3>Carpentry & Framing</h3>
+                <p>Custom carpentry, framing, trim work, cabinet repairs, and wood rot replacement.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#127968;</div>
+                <h3>Drywall</h3>
+                <p>Installation, patching, and repair &mdash; finished smooth and paint-ready.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#127912;</div>
+                <h3>Painting</h3>
+                <p>Interior and exterior painting, touch-ups, and full room transformations.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#128705;</div>
+                <h3>Bathroom Remodeling</h3>
+                <p>Full renovations, fixture upgrades, tile work, and vanity installation.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#127969;</div>
+                <h3>Deck & Fence</h3>
+                <p>Building, repair, staining, fence installation, and gate replacement.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#128230;</div>
+                <h3>Garage Storage</h3>
+                <p>Overhead storage systems, shelving, and full garage organization solutions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">&#127959;</div>
+                <h3>Exterior Repairs</h3>
+                <p>Siding, mailbox, gutters, porch railings, steps, and exterior light fixtures.</p>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <div class="why-section">
+    <!-- WHY STRIP -->
+    <div class="why-strip">
         <div class="why-inner">
-            <div class="section-label">Why Choose B&D</div>
+            <div class="section-tag" style="color: var(--yellow);">Why Choose Us</div>
             <h2 class="section-title">The B&D Difference</h2>
             <div class="why-grid">
-                <div class="why-item"><div class="why-dot"></div><div><h4>No Overtime Charges</h4><p>Same fair price 7 days a week — weekends, holidays, no surprises.</p></div></div>
-                <div class="why-item"><div class="why-dot"></div><div><h4>Fast Response</h4><p>Bear answers the phone and is usually on-site within 1–2 days.</p></div></div>
-                <div class="why-item"><div class="why-dot"></div><div><h4>Military & Elderly Discounts</h4><p>We proudly discount for veterans and senior customers.</p></div></div>
-                <div class="why-item"><div class="why-dot"></div><div><h4>BBB Accredited</h4><p>Trusted, vetted, and accredited by the Better Business Bureau.</p></div></div>
-                <div class="why-item"><div class="why-dot"></div><div><h4>20+ Years Experience</h4><p>Family background in electrical contracting and plumbing — we know this trade.</p></div></div>
-                <div class="why-item"><div class="why-dot"></div><div><h4>Clean Job Sites</h4><p>We clean up completely before we leave. Your home is left better than we found it.</p></div></div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#128222;</div>
+                    <h4>Fast Response</h4>
+                    <p>Bear answers the phone. Usually on-site within 1&ndash;2 days of your call.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#128181;</div>
+                    <h4>No Overtime &mdash; Ever</h4>
+                    <p>Same fair price 7 days a week. Weekends, holidays &mdash; no surprises.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#127885;</div>
+                    <h4>BBB Accredited</h4>
+                    <p>Trusted, vetted, and accredited by the Better Business Bureau.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#127894;</div>
+                    <h4>Military & Senior Discounts</h4>
+                    <p>We proudly offer discounts for veterans and elderly customers.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#129529;</div>
+                    <h4>Always Clean Up</h4>
+                    <p>We leave your home cleaner than we found it &mdash; every single time.</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-card-icon">&#128296;</div>
+                    <h4>20+ Years Experience</h4>
+                    <p>Family roots in electrical contracting and plumbing. We know the trade.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <section id="reviews">
-        <div class="section-label">What Customers Say</div>
-        <h2 class="section-title">4.9 Stars Across 149 Reviews</h2>
-        <p class="section-desc">Real customers. Real jobs. Real results.</p>
+    <!-- REVIEWS -->
+    <div class="reviews">
+        <div class="section-tag">Customer Reviews</div>
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-sub">4.9 stars across 149 Google reviews. Real customers, real jobs.</p>
+
         <div class="reviews-grid">
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Bear and Donna are a great team to have on standby. Bear is quick to answer the phone, usually has availability to come out quickly, and gets the job done right at an affordable price. From electrical to framing to all the odds and ends, they will get it done!"</p><div class="reviewer">Dillon K. <span>· Google Review</span></div></div>
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Bear, Donna, and Billy really knocked it out of the park on my garage overhead storage install. Super professional, solid work, and everything is secure and smooth. Highly recommend them if you want it done right."</p><div class="reviewer">Kenneth R. <span>· Google Review</span></div></div>
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Not only are they BBB Accredited, they are trustworthy, honest, reliable and efficient. After using other handyman services, a huge weight has been lifted now that I've discovered B&D."</p><div class="reviewer">Deborah S. <span>· Google Review</span></div></div>
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"I contacted them one day and they were able to come out the next day and fix my dryer venting. They were friendly and professional and made sure everything was cleaned up before they left."</p><div class="reviewer">Lisa A. <span>· Google Review</span></div></div>
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"Outstanding and professional services provided by Bear and Donna. The repair team was efficient and responsive to my last minute requests. I highly recommend their services."</p><div class="reviewer">Brenda K. <span>· Google Review</span></div></div>
-            <div class="review-card"><div class="stars">★★★★★</div><p class="review-text">"The services provided by Bear and Donna was unmatched! They were swift and efficient, committed to completing the work rather than using life's hiccups as a reason to pack up and go."</p><div class="reviewer">Melissa F. <span>· Google Review</span></div></div>
-        </div>
-    </section>
-
-    <div class="contact-section" id="contact">
-        <div class="contact-inner">
-            <div class="section-label">Get In Touch</div>
-            <h2 class="section-title">Ready to Get Started?</h2>
-            <p style="color: var(--gray); margin-bottom: 8px;">Call Bear directly — fast response, fair price, no overtime.</p>
-            <a href="tel:7573779689" class="contact-phone">(757) 377-9689</a>
-            <a href="mailto:banddhandymanservices@gmail.com" class="contact-email">banddhandymanservices@gmail.com</a>
-            <a href="tel:7573779689" class="btn-primary" style="font-size: 1.2rem; padding: 18px 48px;">CALL NOW</a>
-            <div class="contact-details">
-                <div class="contact-detail"><div class="label">Location</div><div class="value">Chesapeake & Virginia Beach, VA</div></div>
-                <div class="contact-detail"><div class="label">Hours</div><div class="value">Open 24 Hours · 7 Days</div></div>
-                <div class="contact-detail"><div class="label">Discounts</div><div class="value">Military & Elderly</div></div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;Bear and Donna are a great team to have on standby. Bear is quick to answer the phone, usually has availability to come out quickly, and gets the job done right at an affordable price. From electrical to framing to all the odds and ends, they will get it done!&rdquo;</p>
+                <div class="reviewer">Dillon K. <span>&middot; Google Review</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;Bear, Donna, and Billy really knocked it out of the park on my garage overhead storage install. Super professional, solid work, and everything is secure and smooth. Highly recommend them if you want it done right.&rdquo;</p>
+                <div class="reviewer">Kenneth R. <span>&middot; Google Review</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;Not only are they BBB Accredited, they are trustworthy, honest, reliable and efficient. After using other handyman services, a huge weight has been lifted now that I&rsquo;ve discovered B&amp;D.&rdquo;</p>
+                <div class="reviewer">Deborah S. <span>&middot; Google Review</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;I contacted them one day and they were able to come out the next day and fix my dryer venting. Very friendly and professional &mdash; made sure everything was cleaned up before they left.&rdquo;</p>
+                <div class="reviewer">Lisa A. <span>&middot; Google Review</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;Outstanding and professional services provided by Bear and Donna. Efficient and responsive to my last minute requests. I highly recommend their services.&rdquo;</p>
+                <div class="reviewer">Brenda K. <span>&middot; Google Review</span></div>
+            </div>
+            <div class="review-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="review-text">&ldquo;The services provided by Bear and Donna was unmatched! Swift and efficient &mdash; committed to completing the work no matter what. They got it done right.&rdquo;</p>
+                <div class="reviewer">Melissa F. <span>&middot; Google Review</span></div>
             </div>
         </div>
     </div>
 
+    <!-- CONTACT -->
+    <div class="contact-band">
+        <div class="section-tag">Contact Us</div>
+        <h2 class="section-title">Ready to Get Started?</h2>
+        <p>Call Bear directly &mdash; fast response, fair price, no overtime charges ever.</p>
+        <a href="tel:7573779689" class="big-phone">(757) 377-9689</a>
+        <a href="mailto:banddhandymanservices@gmail.com" class="contact-email-link">banddhandymanservices@gmail.com</a>
+        <a href="tel:7573779689" class="btn-yellow" style="font-size: 1.05rem; padding: 16px 40px;">Call Now</a>
+        <div class="contact-chips">
+            <span class="chip">&#128205; Chesapeake & Virginia Beach, VA</span>
+            <span class="chip">&#128336; Open 24 Hours &middot; 7 Days a Week</span>
+            <span class="chip">&#127894; Military & Elderly Discounts</span>
+            <span class="chip">&#10003; BBB Accredited</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 <span>B & D Handyman Services</span> · Chesapeake & Virginia Beach, VA · (757) 377-9689 · BBB Accredited</p>
+        <p>&copy; 2026 <strong>B & D Handyman Services</strong> &nbsp;&middot;&nbsp; Chesapeake & Virginia Beach, VA &nbsp;&middot;&nbsp; (757) 377-9689 &nbsp;&middot;&nbsp; BBB Accredited</p>
     </footer>
 
 </body>
