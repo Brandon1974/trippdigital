@@ -15,6 +15,7 @@ This file is the source of truth for how this repository is organized and how Cl
 | **Main site** | trippdigital.com |
 | **Deploy** | Netlify, GitHub: `Brandon1974/trippdigital` |
 | **Facebook Group** | "Make Money From Home — Tripp Digital Community" |
+| **Twitter/X** | @benroyal578 |
 
 **What Tripp Digital does:**
 - Sells digital products (PDFs, templates, courses) on Payhip, Gumroad, Etsy, Whop
