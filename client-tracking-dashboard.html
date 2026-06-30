@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Client Tracking Dashboard — Manage clients, track projects, follow up on invoices, and close more business. From Tripp Digital.">
+    <meta property="og:title" content="Client Tracking Dashboard — Tripp Digital">
+    <meta property="og:description" content="Manage every client, project, and invoice in one powerful dashboard. Never let a lead fall through the cracks again.">
+    <meta property="og:image" content="https://trippdigital.com/images/products/client-tracking-dashboard-poster.jpg">
+    <meta property="og:url" content="https://trippdigital.com/client-tracking-dashboard.html">
+    <title>Client Tracking Dashboard — Tripp Digital</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Product Page Variables — Navy/Gold ── */
+        :root {
+            --pd-bg: #0f1f3d;
+            --pd-bg2: #1B3A6B;
+            --pd-bg3: #0a1628;
+            --pd-accent: #F5A623;
+            --pd-accent-dark: #d4901e;
+            --pd-text: #ffffff;
+            --pd-muted: #a8bed6;
+            --pd-border: #2a4a7f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; }
+
+        /* ── Nav ── */
+        .pd-nav {
+            background: rgba(10,22,40,0.97);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--pd-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 40px;
+        }
+        .pd-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; }
+        .pd-logo span:first-child { color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo span:last-child { color: var(--pd-accent); font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-back { color: var(--pd-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+
+        /* ── Hero ── */
+        .pd-hero {
+            background: linear-gradient(140deg, #0a1628 0%, #1B3A6B 100%);
+            border-bottom: 1px solid var(--pd-border);
+            padding: 72px 40px 64px;
+        }
+        .pd-hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .pd-label {
+            display: inline-block;
+            background: var(--pd-accent);
+            color: #0a1628;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            padding: 4px 12px;
+            margin-bottom: 20px;
+        }
+        .pd-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.05;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .pd-title .accent { color: var(--pd-accent); }
+        .pd-tagline {
+            font-size: 1.1rem;
+            color: var(--pd-muted);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+        .pd-price-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .pd-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: var(--pd-accent);
+        }
+        .pd-price-note { color: var(--pd-muted); font-size: 0.85rem; }
+        .pd-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+        .pd-btn-primary {
+            background: var(--pd-accent);
+            color: #0a1628;
+            border: none;
+            padding: 14px 32px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .pd-btn-primary:hover { background: var(--pd-accent-dark); }
+        .pd-btn-secondary {
+            color: var(--pd-text);
+            border: 2px solid var(--pd-border);
+            padding: 14px 28px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .pd-btn-secondary:hover { border-color: var(--pd-accent); color: var(--pd-accent); }
+
+        /* Hero right — client list mockup */
+        .pd-mockup {
+            background: rgba(10,22,40,0.8);
+            border: 1px solid var(--pd-border);
+            border-top: 3px solid var(--pd-accent);
+            border-radius: 4px;
+            padding: 24px;
+        }
+        .pd-mockup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--pd-border);
+        }
+        .pd-mockup-title { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 2px; color: var(--pd-accent); }
+        .pd-mockup-count { font-size: 0.75rem; color: var(--pd-muted); }
+        .pd-client-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(42,74,127,0.5);
+        }
+        .pd-client-row:last-child { border-bottom: none; }
+        .pd-client-name { font-size: 0.85rem; font-weight: 600; }
+        .pd-client-meta { font-size: 0.72rem; color: var(--pd-muted); margin-top: 2px; }
+        .pd-status-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 3px 8px;
+            border-radius: 2px;
+        }
+        .pd-status-active { background: rgba(245,166,35,0.15); color: var(--pd-accent); }
+        .pd-status-paid { background: rgba(40,200,65,0.15); color: #28c840; }
+        .pd-status-pending { background: rgba(255,95,87,0.15); color: #ff5f57; }
+
+        /* ── Features ── */
+        .pd-features {
+            padding: 72px 40px;
+            background: var(--pd-bg3);
+            border-bottom: 1px solid var(--pd-border);
+        }
+        .pd-section-header { text-align: center; margin-bottom: 48px; }
+        .pd-section-label {
+            display: inline-block;
+            color: var(--pd-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+        .pd-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+        }
+        .pd-features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .pd-feature-card {
+            background: var(--pd-bg2);
+            border: 1px solid var(--pd-border);
+            border-top: 2px solid var(--pd-accent);
+            padding: 32px 28px;
+        }
+        .pd-feature-icon { font-size: 2rem; margin-bottom: 16px; }
+        .pd-feature-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 10px; }
+        .pd-feature-text { font-size: 0.9rem; color: var(--pd-muted); line-height: 1.65; }
+
+        /* ── Video Section ── */
+        .pd-video-section {
+            padding: 80px 40px;
+            background: var(--pd-bg);
+            border-bottom: 1px solid var(--pd-border);
+        }
+        .pd-video-inner { max-width: 900px; margin: 0 auto; }
+        .pd-video-inner .pd-section-header { margin-bottom: 36px; }
+        .pd-video-desc { text-align: center; color: var(--pd-muted); font-size: 1rem; line-height: 1.6; max-width: 620px; margin: 0 auto 40px; }
+        .pd-video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid var(--pd-accent);
+            box-shadow: 0 0 40px rgba(245,166,35,0.12);
+        }
+        .pd-video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+        .pd-video-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.82rem;
+            color: var(--pd-muted);
+        }
+
+        /* ── Bottom CTA ── */
+        .pd-bottom-cta {
+            padding: 80px 40px;
+            background: linear-gradient(140deg, #0a1628 0%, #1B3A6B 100%);
+            text-align: center;
+            border-bottom: 4px solid var(--pd-accent);
+        }
+        .pd-bottom-cta .pd-section-title { margin-bottom: 16px; }
+        .pd-bottom-cta p { color: var(--pd-muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.6; }
+        .pd-cta-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--pd-accent); margin-bottom: 28px; }
+        .pd-guarantee {
+            margin-top: 24px;
+            font-size: 0.82rem;
+            color: var(--pd-muted);
+        }
+        .pd-guarantee span { color: var(--pd-accent); }
+
+        /* ── Footer ── */
+        .pd-footer {
+            background: #000;
+            border-top: 1px solid var(--pd-border);
+            padding: 28px 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--pd-muted);
+        }
+        .pd-footer a { color: var(--pd-accent); text-decoration: none; margin: 0 8px; }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-mockup { display: none; }
+            .pd-title { font-size: 2.2rem; }
+            .pd-features-grid { grid-template-columns: 1fr; }
+            .pd-hero, .pd-features, .pd-video-section, .pd-bottom-cta { padding-left: 20px; padding-right: 20px; }
+            .pd-nav { padding: 0 20px; }
+        }
+        @media (max-width: 480px) {
+            .pd-cta-row { flex-direction: column; }
+            .pd-btn-primary, .pd-btn-secondary { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">
+                <span>TRIPP</span><span>DIGITAL</span>
+            </a>
+            <a href="/#products" class="pd-back">← Back to Products</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">DIGITAL PRODUCT</div>
+                <h1 class="pd-title">
+                    CLIENT TRACKING<br>
+                    <span class="accent">DASHBOARD</span>
+                </h1>
+                <p class="pd-tagline">
+                    Stop losing clients in your inbox. This done-for-you dashboard tracks every client, project status, invoice, and follow-up date — so you always know exactly what's happening in your business.
+                </p>
+                <div class="pd-price-row">
+                    <div class="pd-price">$17.00</div>
+                    <div class="pd-price-note">One-time purchase<br>Instant download</div>
+                </div>
+                <div class="pd-cta-row">
+                    <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer" class="pd-btn-primary">GET INSTANT ACCESS →</a>
+                    <a href="#video-demo" class="pd-btn-secondary">WATCH DEMO ▶</a>
+                </div>
+            </div>
+            <div class="pd-mockup">
+                <div class="pd-mockup-header">
+                    <div class="pd-mockup-title">CLIENT TRACKER</div>
+                    <div class="pd-mockup-count">8 Active Clients</div>
+                </div>
+                <div class="pd-client-row">
+                    <div>
+                        <div class="pd-client-name">Johnson Landscaping</div>
+                        <div class="pd-client-meta">Website Redesign · Due Aug 15</div>
+                    </div>
+                    <div class="pd-status-badge pd-status-active">IN PROGRESS</div>
+                </div>
+                <div class="pd-client-row">
+                    <div>
+                        <div class="pd-client-name">Rivera Auto Shop</div>
+                        <div class="pd-client-meta">Monthly Mgmt · Invoice $97</div>
+                    </div>
+                    <div class="pd-status-badge pd-status-paid">PAID</div>
+                </div>
+                <div class="pd-client-row">
+                    <div>
+                        <div class="pd-client-name">Mitchell Catering</div>
+                        <div class="pd-client-meta">New Site · Follow up today</div>
+                    </div>
+                    <div class="pd-status-badge pd-status-pending">FOLLOW UP</div>
+                </div>
+                <div class="pd-client-row">
+                    <div>
+                        <div class="pd-client-name">Thompson Plumbing</div>
+                        <div class="pd-client-meta">Monthly Mgmt · Invoice $97</div>
+                    </div>
+                    <div class="pd-status-badge pd-status-paid">PAID</div>
+                </div>
+                <div class="pd-client-row">
+                    <div>
+                        <div class="pd-client-name">B&amp;D Handyman</div>
+                        <div class="pd-client-meta">New Site · Proposal sent</div>
+                    </div>
+                    <div class="pd-status-badge pd-status-active">PROPOSAL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="pd-features">
+        <div class="pd-section-header">
+            <div class="pd-section-label">WHAT YOU GET</div>
+            <h2 class="pd-section-title">Your Entire Business In One Sheet</h2>
+        </div>
+        <div class="pd-features-grid">
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">👤</div>
+                <div class="pd-feature-title">Client Database</div>
+                <p class="pd-feature-text">Store every client's name, contact info, service type, start date, and contract value in one organized sheet. Find any client in seconds.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">📋</div>
+                <div class="pd-feature-title">Project Status Board</div>
+                <p class="pd-feature-text">Track every project from proposal to completed with color-coded status labels: Proposal, In Progress, Review, Completed, and Paid.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">💰</div>
+                <div class="pd-feature-title">Invoice Tracker</div>
+                <p class="pd-feature-text">Log every invoice, payment due date, and payment received. Auto-totals show your monthly revenue at a glance so you always know your numbers.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">🔔</div>
+                <div class="pd-feature-title">Follow-Up Reminders</div>
+                <p class="pd-feature-text">Never lose a lead again. The follow-up column flags overdue outreach in red so you always know which prospect needs a call today.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">📊</div>
+                <div class="pd-feature-title">Revenue Dashboard</div>
+                <p class="pd-feature-text">Auto-calculated monthly revenue summary, average project value, and client retention rate — so you know exactly where your business stands.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">⚡</div>
+                <div class="pd-feature-title">Works in Google Sheets</div>
+                <p class="pd-feature-text">No software to install. Open in Google Sheets or Excel and you're ready to go in 5 minutes. Completely customizable to fit your business.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO DEMO -->
+    <section class="pd-video-section" id="video-demo">
+        <div class="pd-video-inner">
+            <div class="pd-section-header">
+                <div class="pd-section-label">TUTORIAL VIDEO</div>
+                <h2 class="pd-section-title">Watch It In Action</h2>
+            </div>
+            <p class="pd-video-desc">See exactly how to set up your Client Tracking Dashboard in under 10 minutes — from adding your first client to reading your monthly revenue summary.</p>
+            <div class="pd-video-wrapper">
+                <video
+                    controls
+                    preload="metadata"
+                    poster="images/products/client-tracking-dashboard-poster.jpg"
+                    aria-label="Client Tracking Dashboard tutorial walkthrough"
+                >
+                    <source src="videos/client-tracking-dashboard-demo.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video. <a href="https://payhip.com/Tinytripp" style="color:#F5A623">Get the product on Payhip →</a>
+                </video>
+            </div>
+            <p class="pd-video-note">Full tutorial included with purchase on Payhip · No subscription required</p>
+        </div>
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="pd-bottom-cta">
+        <div class="pd-section-label">READY TO GET ORGANIZED?</div>
+        <h2 class="pd-section-title">Get the Client Tracking Dashboard Today</h2>
+        <p>Instant download after purchase. Works in Google Sheets and Excel. Set up in under 10 minutes.</p>
+        <div class="pd-cta-price">$17.00</div>
+        <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer" class="pd-btn-primary" style="font-size:1.2rem;padding:18px 48px;">
+            BUY NOW — INSTANT DOWNLOAD →
+        </a>
+        <p class="pd-guarantee">
+            Sold on <span>payhip.com/Tinytripp</span> · Secure checkout · Instant delivery
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pd-footer">
+        <p>
+            &copy; 2026 Tripp Digital · Virginia Beach, VA ·
+            <a href="/">trippdigital.com</a> ·
+            <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer">payhip.com/Tinytripp</a> ·
+            <a href="/privacy.html">Privacy</a> ·
+            <a href="/terms.html">Terms</a>
+        </p>
+    </footer>
+
+</body>
+</html>

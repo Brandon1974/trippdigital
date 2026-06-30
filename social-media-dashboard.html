@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Social Media Dashboard — Track all your platforms, schedule content, and monitor growth from one powerful spreadsheet. From Tripp Digital.">
+    <meta property="og:title" content="Social Media Dashboard — Tripp Digital">
+    <meta property="og:description" content="Track all your social media, schedule content, and monitor your growth — all in one dashboard.">
+    <meta property="og:image" content="https://trippdigital.com/images/products/social-media-dashboard-poster.jpg">
+    <meta property="og:url" content="https://trippdigital.com/social-media-dashboard.html">
+    <title>Social Media Dashboard — Tripp Digital</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Product Page Variables ── */
+        :root {
+            --pd-bg: #0a0a0a;
+            --pd-bg2: #141414;
+            --pd-accent: #FF6B00;
+            --pd-accent-dark: #e55a00;
+            --pd-text: #ffffff;
+            --pd-muted: #b0b0b0;
+            --pd-border: #222222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; }
+
+        /* ── Nav ── */
+        .pd-nav {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--pd-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0 40px;
+        }
+        .pd-nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; }
+        .pd-logo span:first-child { color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo span:last-child { color: var(--pd-accent); font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-back { color: var(--pd-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+
+        /* ── Hero ── */
+        .pd-hero {
+            background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%);
+            border-bottom: 1px solid var(--pd-border);
+            padding: 72px 40px 64px;
+        }
+        .pd-hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .pd-label {
+            display: inline-block;
+            background: var(--pd-accent);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            padding: 4px 12px;
+            margin-bottom: 20px;
+        }
+        .pd-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3.2rem;
+            line-height: 1.05;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        .pd-title .accent { color: var(--pd-accent); }
+        .pd-tagline {
+            font-size: 1.1rem;
+            color: var(--pd-muted);
+            line-height: 1.6;
+            margin-bottom: 32px;
+            max-width: 480px;
+        }
+        .pd-price-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .pd-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.8rem;
+            color: var(--pd-accent);
+        }
+        .pd-price-note { color: var(--pd-muted); font-size: 0.85rem; }
+        .pd-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+        .pd-btn-primary {
+            background: var(--pd-accent);
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .pd-btn-primary:hover { background: var(--pd-accent-dark); }
+        .pd-btn-secondary {
+            color: var(--pd-text);
+            border: 2px solid var(--pd-border);
+            padding: 14px 28px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: inline-block;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .pd-btn-secondary:hover { border-color: var(--pd-accent); color: var(--pd-accent); }
+
+        /* Hero right — mockup box */
+        .pd-mockup {
+            background: var(--pd-bg2);
+            border: 1px solid var(--pd-border);
+            border-top: 3px solid var(--pd-accent);
+            border-radius: 4px;
+            padding: 28px;
+        }
+        .pd-mockup-bar { display: flex; gap: 6px; margin-bottom: 18px; }
+        .pd-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--pd-border); }
+        .pd-dot:first-child { background: #ff5f57; }
+        .pd-dot:nth-child(2) { background: #febc2e; }
+        .pd-dot:nth-child(3) { background: #28c840; }
+        .pd-stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+        .pd-stat {
+            background: #0a0a0a;
+            border: 1px solid var(--pd-border);
+            padding: 14px;
+            text-align: center;
+        }
+        .pd-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--pd-accent); }
+        .pd-stat-lbl { font-size: 0.7rem; color: var(--pd-muted); letter-spacing: 1px; }
+        .pd-bar-row { margin-top: 14px; }
+        .pd-bar-label { font-size: 0.72rem; color: var(--pd-muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .pd-bar-track { background: var(--pd-border); height: 6px; border-radius: 3px; margin-bottom: 10px; }
+        .pd-bar-fill { height: 100%; border-radius: 3px; background: var(--pd-accent); }
+
+        /* ── Features ── */
+        .pd-features {
+            padding: 72px 40px;
+            background: var(--pd-bg);
+            border-bottom: 1px solid var(--pd-border);
+        }
+        .pd-section-header { text-align: center; margin-bottom: 48px; }
+        .pd-section-label {
+            display: inline-block;
+            color: var(--pd-accent);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 12px;
+        }
+        .pd-section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+        }
+        .pd-features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .pd-feature-card {
+            background: var(--pd-bg2);
+            border: 1px solid var(--pd-border);
+            border-top: 2px solid var(--pd-accent);
+            padding: 32px 28px;
+        }
+        .pd-feature-icon { font-size: 2rem; margin-bottom: 16px; }
+        .pd-feature-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 1px; margin-bottom: 10px; }
+        .pd-feature-text { font-size: 0.9rem; color: var(--pd-muted); line-height: 1.65; }
+
+        /* ── Video Section ── */
+        .pd-video-section {
+            padding: 80px 40px;
+            background: var(--pd-bg2);
+            border-bottom: 1px solid var(--pd-border);
+        }
+        .pd-video-inner { max-width: 900px; margin: 0 auto; }
+        .pd-video-inner .pd-section-header { margin-bottom: 36px; }
+        .pd-video-desc { text-align: center; color: var(--pd-muted); font-size: 1rem; line-height: 1.6; max-width: 620px; margin: 0 auto 40px; }
+        .pd-video-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid var(--pd-accent);
+            box-shadow: 0 0 40px rgba(255,107,0,0.15);
+        }
+        .pd-video-wrapper video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+        .pd-video-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.82rem;
+            color: var(--pd-muted);
+        }
+
+        /* ── Bottom CTA ── */
+        .pd-bottom-cta {
+            padding: 80px 40px;
+            background: var(--pd-bg);
+            text-align: center;
+        }
+        .pd-bottom-cta .pd-section-title { margin-bottom: 16px; }
+        .pd-bottom-cta p { color: var(--pd-muted); max-width: 500px; margin: 0 auto 36px; line-height: 1.6; }
+        .pd-cta-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--pd-accent); margin-bottom: 28px; }
+        .pd-guarantee {
+            margin-top: 24px;
+            font-size: 0.82rem;
+            color: var(--pd-muted);
+        }
+        .pd-guarantee span { color: var(--pd-accent); }
+
+        /* ── Footer ── */
+        .pd-footer {
+            background: #000;
+            border-top: 1px solid var(--pd-border);
+            padding: 28px 40px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--pd-muted);
+        }
+        .pd-footer a { color: var(--pd-accent); text-decoration: none; margin: 0 8px; }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-mockup { display: none; }
+            .pd-title { font-size: 2.2rem; }
+            .pd-features-grid { grid-template-columns: 1fr; }
+            .pd-hero, .pd-features, .pd-video-section, .pd-bottom-cta { padding-left: 20px; padding-right: 20px; }
+            .pd-nav { padding: 0 20px; }
+        }
+        @media (max-width: 480px) {
+            .pd-cta-row { flex-direction: column; }
+            .pd-btn-primary, .pd-btn-secondary { text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">
+                <span>TRIPP</span><span>DIGITAL</span>
+            </a>
+            <a href="/#products" class="pd-back">← Back to Products</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">DIGITAL PRODUCT</div>
+                <h1 class="pd-title">
+                    SOCIAL MEDIA<br>
+                    <span class="accent">DASHBOARD</span>
+                </h1>
+                <p class="pd-tagline">
+                    Stop guessing. Start growing. This done-for-you dashboard tracks all your platforms, schedules your content calendar, and shows you exactly what's working — in one simple spreadsheet.
+                </p>
+                <div class="pd-price-row">
+                    <div class="pd-price">$17.00</div>
+                    <div class="pd-price-note">One-time purchase<br>Instant download</div>
+                </div>
+                <div class="pd-cta-row">
+                    <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer" class="pd-btn-primary">GET INSTANT ACCESS →</a>
+                    <a href="#video-demo" class="pd-btn-secondary">WATCH DEMO ▶</a>
+                </div>
+            </div>
+            <div class="pd-mockup">
+                <div class="pd-mockup-bar">
+                    <div class="pd-dot"></div>
+                    <div class="pd-dot"></div>
+                    <div class="pd-dot"></div>
+                </div>
+                <div class="pd-stat-row">
+                    <div class="pd-stat">
+                        <div class="pd-stat-num">1,247</div>
+                        <div class="pd-stat-lbl">FOLLOWERS</div>
+                    </div>
+                    <div class="pd-stat">
+                        <div class="pd-stat-num">89%</div>
+                        <div class="pd-stat-lbl">ENGAGEMENT</div>
+                    </div>
+                    <div class="pd-stat">
+                        <div class="pd-stat-num">34</div>
+                        <div class="pd-stat-lbl">POSTS/MO</div>
+                    </div>
+                    <div class="pd-stat">
+                        <div class="pd-stat-num">4.2K</div>
+                        <div class="pd-stat-lbl">REACH</div>
+                    </div>
+                </div>
+                <div class="pd-bar-row">
+                    <div class="pd-bar-label"><span>Instagram</span><span>78%</span></div>
+                    <div class="pd-bar-track"><div class="pd-bar-fill" style="width:78%"></div></div>
+                    <div class="pd-bar-label"><span>Facebook</span><span>62%</span></div>
+                    <div class="pd-bar-track"><div class="pd-bar-fill" style="width:62%"></div></div>
+                    <div class="pd-bar-label"><span>TikTok</span><span>91%</span></div>
+                    <div class="pd-bar-track"><div class="pd-bar-fill" style="width:91%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="pd-features">
+        <div class="pd-section-header">
+            <div class="pd-section-label">WHAT YOU GET</div>
+            <h2 class="pd-section-title">Everything In One Dashboard</h2>
+        </div>
+        <div class="pd-features-grid">
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">📊</div>
+                <div class="pd-feature-title">Platform Tracker</div>
+                <p class="pd-feature-text">Track follower counts, engagement rates, and growth week-over-week across Instagram, Facebook, TikTok, YouTube, and Twitter — all in one view.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">📅</div>
+                <div class="pd-feature-title">Content Calendar</div>
+                <p class="pd-feature-text">Plan and schedule 30 days of content at a glance. Never run out of ideas — the dashboard includes a content theme planner and posting schedule grid.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">📈</div>
+                <div class="pd-feature-title">Growth Analytics</div>
+                <p class="pd-feature-text">Auto-calculating charts show you which content performs best, what time of day gets the most reach, and where to focus your energy for maximum growth.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">🎯</div>
+                <div class="pd-feature-title">Goal Setting</div>
+                <p class="pd-feature-text">Set monthly targets for followers, reach, and engagement. The dashboard tracks your progress and shows you how close you are to hitting your goals.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">💡</div>
+                <div class="pd-feature-title">Content Ideas Tab</div>
+                <p class="pd-feature-text">Built-in swipe file with 50+ content ideas organized by niche. Never stare at a blank screen again — pull from the idea bank and post with confidence.</p>
+            </div>
+            <div class="pd-feature-card">
+                <div class="pd-feature-icon">⚡</div>
+                <div class="pd-feature-title">Plug-and-Play Setup</div>
+                <p class="pd-feature-text">No formulas to build. No design experience needed. Open the spreadsheet, add your numbers, and the dashboard does everything else automatically.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEO DEMO -->
+    <section class="pd-video-section" id="video-demo">
+        <div class="pd-video-inner">
+            <div class="pd-section-header">
+                <div class="pd-section-label">TUTORIAL VIDEO</div>
+                <h2 class="pd-section-title">Watch It In Action</h2>
+            </div>
+            <p class="pd-video-desc">See exactly how to set up your Social Media Dashboard in under 10 minutes — from entering your first numbers to reading your growth charts.</p>
+            <div class="pd-video-wrapper">
+                <video
+                    controls
+                    preload="metadata"
+                    poster="images/products/social-media-dashboard-poster.jpg"
+                    aria-label="Social Media Dashboard tutorial walkthrough"
+                >
+                    <source src="videos/social-media-dashboard-demo.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video. <a href="https://payhip.com/Tinytripp" style="color:#FF6B00">Get the product on Payhip →</a>
+                </video>
+            </div>
+            <p class="pd-video-note">Full tutorial included with purchase on Payhip · No subscription required</p>
+        </div>
+    </section>
+
+    <!-- BOTTOM CTA -->
+    <section class="pd-bottom-cta">
+        <div class="pd-section-label">READY TO GROW?</div>
+        <h2 class="pd-section-title">Get the Social Media Dashboard Today</h2>
+        <p>Instant download after purchase. Works in Google Sheets and Excel. No design skills needed.</p>
+        <div class="pd-cta-price">$17.00</div>
+        <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer" class="pd-btn-primary" style="font-size:1.2rem;padding:18px 48px;">
+            BUY NOW — INSTANT DOWNLOAD →
+        </a>
+        <p class="pd-guarantee">
+            Sold on <span>payhip.com/Tinytripp</span> · Secure checkout · Instant delivery
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="pd-footer">
+        <p>
+            &copy; 2026 Tripp Digital · Virginia Beach, VA ·
+            <a href="/">trippdigital.com</a> ·
+            <a href="https://payhip.com/Tinytripp" target="_blank" rel="noopener noreferrer">payhip.com/Tinytripp</a> ·
+            <a href="/privacy.html">Privacy</a> ·
+            <a href="/terms.html">Terms</a>
+        </p>
+    </footer>
+
+</body>
+</html>
