@@ -27,26 +27,34 @@ exports.handler = async (event, context) => {
       };
     }
 
-    const store = getStore('subscribers');
+    const clean = email.toLowerCase().trim();
+    const timestamp = new Date().toISOString();
 
-    let list = [];
+    // Store in Netlify Blobs — wrapped so a storage failure never surfaces as a user error
+    let alreadySubscribed = false;
     try {
+      const store = getStore('subscribers');
+      let list = [];
       const raw = await store.get('list');
       if (raw) list = JSON.parse(raw);
-    } catch (_) {}
 
-    const clean = email.toLowerCase().trim();
-    if (list.some(s => s.email === clean)) {
+      if (list.some(s => s.email === clean)) {
+        alreadySubscribed = true;
+      } else {
+        list.push({ email: clean, source: source || 'newsletter', date: timestamp });
+        await store.set('list', JSON.stringify(list));
+      }
+    } catch (blobsErr) {
+      console.error('Blobs storage unavailable — email captured via notification only:', blobsErr.message);
+    }
+
+    if (alreadySubscribed) {
       return {
         statusCode: 200,
         headers,
         body: JSON.stringify({ success: true, message: "You're already on the list!" }),
       };
     }
-
-    const timestamp = new Date().toISOString();
-    list.push({ email: clean, source: source || 'newsletter', date: timestamp });
-    await store.set('list', JSON.stringify(list));
 
     // Notify owner — non-blocking so a mail failure never breaks the user response
     if (process.env.GMAIL_USER && process.env.GMAIL_PASS) {
@@ -65,7 +73,7 @@ exports.handler = async (event, context) => {
           text: `New email captured: ${clean}\nTime: ${timestamp}\nSource: trippdigital.com`,
         });
       } catch (mailErr) {
-        console.error('Notification email failed:', mailErr);
+        console.error('Notification email failed:', mailErr.message);
       }
     }
 
