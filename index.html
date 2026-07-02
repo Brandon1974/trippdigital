@@ -69,8 +69,8 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="nav-icons">
-                <a href="#search" class="icon">🔍</a>
-                <a href="#account" class="icon">👤</a>
+                <a href="#search" class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></a>
+                <a href="#account" class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
             </div>
         </div>
     </nav>
@@ -94,19 +94,39 @@
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="product-showcase">
-                    <div class="showcase-card card-1">
-                        <div class="card-content">
-                            <h3>WEBSITES</h3>
-                            <p class="price">$97-$297</p>
-                            <p>/month</p>
+                <div class="browser-mockup">
+                    <div class="mockup-chip chip-tr">MINI APPS FROM $12</div>
+                    <div class="mockup-chip chip-bl">WEBSITES $97/MO</div>
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="b-dot b-dot-1"></span>
+                            <span class="b-dot b-dot-2"></span>
+                            <span class="b-dot b-dot-3"></span>
+                            <span class="b-url">trippdigital.com/dashboard</span>
                         </div>
-                    </div>
-                    <div class="showcase-card card-2">
-                        <div class="card-content">
-                            <h3>DIGITAL</h3>
-                            <p class="price">$12-$47</p>
-                            <p>PRODUCTS</p>
+                        <div class="browser-body">
+                            <div class="mini-sidebar">
+                                <div class="mini-logo"></div>
+                                <div class="mini-pill active"></div>
+                                <div class="mini-pill"></div>
+                                <div class="mini-pill"></div>
+                                <div class="mini-pill"></div>
+                            </div>
+                            <div class="mini-main">
+                                <div class="mini-stats">
+                                    <div class="mini-stat"><div class="mini-stat-num">2.4K</div><div class="mini-stat-lbl">FOLLOWERS</div></div>
+                                    <div class="mini-stat"><div class="mini-stat-num">318</div><div class="mini-stat-lbl">LEADS</div></div>
+                                    <div class="mini-stat"><div class="mini-stat-num">$4.2K</div><div class="mini-stat-lbl">REVENUE</div></div>
+                                </div>
+                                <div class="mini-chart">
+                                    <div class="mini-bar" style="--h:55%"></div>
+                                    <div class="mini-bar" style="--h:72%"></div>
+                                    <div class="mini-bar" style="--h:44%"></div>
+                                    <div class="mini-bar" style="--h:88%"></div>
+                                    <div class="mini-bar" style="--h:63%"></div>
+                                    <div class="mini-bar" style="--h:91%"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,28 +136,28 @@
         <!-- FEATURE ICONS -->
         <div class="features">
             <div class="feature-item">
-                <div class="feature-icon">⚡</div>
+                <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
                 <div class="feature-text">
                     <h4>FAST SETUP</h4>
                     <p>Get online in days, not months</p>
                 </div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon">✓</div>
+                <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
                 <div class="feature-text">
                     <h4>PROVEN RESULTS</h4>
                     <p>Built to convert visitors</p>
                 </div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon">💰</div>
+                <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
                 <div class="feature-text">
                     <h4>AFFORDABLE</h4>
                     <p>No hidden fees or long contracts</p>
                 </div>
             </div>
             <div class="feature-item">
-                <div class="feature-icon">🎯</div>
+                <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
                 <div class="feature-text">
                     <h4>EXPERT SUPPORT</h4>
                     <p>Real people, real solutions</p>
@@ -145,6 +165,16 @@
             </div>
         </div>
     </section>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip">
+        <span class="ts-stars">★★★★★</span>
+        <span class="ts-item">Rated 5 stars by clients</span>
+        <span class="ts-sep"></span>
+        <span class="ts-item">Trusted by Virginia Beach businesses</span>
+        <span class="ts-sep"></span>
+        <span class="ts-item">Sites live in days — not months</span>
+    </div>
 
     <!-- SERVICES SECTION -->
     <section id="services" class="services-section">
@@ -225,9 +255,12 @@
         <div class="payhip-grid">
 
             <article class="payhip-card">
-                <a href="/social-media-dashboard.html" class="cover-link">
-                    <img src="images/products/social-media-dashboard.jpg" alt="Social Media Dashboard" class="product-img">
-                </a>
+                <div class="card-wrap">
+                    <span class="live-demo-badge"><span class="live-dot"></span>LIVE DEMO</span>
+                    <a href="/social-media-dashboard.html" class="cover-link">
+                        <img src="images/products/social-media-dashboard.jpg" alt="Social Media Dashboard" class="product-img">
+                    </a>
+                </div>
                 <div class="payhip-info">
                     <h3>Social Media Dashboard</h3>
                     <div class="payhip-price">$27.00</div>
@@ -236,9 +269,12 @@
             </article>
 
             <article class="payhip-card">
-                <a href="/client-tracking-dashboard.html" class="cover-link">
-                    <img src="images/products/client-tracking-dashboard.jpg" alt="Client Tracking Dashboard" class="product-img">
-                </a>
+                <div class="card-wrap">
+                    <span class="live-demo-badge"><span class="live-dot"></span>LIVE DEMO</span>
+                    <a href="/client-tracking-dashboard.html" class="cover-link">
+                        <img src="images/products/client-tracking-dashboard.jpg" alt="Client Tracking Dashboard" class="product-img">
+                    </a>
+                </div>
                 <div class="payhip-info">
                     <h3>Client Tracking Dashboard</h3>
                     <div class="payhip-price">$37.00</div>
@@ -509,7 +545,7 @@
                     </div>
                     <p class="book-audio-note">Now available on Amazon — get the full audiobook experience</p>
                     <div class="book-actions">
-                        <a href="https://a.co/d/0ah7qoG1" class="btn btn-primary" target="_blank" rel="noopener noreferrer">🎧 LISTEN ON AMAZON</a>
+                        <a href="https://a.co/d/0ah7qoG1" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align:middle;margin-right:6px"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg> LISTEN ON AMAZON</a>
                     </div>
                 </div>
             </div>
@@ -529,7 +565,7 @@
                         <span class="book-genre">Paperback $9.99</span>
                     </div>
                     <div class="book-actions">
-                        <a href="https://a.co/d/00wnxdUz" class="btn btn-primary" target="_blank" rel="noopener noreferrer">🛒 GET ON AMAZON</a>
+                        <a href="https://a.co/d/00wnxdUz" class="btn btn-primary" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align:middle;margin-right:6px"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> GET ON AMAZON</a>
                     </div>
                 </div>
             </div>
@@ -551,7 +587,7 @@
                         <span class="status-badge">Coming Soon</span>
                     </div>
                     <div class="book-actions">
-                        <a href="#" class="btn btn-secondary">🔔 NOTIFY ME</a>
+                        <a href="#" class="btn btn-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="vertical-align:middle;margin-right:6px"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> NOTIFY ME</a>
                     </div>
                 </div>
             </div>
@@ -596,7 +632,7 @@
     <!-- NEWSLETTER SECTION -->
     <section class="newsletter-section">
         <div class="newsletter-content">
-            <div class="newsletter-icon">🎁</div>
+            <div class="newsletter-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
             <div class="newsletter-text">
                 <div class="newsletter-label">EXCLUSIVE RESOURCES</div>
                 <h3>Join Our Community</h3>
@@ -626,9 +662,9 @@
             <h2>Get In Touch</h2>
         </div>
         <div class="contact-content">
-            <p>📧 Email: <a href="mailto:trippdigital1@gmail.com">trippdigital1@gmail.com</a></p>
-            <p>🌐 Website: <a href="https://trippdigital.com">trippdigital.com</a></p>
-            <p>📍 Virginia Beach, VA</p>
+            <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="vertical-align:middle;margin-right:8px;color:var(--color-orange)"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email: <a href="mailto:trippdigital1@gmail.com">trippdigital1@gmail.com</a></p>
+            <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="vertical-align:middle;margin-right:8px;color:var(--color-orange)"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Website: <a href="https://trippdigital.com">trippdigital.com</a></p>
+            <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" style="vertical-align:middle;margin-right:8px;color:var(--color-orange)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Virginia Beach, VA</p>
         </div>
     </section>
 
@@ -642,10 +678,10 @@
                 </div>
                 <p>Professional websites and digital products for growing businesses.</p>
                 <div class="social-links">
-                    <a href="#">📘</a>
-                    <a href="#">🐦</a>
-                    <a href="#">📺</a>
-                    <a href="#">💼</a>
+                    <a href="#" class="social-btn" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="https://twitter.com/benroyal578" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+                    <a href="#" class="social-btn" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+                    <a href="#" class="social-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
                 </div>
             </div>
 
@@ -706,9 +742,21 @@
 
     <!-- CHATBOT TOGGLE BUTTON -->
     <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
-        💬
+        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     </button>
 
+    <script>
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var targets = document.querySelectorAll('.service-card, .payhip-card, .book-card, .testimonial-card, .feature-item, .section-header');
+        var obs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+            });
+        }, { threshold: 0.1 });
+        targets.forEach(function(el) { el.classList.add('reveal'); obs.observe(el); });
+    })();
+    </script>
     <script src="chatbot.js"></script>
     <script src="script.js"></script>
 </body>
