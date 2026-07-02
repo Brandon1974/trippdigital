@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Forge — Tripp Digital AI Website Builder</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6B00;
+      --orange-dim: #cc5500;
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --text: #ffffff;
+      --text-muted: #888;
+      --red: #e53e3e;
+      --green: #38a169;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sf-badge {
+      width: 36px;
+      height: 36px;
+      background: var(--orange);
+      color: #000;
+      font-weight: 900;
+      font-size: 14px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .logo-text p {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      margin-top: 2px;
+    }
+
+    .status-badge {
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid;
+    }
+
+    .status-badge.not-configured {
+      color: var(--red);
+      border-color: var(--red);
+      background: rgba(229,62,62,0.08);
+    }
+
+    .status-badge.ready {
+      color: var(--green);
+      border-color: var(--green);
+      background: rgba(56,161,105,0.08);
+    }
+
+    /* CONFIG BANNER */
+    .config-banner {
+      background: rgba(229,62,62,0.1);
+      border-bottom: 1px solid rgba(229,62,62,0.3);
+      padding: 10px 24px;
+      font-size: 13px;
+      color: #fc8181;
+      display: none;
+    }
+
+    .config-banner.show { display: block; }
+    .config-banner code {
+      background: rgba(229,62,62,0.2);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      font-size: 12px;
+    }
+
+    /* MAIN LAYOUT */
+    main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* LEFT PANEL */
+    .panel-left {
+      width: 380px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--orange);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-label .step-num {
+      width: 18px;
+      height: 18px;
+      background: var(--orange);
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 13px;
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 120px;
+      font-family: inherit;
+      line-height: 1.5;
+      transition: border-color 0.2s;
+    }
+
+    textarea::placeholder { color: var(--text-muted); }
+    textarea:focus { outline: none; border-color: var(--orange); }
+
+    /* IMAGE UPLOAD */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 8px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--surface2);
+      position: relative;
+    }
+
+    .upload-zone:hover, .upload-zone.drag-over {
+      border-color: var(--orange);
+      background: rgba(255,107,0,0.05);
+    }
+
+    .upload-zone input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .upload-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    .upload-zone p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .upload-zone .upload-hint {
+      font-size: 11px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    .image-preview {
+      width: 100%;
+      border-radius: 6px;
+      display: none;
+      position: relative;
+    }
+
+    .image-preview img {
+      width: 100%;
+      border-radius: 6px;
+      max-height: 140px;
+      object-fit: cover;
+    }
+
+    .image-preview .remove-img {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(0,0,0,0.7);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* GENERATE BUTTON */
+    .btn-generate {
+      width: 100%;
+      padding: 13px;
+      background: var(--orange);
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-generate:hover:not(:disabled) { background: #ff8533; }
+    .btn-generate:active:not(:disabled) { transform: scale(0.98); }
+    .btn-generate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0,0,0,0.3);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* RIGHT PANEL */
+    .panel-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .preview-header {
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .preview-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .preview-url {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+      background: var(--surface2);
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    .preview-url a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-deploy {
+      padding: 6px 16px;
+      background: transparent;
+      border: 1px solid var(--orange);
+      color: var(--orange);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: none;
+    }
+
+    .btn-deploy:hover { background: var(--orange); color: #000; }
+    .btn-deploy:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-copy {
+      padding: 6px 16px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: none;
+    }
+
+    .btn-copy:hover { border-color: var(--orange); color: var(--orange); }
+
+    .preview-frame {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    .preview-empty {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+    }
+
+    .preview-empty .bolt {
+      font-size: 48px;
+      opacity: 0.3;
+    }
+
+    .preview-empty p {
+      font-size: 14px;
+      text-align: center;
+      max-width: 280px;
+      line-height: 1.5;
+    }
+
+    .preview-empty p strong { color: var(--text); }
+
+    .preview-loading {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: var(--bg);
+    }
+
+    .preview-loading .big-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    .preview-loading p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .preview-loading .loading-step {
+      font-size: 12px;
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    /* SUCCESS BANNER */
+    .deploy-success {
+      padding: 10px 20px;
+      background: rgba(56,161,105,0.1);
+      border-bottom: 1px solid rgba(56,161,105,0.3);
+      font-size: 13px;
+      color: #68d391;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deploy-success a { color: var(--green); font-weight: 600; }
+    .deploy-success.show { display: flex; }
+
+    @media (max-width: 768px) {
+      body { overflow: auto; }
+      main { flex-direction: column; overflow: visible; }
+      .panel-left { width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+      .panel-right { height: 60vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <div class="sf-badge">SF</div>
+      <div class="logo-text">
+        <h1>SITE FORGE</h1>
+        <p>TRIPP DIGITAL · AI WEBSITE BUILDER</p>
+      </div>
+    </div>
+    <div id="statusBadge" class="status-badge not-configured">Checking...</div>
+  </header>
+
+  <!-- CONFIG BANNER -->
+  <div id="configBanner" class="config-banner">
+    <strong>One-time setup:</strong> Add <code>ANTHROPIC_API_KEY</code> and <code>NETLIFY_AUTH_TOKEN</code> as environment variables in your Netlify site settings (Site configuration → Environment variables), then redeploy.
+  </div>
+
+  <!-- DEPLOY SUCCESS BANNER -->
+  <div id="deploySuccess" class="deploy-success">
+    <span>✓ Site deployed live:</span>
+    <a id="deployUrl" href="#" target="_blank" rel="noopener"></a>
+    <button onclick="copyDeployUrl()" style="background:none;border:none;color:#68d391;cursor:pointer;font-size:12px;">Copy</button>
+  </div>
+
+  <main>
+    <!-- LEFT PANEL -->
+    <div class="panel-left">
+
+      <!-- Step 1: Describe -->
+      <div class="section-card">
+        <div class="section-label">
+          <div class="step-num">1</div>
+          DESCRIBE THE SITE
+        </div>
+        <textarea
+          id="description"
+          placeholder="e.g. A clean, modern one-page website for a handyman business in Virginia Beach. Include a hero section, services list, phone number (757-555-0100), and a contact form."
+          rows="6"
+        ></textarea>
+      </div>
+
+      <!-- Step 2: Image -->
+      <div class="section-card">
+        <div class="section-label">
+          <div class="step-num">2</div>
+          REFERENCE IMAGE <span style="color:var(--text-muted);font-weight:400;font-size:10px;">(OPTIONAL)</span>
+        </div>
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="imageInput" accept="image/*">
+          <div class="upload-icon">📷</div>
+          <p>Tap to upload an image</p>
+          <p class="upload-hint">Google Maps screenshot, logo, or work photo</p>
+        </div>
+        <div class="image-preview" id="imagePreview">
+          <img id="previewImg" src="" alt="Reference">
+          <button class="remove-img" onclick="removeImage()" title="Remove image">✕</button>
+        </div>
+      </div>
+
+      <!-- Generate Button -->
+      <button class="btn-generate" id="generateBtn" onclick="generateSite()">
+        <div class="spinner" id="generateSpinner"></div>
+        <span id="generateLabel">⚡ Generate Website</span>
+      </button>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel-right">
+      <div class="preview-header">
+        <span class="preview-label">Preview</span>
+        <div class="preview-actions">
+          <button class="btn-copy" id="copyBtn" onclick="copyHtml()">Copy HTML</button>
+          <button class="btn-deploy" id="deployBtn" onclick="deploySite()">🚀 Deploy Live</button>
+          <span class="preview-url" id="previewUrl" style="display:none"></span>
+        </div>
+      </div>
+
+      <div class="preview-frame">
+        <!-- Empty state -->
+        <div class="preview-empty" id="emptyState">
+          <div class="bolt">⚡</div>
+          <p>Describe a site on the left and hit <strong>Generate Website</strong> to see it appear here.</p>
+        </div>
+
+        <!-- Loading state -->
+        <div class="preview-loading" id="loadingState">
+          <div class="big-spinner"></div>
+          <p>Building your website...</p>
+          <div class="loading-step" id="loadingStep">Sending request to Claude</div>
+        </div>
+
+        <!-- Preview iframe -->
+        <iframe id="previewFrame" title="Generated Website Preview" style="display:none"></iframe>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let generatedHtml = null;
+    let imageData = null;
+    let deployedUrl = null;
+
+    // Check config status on load
+    async function checkStatus() {
+      try {
+        const res = await fetch('/.netlify/functions/sf-status');
+        const data = await res.json();
+        const badge = document.getElementById('statusBadge');
+        const banner = document.getElementById('configBanner');
+
+        if (data.configured) {
+          badge.textContent = 'Ready';
+          badge.className = 'status-badge ready';
+        } else {
+          badge.textContent = 'Not configured';
+          badge.className = 'status-badge not-configured';
+          banner.classList.add('show');
+        }
+      } catch (e) {
+        // Running locally without functions — hide the banner
+        document.getElementById('statusBadge').textContent = 'Dev mode';
+        document.getElementById('statusBadge').className = 'status-badge';
+      }
+    }
+
+    // Image upload handling
+    const imageInput = document.getElementById('imageInput');
+    const uploadZone = document.getElementById('uploadZone');
+
+    imageInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) loadImage(file);
+    });
+
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('drag-over');
+    });
+
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('drag-over');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) loadImage(file);
+    });
+
+    function loadImage(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = e.target.result;
+        const [header, b64] = dataUrl.split(',');
+        const mimeType = header.match(/:(.*?);/)[1];
+        imageData = { data: b64, mimeType };
+
+        document.getElementById('previewImg').src = dataUrl;
+        document.getElementById('imagePreview').style.display = 'block';
+        document.getElementById('uploadZone').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function removeImage() {
+      imageData = null;
+      imageInput.value = '';
+      document.getElementById('imagePreview').style.display = 'none';
+      document.getElementById('uploadZone').style.display = 'block';
+    }
+
+    // Generate site
+    async function generateSite() {
+      const description = document.getElementById('description').value.trim();
+      if (!description) {
+        document.getElementById('description').focus();
+        return;
+      }
+
+      // UI: loading
+      generatedHtml = null;
+      const btn = document.getElementById('generateBtn');
+      const spinner = document.getElementById('generateSpinner');
+      const label = document.getElementById('generateLabel');
+      btn.disabled = true;
+      spinner.style.display = 'block';
+      label.textContent = 'Generating...';
+
+      document.getElementById('emptyState').style.display = 'none';
+      document.getElementById('previewFrame').style.display = 'none';
+      document.getElementById('loadingState').style.display = 'flex';
+      document.getElementById('deployBtn').style.display = 'none';
+      document.getElementById('copyBtn').style.display = 'none';
+      document.getElementById('deploySuccess').classList.remove('show');
+
+      const steps = [
+        'Sending request to Claude',
+        'Analyzing your description',
+        'Designing layout and structure',
+        'Writing HTML and CSS',
+        'Adding JavaScript interactions',
+        'Finalizing your website'
+      ];
+      let stepIdx = 0;
+      const stepEl = document.getElementById('loadingStep');
+      const stepInterval = setInterval(() => {
+        if (stepIdx < steps.length - 1) stepIdx++;
+        stepEl.textContent = steps[stepIdx];
+      }, 3000);
+
+      try {
+        const res = await fetch('/.netlify/functions/sf-generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ description, image: imageData })
+        });
+
+        clearInterval(stepInterval);
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Generation failed');
+        }
+
+        const data = await res.json();
+        generatedHtml = data.html;
+
+        // Show in iframe
+        const frame = document.getElementById('previewFrame');
+        const blob = new Blob([generatedHtml], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        frame.src = url;
+        frame.style.display = 'block';
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('deployBtn').style.display = 'block';
+        document.getElementById('copyBtn').style.display = 'block';
+
+      } catch (err) {
+        clearInterval(stepInterval);
+        document.getElementById('loadingState').style.display = 'none';
+        document.getElementById('emptyState').style.display = 'flex';
+        document.getElementById('emptyState').querySelector('p').innerHTML =
+          `<strong style="color:#fc8181">Error:</strong> ${err.message}`;
+      } finally {
+        btn.disabled = false;
+        spinner.style.display = 'none';
+        label.textContent = '⚡ Generate Website';
+      }
+    }
+
+    // Deploy site
+    async function deploySite() {
+      if (!generatedHtml) return;
+
+      const btn = document.getElementById('deployBtn');
+      btn.disabled = true;
+      btn.textContent = 'Deploying...';
+
+      try {
+        const res = await fetch('/.netlify/functions/sf-deploy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ html: generatedHtml })
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error || 'Deploy failed');
+        }
+
+        const data = await res.json();
+        deployedUrl = data.url;
+
+        const successEl = document.getElementById('deploySuccess');
+        const urlEl = document.getElementById('deployUrl');
+        urlEl.href = deployedUrl;
+        urlEl.textContent = deployedUrl;
+        successEl.classList.add('show');
+
+        btn.textContent = '✓ Deployed';
+
+      } catch (err) {
+        alert('Deploy error: ' + err.message);
+        btn.disabled = false;
+        btn.textContent = '🚀 Deploy Live';
+      }
+    }
+
+    function copyHtml() {
+      if (!generatedHtml) return;
+      navigator.clipboard.writeText(generatedHtml).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy HTML', 2000);
+      });
+    }
+
+    function copyDeployUrl() {
+      if (!deployedUrl) return;
+      navigator.clipboard.writeText(deployedUrl);
+    }
+
+    checkStatus();
+  </script>
+</body>
+</html>
