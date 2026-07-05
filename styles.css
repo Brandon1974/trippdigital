@@ -848,6 +848,32 @@ section {
     .testimonials-section { padding: 56px 20px; }
 }
 
+@media (max-width: 768px) {
+    .book-card.featured-book {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .featured-book .book-cover {
+        width: 100%;
+        min-width: unset;
+        height: 340px;
+    }
+
+    .featured-book .book-content {
+        text-align: center;
+    }
+
+    .featured-book .book-actions {
+        justify-content: center;
+    }
+
+    .featured-book .book-meta {
+        justify-content: center;
+    }
+}
+
 /* NEWSLETTER SECTION */
 .newsletter-section {
     background-color: var(--color-bg-secondary);
