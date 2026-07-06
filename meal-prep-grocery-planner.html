@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Prep & Grocery Planner — Tripp Digital</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --pd-bg: #0a0a0a; --pd-bg2: #141414; --pd-accent: #FF6B00; --pd-text: #ffffff; --pd-muted: #b0b0b0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .pd-nav { background: rgba(10,10,10,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; padding: 0 40px; }
+        .pd-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo .accent { color: var(--pd-accent); }
+        .pd-back { color: var(--pd-muted); text-decoration: none; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+        .pd-hero { background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%); border-bottom: 1px solid #222; padding: 72px 40px 64px; }
+        .pd-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .pd-label { display: inline-block; background: var(--pd-accent); color: #000; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; padding: 4px 12px; margin-bottom: 20px; }
+        .pd-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1.05; letter-spacing: 1px; margin-bottom: 20px; }
+        .pd-tagline { font-size: 1.1rem; color: var(--pd-muted); margin-bottom: 32px; }
+        .pd-price { font-size: 2.4rem; font-weight: 700; color: var(--pd-accent); margin-bottom: 24px; }
+        .btn { background: var(--pd-accent); color: #000; padding: 14px 32px; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; cursor: pointer; border-radius: 4px; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #e55a00; }
+        .pd-image { width: 100%; border-radius: 8px; }
+        .pd-features { max-width: 1100px; margin: 60px auto; padding: 0 40px; }
+        .pd-features h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .feature-item { background: var(--pd-bg2); padding: 24px; border-radius: 8px; border: 1px solid #222; }
+        .feature-item h3 { color: var(--pd-accent); margin-bottom: 12px; font-size: 1.1rem; }
+        .feature-item p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-cta { background: var(--pd-bg2); border-top: 1px solid #222; padding: 60px 40px; text-align: center; }
+        .pd-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 24px; }
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-title { font-size: 2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">TRIPP <span class="accent">DIGITAL</span></a>
+            <a href="/#products" class="pd-back">← Back</a>
+        </div>
+    </nav>
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">MEAL PLANNER</div>
+                <h1 class="pd-title">Meal Prep & Grocery Planner<br><span class="accent">Plan Your Week, Auto-Build Your List</span></h1>
+                <p class="pd-tagline">Plan each meal for the week. Your grocery list builds itself automatically from those meals. Check off items as you shop and export anytime.</p>
+                <div class="pd-price">$19.00</div>
+                <a href="https://payhip.com/b/CD7F9" target="_blank" rel="noopener noreferrer" class="btn">BUY NOW →</a>
+            </div>
+            <img src="/images/products/meal-prep-grocery-planner.jpg" alt="Meal Prep & Grocery Planner" class="pd-image">
+        </div>
+    </section>
+    <section class="pd-features">
+        <h2>What You Get</h2>
+        <div class="feature-grid">
+            <div class="feature-item"><h3>✓ Unlimited Weeks</h3><p>Plan as far ahead as you want</p></div>
+            <div class="feature-item"><h3>✓ Auto-Built Grocery List</h3><p>Your list builds itself from planned meals</p></div>
+            <div class="feature-item"><h3>✓ Checkable Items</h3><p>Track shopping progress with checkboxes</p></div>
+            <div class="feature-item"><h3>✓ Week Navigation</h3><p>Plan ahead or look back easily</p></div>
+            <div class="feature-item"><h3>✓ CSV Export</h3><p>Printed copies or backups anytime</p></div>
+            <div class="feature-item"><h3>✓ White-Label</h3><p>Your name, logo, accent color</p></div>
+        </div>
+    </section>
+    <section class="pd-cta">
+        <h2>Stop Rebuilding Your Grocery List</h2>
+        <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">Perfect for busy households and meal preppers who want to save hours every week.</p>
+        <a href="https://payhip.com/b/CD7F9" target="_blank" rel="noopener noreferrer" class="btn">GET MEAL PLANNER →</a>
+    </section>
+</body>
+</html>
