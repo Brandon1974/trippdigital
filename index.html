@@ -102,32 +102,18 @@
                             <span class="b-dot b-dot-1"></span>
                             <span class="b-dot b-dot-2"></span>
                             <span class="b-dot b-dot-3"></span>
-                            <span class="b-url">trippdigital.com/dashboard</span>
+                            <span class="b-url" id="showcase-url">trippdigital.com/invoice-generator</span>
                         </div>
-                        <div class="browser-body">
-                            <div class="mini-sidebar">
-                                <div class="mini-logo"></div>
-                                <div class="mini-pill active"></div>
-                                <div class="mini-pill"></div>
-                                <div class="mini-pill"></div>
-                                <div class="mini-pill"></div>
+                        <div class="browser-body showcase-body">
+                            <div class="showcase-stack">
+                                <img src="images/showcase/invoice-generator.jpg" alt="Invoice & Estimate Generator" class="showcase-img active" data-name="Invoice & Estimate Generator" data-url="trippdigital.com/invoice-generator">
+                                <img src="images/showcase/lead-crm-tracker.jpg" alt="Lead & CRM Tracker" class="showcase-img" data-name="Lead & CRM Tracker" data-url="trippdigital.com/lead-crm-tracker" loading="lazy">
+                                <img src="images/showcase/social-media-dashboard.jpg" alt="Social Media Dashboard" class="showcase-img" data-name="Social Media Dashboard" data-url="trippdigital.com/social-media-dashboard" loading="lazy">
+                                <img src="images/showcase/kdp-sales-dashboard.jpg" alt="KDP Sales Dashboard" class="showcase-img" data-name="KDP Sales Dashboard" data-url="trippdigital.com/kdp-sales-dashboard" loading="lazy">
+                                <img src="images/showcase/budget-expense-tracker.jpg" alt="Budget & Expense Tracker" class="showcase-img" data-name="Budget & Expense Tracker" data-url="trippdigital.com/budget-expense-tracker" loading="lazy">
                             </div>
-                            <div class="mini-main">
-                                <div class="mini-stats">
-                                    <div class="mini-stat"><div class="mini-stat-num">2.4K</div><div class="mini-stat-lbl">FOLLOWERS</div></div>
-                                    <div class="mini-stat"><div class="mini-stat-num">318</div><div class="mini-stat-lbl">LEADS</div></div>
-                                    <div class="mini-stat"><div class="mini-stat-num">$4.2K</div><div class="mini-stat-lbl">REVENUE</div></div>
-                                </div>
-                                <div class="mini-chart">
-                                    <div class="mini-bar" style="--h:55%"></div>
-                                    <div class="mini-bar" style="--h:72%"></div>
-                                    <div class="mini-bar" style="--h:44%"></div>
-                                    <div class="mini-bar" style="--h:88%"></div>
-                                    <div class="mini-bar" style="--h:63%"></div>
-                                    <div class="mini-bar" style="--h:91%"></div>
-                                </div>
-                            </div>
-                        </div>
+                            <div class="showcase-caption"><span class="live-dot"></span><span id="showcase-name">Invoice &amp; Estimate Generator</span></div>
+                        </div></div>
                     </div>
                 </div>
             </div>
@@ -886,6 +872,25 @@
     <script src="chatbot.js"></script>
     <script src="script.js"></script>
 
+
+    <script>
+    (function(){
+        const imgs = document.querySelectorAll('.showcase-img');
+        if(!imgs.length) return;
+        if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const nameEl = document.getElementById('showcase-name');
+        const urlEl = document.getElementById('showcase-url');
+        let i = 0;
+        setInterval(()=>{
+            imgs[i].classList.remove('active');
+            i = (i+1) % imgs.length;
+            const img = imgs[i];
+            img.classList.add('active');
+            if(nameEl) nameEl.textContent = img.dataset.name;
+            if(urlEl) urlEl.textContent = img.dataset.url;
+        }, 4000);
+    })();
+    </script>
     <script>
     (function(){
         const btns = document.querySelectorAll('.filter-btn');
