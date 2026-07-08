@@ -41,9 +41,38 @@ Generate MP3 files from the manuscript using:
 2. **Higgsfield** - For video + audio combo
 3. **Any TTS service** - As long as MP3 output matches filenames
 
-## Deployment
+## Deployment to Netlify
 
-This folder is ready to deploy to Netlify. Just upload and point domain accordingly.
+### Option 1: Manual Deploy via Netlify CLI
+```bash
+cd audiobook
+netlify deploy --prod --dir .
+```
+
+### Option 2: Deploy via Git
+1. Push this branch to GitHub
+2. In Netlify, create a new site from Git
+3. Connect to `Brandon1974/trippdigital` repo
+4. Set build command to: `echo "No build needed"`
+5. Set publish directory to: `audiobook`
+6. Deploy
+
+### Option 3: Drag & Drop
+1. Go to https://app.netlify.com/drop
+2. Drag the `audiobook/` folder
+3. Get instant live URL
+
+### Option 4: Deploy as Subdirectory of Main Site
+Add to main site's netlify.toml:
+```toml
+[[redirects]]
+  from = "/audiobook/*"
+  to = "/audiobook/index.html"
+  status = 200
+```
+Then deploy main site with audiobook folder included.
+
+**Netlify configuration:** See `netlify.toml` in this folder for caching and security headers.
 
 ## Call to Action
 
