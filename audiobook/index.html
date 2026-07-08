@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bones: Snake Eyes - Audiobook</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .login-container.hidden {
+      display: none;
+    }
+
+    .login-box {
+      background: #1a1a1a;
+      border: 2px solid #FF6B00;
+      border-radius: 12px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .login-box h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 48px;
+      color: #FF6B00;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .login-box p {
+      color: #aaa;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      background: #000000;
+      border: 1px solid #FF6B00;
+      color: #FF6B00;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .login-box input::placeholder {
+      color: #666;
+    }
+
+    .login-box input:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: #FF6B00;
+      color: #000000;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 1px;
+    }
+
+    .login-box button:hover {
+      background: #ff7d1a;
+      transform: scale(1.02);
+    }
+
+    .login-box button:active {
+      transform: scale(0.98);
+    }
+
+    .error-msg {
+      color: #ff4444;
+      font-size: 12px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .player-container {
+      width: 100%;
+      max-width: 600px;
+      background: #1a1a1a;
+      border: 2px solid #FF6B00;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 0 20px rgba(255, 107, 0, 0.2);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 42px;
+      color: #FF6B00;
+      margin-bottom: 5px;
+      letter-spacing: 2px;
+    }
+
+    .header p {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .current-chapter {
+      background: #0a0a0a;
+      border-left: 4px solid #FF6B00;
+      padding: 15px;
+      margin-bottom: 25px;
+      border-radius: 6px;
+    }
+
+    .current-chapter h2 {
+      color: #FF6B00;
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-family: 'Bebas Neue', cursive;
+    }
+
+    .current-chapter p {
+      color: #ccc;
+      font-size: 13px;
+    }
+
+    .audio-player {
+      background: #0a0a0a;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    audio {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      background: #FF6B00;
+      color: #000000;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Roboto', sans-serif;
+      transition: all 0.3s ease;
+      font-size: 12px;
+    }
+
+    button:hover {
+      background: #ff7d1a;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .speed-controls {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .speed-btn {
+      padding: 8px 12px;
+      font-size: 11px;
+      min-width: 45px;
+      background: #333;
+      color: #aaa;
+    }
+
+    .speed-btn.active {
+      background: #FF6B00;
+      color: #000000;
+    }
+
+    .progress-section {
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #333;
+      border-radius: 3px;
+      cursor: pointer;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #FF6B00;
+      width: 0%;
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #aaa;
+      font-family: 'Courier New', monospace;
+    }
+
+    .chapters-list {
+      background: #0a0a0a;
+      border-radius: 8px;
+      padding: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .chapters-list h3 {
+      color: #FF6B00;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 1px;
+    }
+
+    .chapter-item {
+      padding: 10px;
+      margin-bottom: 8px;
+      background: #1a1a1a;
+      border-left: 3px solid #FF6B00;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 13px;
+      color: #ccc;
+    }
+
+    .chapter-item:hover {
+      background: #2a2a2a;
+      padding-left: 15px;
+    }
+
+    .chapter-item.active {
+      background: #2a2a2a;
+      color: #FF6B00;
+      font-weight: 700;
+      border-left-color: #ff7d1a;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 25px;
+      padding-top: 15px;
+      border-top: 1px solid #333;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .footer a {
+      color: #FF6B00;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 480px) {
+      .player-container {
+        padding: 20px;
+        border-width: 1px;
+      }
+
+      .header h1 {
+        font-size: 32px;
+      }
+
+      .controls {
+        gap: 8px;
+      }
+
+      button {
+        padding: 8px 12px;
+        font-size: 11px;
+      }
+
+      .speed-btn {
+        padding: 6px 10px;
+        font-size: 10px;
+        min-width: 40px;
+      }
+
+      .chapters-list {
+        max-height: 300px;
+      }
+
+      .login-box {
+        padding: 30px 20px;
+      }
+
+      .login-box h1 {
+        font-size: 36px;
+      }
+    }
+
+    /* Scrollbar styling */
+    .chapters-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chapters-list::-webkit-scrollbar-track {
+      background: #0a0a0a;
+      border-radius: 4px;
+    }
+
+    .chapters-list::-webkit-scrollbar-thumb {
+      background: #FF6B00;
+      border-radius: 4px;
+    }
+
+    .chapters-list::-webkit-scrollbar-thumb:hover {
+      background: #ff7d1a;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Screen -->
+  <div id="loginContainer" class="login-container">
+    <div class="login-box">
+      <h1>BONES</h1>
+      <p>Snake Eyes Audiobook</p>
+      <input type="password" id="passwordInput" placeholder="Enter Access Code" autocomplete="off">
+      <button onclick="verifyPassword()">UNLOCK</button>
+      <div class="error-msg" id="errorMsg">Invalid code. Try again.</div>
+    </div>
+  </div>
+
+  <!-- Player -->
+  <div id="playerContainer" class="player-container" style="display: none;">
+    <div class="header">
+      <h1>BONES: SNAKE EYES</h1>
+      <p>A Novel by Brandon Tripp</p>
+    </div>
+
+    <div class="current-chapter">
+      <h2 id="chapterTitle">Prologue: Tuition</h2>
+      <p id="chapterDesc">Now playing...</p>
+    </div>
+
+    <div class="audio-player">
+      <audio id="audioPlayer" preload="metadata"></audio>
+
+      <div class="progress-section">
+        <div class="progress-bar" id="progressBar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="time-display">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button onclick="skipBack()">⏪ -15s</button>
+        <button id="playPauseBtn" onclick="togglePlayPause()">▶ PLAY</button>
+        <button onclick="skipForward()">+15s ⏩</button>
+      </div>
+
+      <div style="text-align: center; font-size: 12px; color: #666; margin-bottom: 10px;">Playback Speed</div>
+      <div class="speed-controls">
+        <button class="speed-btn" onclick="setSpeed(0.75)">0.75x</button>
+        <button class="speed-btn" onclick="setSpeed(1)">1x</button>
+        <button class="speed-btn active" onclick="setSpeed(1.25)">1.25x</button>
+        <button class="speed-btn" onclick="setSpeed(1.5)">1.5x</button>
+        <button class="speed-btn" onclick="setSpeed(2)">2x</button>
+      </div>
+    </div>
+
+    <div class="chapters-list">
+      <h3>CHAPTERS</h3>
+      <div class="chapter-item active" onclick="loadChapter(0, 'Prologue: Tuition')">
+        Prologue: Tuition
+      </div>
+      <div class="chapter-item" onclick="loadChapter(1, 'Chapter 1: The Lesson')">
+        Chapter 1: The Lesson (Chicago)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(2, 'Chapter 2: The A')">
+        Chapter 2: The A (Atlanta)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(3, 'Chapter 3: H-Town')">
+        Chapter 3: H-Town (Houston)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(4, 'Chapter 4: The 757')">
+        Chapter 4: The 757 (Norfolk/Huntsville)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(5, 'Chapter 5: The D')">
+        Chapter 5: The D (Detroit)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(6, 'Chapter 6: The Boot')">
+        Chapter 6: The Boot (New Orleans)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(7, 'Chapter 7: City of Angels')">
+        Chapter 7: City of Angels (Los Angeles)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(8, 'Chapter 8: The Bottom')">
+        Chapter 8: The Bottom (Baltimore)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(9, 'Chapter 9: The Badlands')">
+        Chapter 9: The Badlands (Philadelphia)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(10, 'Chapter 10: The Concrete Jungle')">
+        Chapter 10: The Concrete Jungle (New York)
+      </div>
+      <div class="chapter-item" onclick="loadChapter(11, 'Bonus: Bones\' Rules of the Dice')">
+        Bonus: Bones' Rules of the Dice
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2026 Brandon Tripp. All rights reserved.</p>
+      <p><a href="https://payhip.com/Tinytripp">Get more from Tripp Digital</a> | <a href="https://trippdigital.com">trippdigital.com</a></p>
+    </div>
+  </div>
+
+  <script>
+    const ACCESS_CODE = 'BONES2024';
+    const audio = document.getElementById('audioPlayer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeDisplay = document.getElementById('currentTime');
+    const durationDisplay = document.getElementById('duration');
+    const chapterTitle = document.getElementById('chapterTitle');
+    const chapterDesc = document.getElementById('chapterDesc');
+
+    let currentChapter = 0;
+    let currentSpeed = 1.25;
+
+    // Password verification
+    function verifyPassword() {
+      const input = document.getElementById('passwordInput').value;
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (input === ACCESS_CODE) {
+        document.getElementById('loginContainer').classList.add('hidden');
+        document.getElementById('playerContainer').style.display = 'block';
+        audio.playbackRate = currentSpeed;
+      } else {
+        errorMsg.style.display = 'block';
+        document.getElementById('passwordInput').value = '';
+        setTimeout(() => {
+          errorMsg.style.display = 'none';
+        }, 3000);
+      }
+    }
+
+    // Allow enter key to submit
+    document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') verifyPassword();
+    });
+
+    // Load chapter
+    function loadChapter(chapterNum, title) {
+      currentChapter = chapterNum;
+      audio.src = `./ch${chapterNum}.mp3`;
+      chapterTitle.textContent = title;
+      chapterDesc.textContent = 'Loading...';
+
+      // Update active chapter indicator
+      document.querySelectorAll('.chapter-item').forEach((item, index) => {
+        item.classList.remove('active');
+        if (index === chapterNum) item.classList.add('active');
+      });
+
+      audio.play();
+      playPauseBtn.textContent = '⏸ PAUSE';
+    }
+
+    // Play/Pause
+    function togglePlayPause() {
+      if (audio.paused) {
+        if (audio.src === '') {
+          loadChapter(0, 'Prologue: Tuition');
+        } else {
+          audio.play();
+        }
+        playPauseBtn.textContent = '⏸ PAUSE';
+      } else {
+        audio.pause();
+        playPauseBtn.textContent = '▶ PLAY';
+      }
+    }
+
+    // Skip functions
+    function skipBack() {
+      audio.currentTime = Math.max(0, audio.currentTime - 15);
+    }
+
+    function skipForward() {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+    }
+
+    // Speed control
+    function setSpeed(speed) {
+      currentSpeed = speed;
+      audio.playbackRate = speed;
+      document.querySelectorAll('.speed-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+    }
+
+    // Format time
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return '0:00';
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Update progress bar
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100 || 0;
+      progressFill.style.width = percent + '%';
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
+    });
+
+    // Update duration
+    audio.addEventListener('loadedmetadata', () => {
+      durationDisplay.textContent = formatTime(audio.duration);
+    });
+
+    // Auto-advance to next chapter
+    audio.addEventListener('ended', () => {
+      if (currentChapter < 11) {
+        const titles = [
+          'Prologue: Tuition',
+          'Chapter 1: The Lesson',
+          'Chapter 2: The A',
+          'Chapter 3: H-Town',
+          'Chapter 4: The 757',
+          'Chapter 5: The D',
+          'Chapter 6: The Boot',
+          'Chapter 7: City of Angels',
+          'Chapter 8: The Bottom',
+          'Chapter 9: The Badlands',
+          'Chapter 10: The Concrete Jungle',
+          'Bonus: Bones\' Rules of the Dice'
+        ];
+        loadChapter(currentChapter + 1, titles[currentChapter + 1]);
+      } else {
+        playPauseBtn.textContent = '▶ PLAY';
+        audio.currentTime = 0;
+      }
+    });
+
+    // Progress bar click
+    progressBar.addEventListener('click', (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = percent * audio.duration;
+    });
+
+    // Initialize
+    audio.playbackRate = currentSpeed;
+  </script>
+</body>
+</html>
