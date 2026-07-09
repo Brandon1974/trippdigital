@@ -1,0 +1,2 @@
+# Allow static HTML files to be served directly
+# No redirects needed for this site - all files serve from root
