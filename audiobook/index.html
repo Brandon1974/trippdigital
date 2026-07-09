@@ -13,7 +13,7 @@
     }
 
     body {
-      background: url('cover.png') center/cover no-repeat fixed;
+      background: #000000;
       color: #ffffff;
       font-family: 'Roboto', sans-serif;
       min-height: 100vh;
@@ -21,25 +21,6 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      position: relative;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .login-container,
-    .player-container {
-      position: relative;
-      z-index: 2;
     }
 
     .login-container {
@@ -162,6 +143,16 @@
     .header p {
       color: #aaa;
       font-size: 14px;
+    }
+
+    .book-cover {
+      width: 200px;
+      height: auto;
+      margin: 0 auto 25px;
+      border: 3px solid #FF6B00;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+      max-width: 100%;
     }
 
     .current-chapter {
@@ -411,6 +402,8 @@
       <h1>BONES: SNAKE EYES</h1>
       <p>A Novel by Brandon Tripp</p>
     </div>
+
+    <img src="cover.png" alt="Bones: Snake Eyes Book Cover" class="book-cover">
 
     <div class="current-chapter">
       <h2 id="chapterTitle">Prologue: Tuition</h2>
