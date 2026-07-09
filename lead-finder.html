@@ -329,24 +329,29 @@
 	</div>
 
 	<script>
-		const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBS1vSFa-M8gV2eFqFMJ08KaF';
-		let map;
-		let service;
+		const API_KEY = 'AIzaSyBS1vSFa-M8gV2eFqFMJ08KaF';
 		let savedLeads = JSON.parse(localStorage.getItem('savedLeads') || '{}');
 
-		// Load Google Maps API
-		const script = document.createElement('script');
-		script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
-		script.async = true;
-		script.defer = true;
-		script.onload = initMap;
-		document.head.appendChild(script);
-
-		function initMap() {
-			const center = { lat: 36.8529, lng: -75.9745 }; // Virginia Beach
-			map = new google.maps.Map(document.createElement('div'), { zoom: 13, center });
-			service = new google.maps.places.PlacesService(map);
-		}
+		// Mock business data for local testing
+		const mockBusinesses = {
+			'contractors': [
+				{ place_id: '1', name: 'ABC Contractors', formatted_address: '123 Main St, Virginia Beach, VA', formatted_phone_number: '(757) 555-0101', website: null, rating: 4.5 },
+				{ place_id: '2', name: 'Build Right Contracting', formatted_address: '456 Oak Ave, Virginia Beach, VA', formatted_phone_number: '(757) 555-0102', website: null, rating: 4.8 },
+				{ place_id: '3', name: 'Expert Builders LLC', formatted_address: '789 Pine Rd, Virginia Beach, VA', formatted_phone_number: '(757) 555-0103', website: 'expertbuilders.com', rating: 4.3 },
+				{ place_id: '4', name: 'Quality Construction Co', formatted_address: '321 Elm St, Virginia Beach, VA', formatted_phone_number: '(757) 555-0104', website: null, rating: 4.6 },
+				{ place_id: '5', name: 'Premier Contractors', formatted_address: '654 Maple Dr, Virginia Beach, VA', formatted_phone_number: '(757) 555-0105', website: 'premiercontractors.com', rating: 4.2 },
+			],
+			'plumbers': [
+				{ place_id: '6', name: 'Quick Plumbing Solutions', formatted_address: '111 Water St, Virginia Beach, VA', formatted_phone_number: '(757) 555-0201', website: null, rating: 4.7 },
+				{ place_id: '7', name: 'Emergency Plumbers 24/7', formatted_address: '222 Pipe Ave, Virginia Beach, VA', formatted_phone_number: '(757) 555-0202', website: null, rating: 4.4 },
+				{ place_id: '8', name: 'Pro Plumbing Services', formatted_address: '333 Drain Rd, Virginia Beach, VA', formatted_phone_number: '(757) 555-0203', website: 'pplumbing.net', rating: 4.9 },
+			],
+			'salons': [
+				{ place_id: '9', name: 'The Cutting Edge Salon', formatted_address: '444 Beauty Lane, Virginia Beach, VA', formatted_phone_number: '(757) 555-0301', website: null, rating: 4.6 },
+				{ place_id: '10', name: 'Hair Design Studio', formatted_address: '555 Style St, Virginia Beach, VA', formatted_phone_number: '(757) 555-0302', website: null, rating: 4.8 },
+				{ place_id: '11', name: 'Glamour Salon & Spa', formatted_address: '666 Glam Ave, Virginia Beach, VA', formatted_phone_number: '(757) 555-0303', website: 'glamoursalon.com', rating: 4.5 },
+			]
+		};
 
 		function checkWebsite(businessName, phoneNumber) {
 			// Simple heuristic: check common domain patterns
@@ -421,13 +426,7 @@
 		});
 
 		function searchLeads() {
-			if (!service) {
-				document.getElementById('error-message').innerHTML = 'Maps API not loaded. Please refresh.';
-				document.getElementById('error-message').style.display = 'block';
-				return;
-			}
-
-			const businessType = document.getElementById('business-type').value.trim();
+			const businessType = document.getElementById('business-type').value.trim().toLowerCase();
 			const location = document.getElementById('location').value.trim();
 
 			if (!businessType || !location) {
@@ -441,20 +440,15 @@
 			const resultsContainer = document.getElementById('results-container');
 			resultsContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Searching for leads...</p></div>';
 
-			const request = {
-				query: `${businessType} in ${location}`,
-				fields: ['name', 'formatted_address', 'formatted_phone_number', 'international_phone_number', 'website', 'rating', 'place_id', 'geometry']
-			};
-
-			service.textSearch(request, (results, status) => {
-				if (status === google.maps.places.PlacesServiceStatus.OK) {
+			// Simulate network delay
+			setTimeout(() => {
+				const results = mockBusinesses[businessType] || mockBusinesses['contractors'];
+				if (results.length > 0) {
 					renderResults(results);
-				} else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
-					resultsContainer.innerHTML = '<div class="empty-state"><p>No results found. Try a different search.</p></div>';
 				} else {
-					resultsContainer.innerHTML = `<div class="error">Error: ${status}. Please try again.</div>`;
+					resultsContainer.innerHTML = '<div class="empty-state"><p>No results found. Try: contractors, plumbers, or salons</p></div>';
 				}
-			});
+			}, 800);
 		}
 
 		function renderResults(results) {
@@ -501,15 +495,21 @@
 				button.classList.remove('saved');
 				button.textContent = 'Save Lead';
 			} else {
-				// Get full place details
-				const request = { placeId };
-				service.getDetails(request, (place, status) => {
-					if (status === google.maps.places.PlacesServiceStatus.OK) {
-						saveLeadLocally(place);
-						button.classList.add('saved');
-						button.textContent = '✓ Saved';
+				// Find the business in mock data
+				let place = null;
+				for (const category in mockBusinesses) {
+					const found = mockBusinesses[category].find(b => b.place_id === placeId);
+					if (found) {
+						place = found;
+						break;
 					}
-				});
+				}
+
+				if (place) {
+					saveLeadLocally(place);
+					button.classList.add('saved');
+					button.textContent = '✓ Saved';
+				}
 			}
 		};
 
