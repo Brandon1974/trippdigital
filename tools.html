@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tools — Tripp Digital</title>
+	<style>
+		:root { --accent: #FF6B00; }
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+		.container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+		h1 { font-size: 2.5rem; margin-bottom: 40px; }
+		.tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+		.tool-card { background: #0a0a0a; border: 1px solid #222; padding: 30px; border-radius: 8px; text-decoration: none; color: #fff; transition: all 0.2s; }
+		.tool-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+		.tool-card h3 { color: var(--accent); margin-bottom: 12px; }
+		.tool-card p { color: #b0b0b0; font-size: 0.95rem; margin-bottom: 20px; }
+		.btn { background: var(--accent); color: #000; padding: 12px 24px; border-radius: 4px; font-weight: 600; display: inline-block; text-decoration: none; }
+		.btn:hover { background: #e55a00; }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>🛠️ Tripp Digital Tools</h1>
+
+		<div class="tools">
+			<a href="./lead-finder.html" class="tool-card">
+				<h3>Lead Finder</h3>
+				<p>Search for local businesses by type and location. Find prospects who need websites and track your outreach.</p>
+				<span class="btn">Open Tool →</span>
+			</a>
+
+			<a href="./lead-crm-tracker.html" class="tool-card">
+				<h3>Lead & CRM Tracker</h3>
+				<p>Manage your sales pipeline with unlimited leads, metrics, and CSV export.</p>
+				<span class="btn">Open Tool →</span>
+			</a>
+		</div>
+	</div>
+</body>
+</html>
