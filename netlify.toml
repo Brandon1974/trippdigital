@@ -3,21 +3,6 @@
   functions = "netlify/functions"
   publish = "./"
 
-[[redirects]]
-  from = "/lead-finder.html"
-  to = "/lead-finder.html"
-  status = 200
-
-[[redirects]]
-  from = "/tools.html"
-  to = "/tools.html"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404
-
 [dev]
   framework = "#custom"
   command = "npm run dev"
