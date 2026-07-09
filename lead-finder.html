@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lead Finder — Tripp Digital</title>
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+	<style>
+		:root {
+			--accent: #FF6B00;
+			--bg: #000;
+			--surface: #0a0a0a;
+			--border: #222;
+			--text: #fff;
+			--text-muted: #b0b0b0;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background: var(--bg);
+			color: var(--text);
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+		}
+
+		.nav {
+			background: rgba(10, 10, 10, 0.95);
+			border-bottom: 1px solid var(--border);
+			padding: 16px 24px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.nav-brand {
+			font-weight: 700;
+			font-size: 1.2rem;
+			letter-spacing: 1px;
+		}
+
+		.nav-brand .accent {
+			color: var(--accent);
+		}
+
+		.container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 40px 24px;
+		}
+
+		.header {
+			margin-bottom: 40px;
+		}
+
+		.header h1 {
+			font-size: 2.4rem;
+			margin-bottom: 12px;
+			letter-spacing: -0.5px;
+		}
+
+		.header p {
+			color: var(--text-muted);
+			font-size: 1.05rem;
+		}
+
+		.search-panel {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 32px;
+			margin-bottom: 40px;
+		}
+
+		.search-grid {
+			display: grid;
+			grid-template-columns: 1fr 1fr auto;
+			gap: 16px;
+			margin-bottom: 20px;
+		}
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.form-group label {
+			font-size: 0.9rem;
+			font-weight: 600;
+			margin-bottom: 8px;
+			color: var(--text-muted);
+		}
+
+		.form-group input,
+		.form-group select {
+			padding: 12px 16px;
+			background: #141414;
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			color: var(--text);
+			font-family: inherit;
+			font-size: 0.95rem;
+		}
+
+		.form-group input:focus,
+		.form-group select:focus {
+			outline: none;
+			border-color: var(--accent);
+			box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.1);
+		}
+
+		.btn {
+			background: var(--accent);
+			color: #000;
+			padding: 12px 28px;
+			border: none;
+			border-radius: 4px;
+			font-weight: 600;
+			cursor: pointer;
+			font-size: 0.95rem;
+			align-self: flex-end;
+			transition: background 0.2s;
+		}
+
+		.btn:hover {
+			background: #e55a00;
+		}
+
+		.btn:disabled {
+			background: #666;
+			cursor: not-allowed;
+		}
+
+		.results {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+			gap: 20px;
+			margin-bottom: 40px;
+		}
+
+		.lead-card {
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 8px;
+			padding: 20px;
+			transition: all 0.2s;
+		}
+
+		.lead-card:hover {
+			border-color: var(--accent);
+			box-shadow: 0 4px 12px rgba(255, 107, 0, 0.15);
+		}
+
+		.lead-card h3 {
+			font-size: 1.1rem;
+			margin-bottom: 8px;
+			color: var(--text);
+		}
+
+		.lead-card .address {
+			font-size: 0.9rem;
+			color: var(--text-muted);
+			margin-bottom: 12px;
+			line-height: 1.5;
+		}
+
+		.lead-card .rating {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			margin-bottom: 12px;
+			font-size: 0.9rem;
+		}
+
+		.lead-card .website-status {
+			font-size: 0.85rem;
+			padding: 6px 12px;
+			border-radius: 4px;
+			margin-bottom: 12px;
+			display: inline-block;
+		}
+
+		.website-status.has-website {
+			background: rgba(107, 255, 0, 0.1);
+			color: #6bff00;
+		}
+
+		.website-status.no-website {
+			background: rgba(255, 107, 0, 0.1);
+			color: var(--accent);
+		}
+
+		.lead-card .actions {
+			display: flex;
+			gap: 8px;
+		}
+
+		.btn-small {
+			background: #141414;
+			color: var(--text);
+			padding: 8px 16px;
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 0.85rem;
+			flex: 1;
+			text-align: center;
+			text-decoration: none;
+			transition: all 0.2s;
+		}
+
+		.btn-small:hover {
+			border-color: var(--accent);
+			color: var(--accent);
+		}
+
+		.btn-small.saved {
+			background: var(--accent);
+			color: #000;
+			border-color: var(--accent);
+		}
+
+		.empty-state {
+			text-align: center;
+			padding: 60px 20px;
+			color: var(--text-muted);
+		}
+
+		.empty-state p {
+			margin-bottom: 24px;
+			font-size: 1.05rem;
+		}
+
+		.loading {
+			text-align: center;
+			padding: 40px;
+			color: var(--text-muted);
+		}
+
+		.spinner {
+			display: inline-block;
+			width: 32px;
+			height: 32px;
+			border: 3px solid var(--border);
+			border-top-color: var(--accent);
+			border-radius: 50%;
+			animation: spin 0.8s linear infinite;
+			margin-bottom: 16px;
+		}
+
+		@keyframes spin {
+			to { transform: rotate(360deg); }
+		}
+
+		.saved-count {
+			font-size: 0.9rem;
+			color: var(--text-muted);
+			padding: 12px 16px;
+			background: var(--surface);
+			border: 1px solid var(--border);
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+
+		.error {
+			background: rgba(255, 107, 0, 0.1);
+			border: 1px solid var(--accent);
+			color: var(--accent);
+			padding: 16px;
+			border-radius: 4px;
+			margin-bottom: 20px;
+		}
+
+		@media (max-width: 768px) {
+			.search-grid {
+				grid-template-columns: 1fr;
+			}
+
+			.btn {
+				align-self: stretch;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="nav">
+		<div class="nav-brand">LEAD <span class="accent">FINDER</span></div>
+		<a href="/" style="color: var(--text-muted); text-decoration: none;">← Back</a>
+	</div>
+
+	<div class="container">
+		<div class="header">
+			<h1>Find Business Leads</h1>
+			<p>Search for local businesses by type and location. Identify prospects who need websites and track your outreach.</p>
+		</div>
+
+		<div class="search-panel">
+			<div class="search-grid">
+				<div class="form-group">
+					<label for="business-type">Business Type</label>
+					<input
+						type="text"
+						id="business-type"
+						placeholder="e.g., contractors, salons, plumbers"
+						value="contractors"
+					>
+				</div>
+				<div class="form-group">
+					<label for="location">Location</label>
+					<input
+						type="text"
+						id="location"
+						placeholder="e.g., Virginia Beach, VA"
+						value="Virginia Beach, VA"
+					>
+				</div>
+				<div class="form-group" style="justify-content: flex-end;">
+					<button class="btn" id="search-btn">Search Leads</button>
+				</div>
+			</div>
+			<div id="error-message" style="display: none;"></div>
+		</div>
+
+		<div id="saved-count" class="saved-count" style="display: none;"></div>
+		<div id="results-container"></div>
+	</div>
+
+	<script>
+		const API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || 'AIzaSyBS1vSFa-M8gV2eFqFMJ08KaF';
+		let map;
+		let service;
+		let savedLeads = JSON.parse(localStorage.getItem('savedLeads') || '{}');
+
+		// Load Google Maps API
+		const script = document.createElement('script');
+		script.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&libraries=places`;
+		script.async = true;
+		script.defer = true;
+		script.onload = initMap;
+		document.head.appendChild(script);
+
+		function initMap() {
+			const center = { lat: 36.8529, lng: -75.9745 }; // Virginia Beach
+			map = new google.maps.Map(document.createElement('div'), { zoom: 13, center });
+			service = new google.maps.places.PlacesService(map);
+		}
+
+		function checkWebsite(businessName, phoneNumber) {
+			// Simple heuristic: check common domain patterns
+			// In production, you'd use a real website checking service
+			return false; // Default to false for now - user can manually check
+		}
+
+		function formatPhoneNumber(phone) {
+			if (!phone) return 'No phone';
+			return phone;
+		}
+
+		function saveLeadLocally(place) {
+			savedLeads[place.place_id] = {
+				name: place.name,
+				address: place.formatted_address,
+				phone: place.formatted_phone_number || place.international_phone_number || 'N/A',
+				website: place.website || 'Not provided',
+				rating: place.rating || 'No rating',
+				savedAt: new Date().toISOString()
+			};
+			localStorage.setItem('savedLeads', JSON.stringify(savedLeads));
+			updateSavedCount();
+		}
+
+		function unsaveLead(placeId) {
+			delete savedLeads[placeId];
+			localStorage.setItem('savedLeads', JSON.stringify(savedLeads));
+			updateSavedCount();
+		}
+
+		function updateSavedCount() {
+			const count = Object.keys(savedLeads).length;
+			const counter = document.getElementById('saved-count');
+			if (count > 0) {
+				counter.style.display = 'block';
+				counter.innerHTML = `📌 ${count} lead${count !== 1 ? 's' : ''} saved. <a href="#export" onclick="exportLeads()" style="color: var(--accent); text-decoration: none;">Export CSV</a>`;
+			} else {
+				counter.style.display = 'none';
+			}
+		}
+
+		function exportLeads() {
+			const csv = ['Name,Address,Phone,Website,Rating,Saved Date'];
+			Object.values(savedLeads).forEach(lead => {
+				const row = [
+					`"${lead.name}"`,
+					`"${lead.address}"`,
+					`"${lead.phone}"`,
+					`"${lead.website}"`,
+					lead.rating,
+					lead.savedAt
+				];
+				csv.push(row.join(','));
+			});
+
+			const blob = new Blob([csv.join('\n')], { type: 'text/csv' });
+			const url = URL.createObjectURL(blob);
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = `leads-${new Date().toISOString().split('T')[0]}.csv`;
+			a.click();
+			URL.revokeObjectURL(url);
+		}
+
+		document.getElementById('search-btn').addEventListener('click', searchLeads);
+		document.getElementById('business-type').addEventListener('keypress', e => {
+			if (e.key === 'Enter') searchLeads();
+		});
+		document.getElementById('location').addEventListener('keypress', e => {
+			if (e.key === 'Enter') searchLeads();
+		});
+
+		function searchLeads() {
+			if (!service) {
+				document.getElementById('error-message').innerHTML = 'Maps API not loaded. Please refresh.';
+				document.getElementById('error-message').style.display = 'block';
+				return;
+			}
+
+			const businessType = document.getElementById('business-type').value.trim();
+			const location = document.getElementById('location').value.trim();
+
+			if (!businessType || !location) {
+				document.getElementById('error-message').innerHTML = 'Please enter both business type and location.';
+				document.getElementById('error-message').style.display = 'block';
+				return;
+			}
+
+			document.getElementById('error-message').style.display = 'none';
+
+			const resultsContainer = document.getElementById('results-container');
+			resultsContainer.innerHTML = '<div class="loading"><div class="spinner"></div><p>Searching for leads...</p></div>';
+
+			const request = {
+				query: `${businessType} in ${location}`,
+				fields: ['name', 'formatted_address', 'formatted_phone_number', 'international_phone_number', 'website', 'rating', 'place_id', 'geometry']
+			};
+
+			service.textSearch(request, (results, status) => {
+				if (status === google.maps.places.PlacesServiceStatus.OK) {
+					renderResults(results);
+				} else if (status === google.maps.places.PlacesServiceStatus.ZERO_RESULTS) {
+					resultsContainer.innerHTML = '<div class="empty-state"><p>No results found. Try a different search.</p></div>';
+				} else {
+					resultsContainer.innerHTML = `<div class="error">Error: ${status}. Please try again.</div>`;
+				}
+			});
+		}
+
+		function renderResults(results) {
+			const resultsContainer = document.getElementById('results-container');
+			resultsContainer.innerHTML = '';
+
+			if (results.length === 0) {
+				resultsContainer.innerHTML = '<div class="empty-state"><p>No businesses found. Try adjusting your search.</p></div>';
+				return;
+			}
+
+			const resultsHtml = results.slice(0, 20).map(place => {
+				const isSaved = savedLeads[place.place_id];
+				const hasWebsite = place.website ? 'Has website' : 'No website listed';
+				const websiteClass = place.website ? 'has-website' : 'no-website';
+				const phone = place.formatted_phone_number || place.international_phone_number || 'No phone';
+
+				return `
+					<div class="lead-card" data-place-id="${place.place_id}">
+						<h3>${place.name}</h3>
+						<div class="address">${place.formatted_address}</div>
+						${place.rating ? `<div class="rating">⭐ ${place.rating}/5.0</div>` : ''}
+						<div class="website-status ${websiteClass}">${hasWebsite}</div>
+						<div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">${phone}</div>
+						<div class="actions">
+							${place.website ? `<a href="${place.website}" target="_blank" class="btn-small">Visit Site</a>` : ''}
+							<button class="btn-small ${isSaved ? 'saved' : ''}" onclick="toggleSaveLead('${place.place_id}', this)">
+								${isSaved ? '✓ Saved' : 'Save Lead'}
+							</button>
+						</div>
+					</div>
+				`;
+			}).join('');
+
+			resultsContainer.innerHTML = `<div class="results">${resultsHtml}</div>`;
+		}
+
+		window.toggleSaveLead = function(placeId, button) {
+			const card = button.closest('.lead-card');
+			const isSaved = savedLeads[placeId];
+
+			if (isSaved) {
+				unsaveLead(placeId);
+				button.classList.remove('saved');
+				button.textContent = 'Save Lead';
+			} else {
+				// Get full place details
+				const request = { placeId };
+				service.getDetails(request, (place, status) => {
+					if (status === google.maps.places.PlacesServiceStatus.OK) {
+						saveLeadLocally(place);
+						button.classList.add('saved');
+						button.textContent = '✓ Saved';
+					}
+				});
+			}
+		};
+
+		updateSavedCount();
+	</script>
+</body>
+</html>
