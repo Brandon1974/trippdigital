@@ -1,6 +1,6 @@
 ---
 Source: raw/inputs/2026-06-28_tech-stack-audit.md, raw/inputs/2026-06-28_admin-panel-docs.md
-Last updated: 2026-06-28
+Last updated: 2026-07-12
 ---
 
 # Systems & Tech Stack — Tripp Digital
@@ -57,7 +57,7 @@ This is the single authoritative contact email for all customer-facing communica
 ## AI Chatbot — Anthropic
 
 - Library: `@anthropic-ai/sdk ^0.24.0`
-- Model: `claude-3-5-sonnet-20241022`
+- Model: `claude-haiku-4-5-20251001`
 - Required env var: `ANTHROPIC_API_KEY`
 - Persona: Tripp Digital customer service assistant
 - Response style: 2–3 sentences, friendly, professional
