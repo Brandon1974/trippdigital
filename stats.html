@@ -40,6 +40,21 @@
       <div>Device breakdown</div>
       <table><tbody id="devices"></tbody></table>
     </div>
+
+    <div class="card">
+      <div>Chat box — total conversations started</div>
+      <div class="big" id="chatConv">-</div>
+    </div>
+
+    <div class="card">
+      <div>Chat box — total messages sent</div>
+      <div class="big" id="chatMsg">-</div>
+    </div>
+
+    <div class="card">
+      <div>Chat activity — last 14 days</div>
+      <table><tbody id="chatDaily"></tbody></table>
+    </div>
   </div>
 
 <script>
@@ -63,6 +78,11 @@ async function load() {
 
   document.getElementById('devices').innerHTML = Object.entries(data.deviceCounts)
     .map(([d,c]) => `<tr><td>${d}</td><td>${c}</td></tr>`).join('');
+
+  document.getElementById('chatConv').textContent = data.chatConversationTotal;
+  document.getElementById('chatMsg').textContent = data.chatMessageTotal;
+  document.getElementById('chatDaily').innerHTML = data.chatLast14Days
+    .map(d => `<tr><td>${d.date}</td><td>${d.count}</td></tr>`).join('');
 }
 load();
 </script>

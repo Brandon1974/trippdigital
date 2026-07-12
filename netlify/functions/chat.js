@@ -1,8 +1,48 @@
 const Anthropic = require("@anthropic-ai/sdk");
+const { getStore } = require("@netlify/blobs");
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
+
+function blobsStore(name) {
+  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_API_TOKEN) {
+    return getStore({
+      name,
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_API_TOKEN,
+    });
+  }
+  return getStore(name);
+}
+
+async function logChatActivity(isNewConversation) {
+  try {
+    const store = blobsStore("site-analytics");
+    const now = new Date();
+    const dayKey = `chatday:${now.toISOString().slice(0, 10)}`;
+
+    // bump total messages counter
+    const msgTotalRaw = await store.get("chat-message-count");
+    const msgTotal = (parseInt(msgTotalRaw, 10) || 0) + 1;
+    await store.set("chat-message-count", String(msgTotal));
+
+    // bump today's message count
+    const dayRaw = await store.get(dayKey);
+    const dayCount = (parseInt(dayRaw, 10) || 0) + 1;
+    await store.set(dayKey, String(dayCount));
+
+    // bump distinct conversation counter (first message in a session)
+    if (isNewConversation) {
+      const convTotalRaw = await store.get("chat-conversation-count");
+      const convTotal = (parseInt(convTotalRaw, 10) || 0) + 1;
+      await store.set("chat-conversation-count", String(convTotal));
+    }
+  } catch (err) {
+    console.error("Chat tracking failed:", err.message);
+  }
+}
+
 
 const systemPrompt = `You are a helpful, upbeat customer service assistant for Tripp Digital, a Virginia Beach-based web agency and digital products business run by Brandon Tripp.
 
@@ -88,6 +128,10 @@ exports.handler = async (event, context) => {
       role: msg.role,
       content: msg.content,
     }));
+
+    // track usage - fire and forget, never blocks the response
+    const isNewConversation = claudeMessages.length === 1;
+    logChatActivity(isNewConversation);
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",

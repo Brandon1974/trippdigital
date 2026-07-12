@@ -43,6 +43,21 @@ exports.handler = async (event) => {
       });
     });
 
+    // chat usage stats
+    const chatMsgTotalRaw = await store.get("chat-message-count");
+    const chatMsgTotal = parseInt(chatMsgTotalRaw, 10) || 0;
+    const chatConvTotalRaw = await store.get("chat-conversation-count");
+    const chatConvTotal = parseInt(chatConvTotalRaw, 10) || 0;
+
+    const chatDays = [];
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(now);
+      d.setDate(d.getDate() - i);
+      const dayKey = d.toISOString().slice(0, 10);
+      const count = await store.get(`chatday:${dayKey}`);
+      chatDays.push({ date: dayKey, count: parseInt(count, 10) || 0 });
+    }
+
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
@@ -52,6 +67,9 @@ exports.handler = async (event) => {
         topPages: pageCounts,
         topReferrers: refCounts,
         deviceCounts,
+        chatMessageTotal: chatMsgTotal,
+        chatConversationTotal: chatConvTotal,
+        chatLast14Days: chatDays,
       }),
     };
   } catch (err) {
