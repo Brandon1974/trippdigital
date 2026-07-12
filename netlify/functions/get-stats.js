@@ -50,13 +50,21 @@ exports.handler = async (event) => {
     const chatConvTotal = parseInt(chatConvTotalRaw, 10) || 0;
 
     const chatDays = [];
+    const recentTranscripts = [];
     for (let i = 0; i < 14; i++) {
       const d = new Date(now);
       d.setDate(d.getDate() - i);
       const dayKey = d.toISOString().slice(0, 10);
       const count = await store.get(`chatday:${dayKey}`);
       chatDays.push({ date: dayKey, count: parseInt(count, 10) || 0 });
+
+      if (i < 7) {
+        const transcripts = (await store.get(`chatlog:${dayKey}`, { type: "json" })) || [];
+        recentTranscripts.push(...transcripts);
+      }
     }
+    // newest first
+    recentTranscripts.sort((a, b) => new Date(b.time) - new Date(a.time));
 
     return {
       statusCode: 200,
@@ -70,6 +78,7 @@ exports.handler = async (event) => {
         chatMessageTotal: chatMsgTotal,
         chatConversationTotal: chatConvTotal,
         chatLast14Days: chatDays,
+        chatTranscripts: recentTranscripts.slice(0, 100),
       }),
     };
   } catch (err) {

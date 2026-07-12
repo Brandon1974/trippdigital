@@ -43,6 +43,24 @@ async function logChatActivity(isNewConversation) {
   }
 }
 
+async function logConversationTranscript(userMessage, assistantMessage) {
+  try {
+    const store = blobsStore("site-analytics");
+    const now = new Date();
+    const dayKey = `chatlog:${now.toISOString().slice(0, 10)}`;
+
+    const existing = (await store.get(dayKey, { type: "json" })) || [];
+    existing.push({
+      time: now.toISOString(),
+      question: userMessage.slice(0, 500),
+      answer: assistantMessage.slice(0, 800),
+    });
+    await store.set(dayKey, JSON.stringify(existing));
+  } catch (err) {
+    console.error("Transcript logging failed:", err.message);
+  }
+}
+
 
 const fs = require("fs");
 const path = require("path");
@@ -157,6 +175,12 @@ exports.handler = async (event, context) => {
     });
 
     const assistantMessage = response.content[0].text;
+
+    const latestUserMessage = claudeMessages[claudeMessages.length - 1];
+    const userText = typeof latestUserMessage.content === "string"
+      ? latestUserMessage.content
+      : JSON.stringify(latestUserMessage.content);
+    logConversationTranscript(userText, assistantMessage);
 
     return {
       statusCode: 200,

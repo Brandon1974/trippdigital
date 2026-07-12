@@ -55,6 +55,11 @@
       <div>Chat activity — last 14 days</div>
       <table><tbody id="chatDaily"></tbody></table>
     </div>
+
+    <div class="card">
+      <div>Recent chat questions (last 7 days)</div>
+      <div id="chatTranscripts" style="margin-top:10px;"></div>
+    </div>
   </div>
 
 <script>
@@ -83,6 +88,22 @@ async function load() {
   document.getElementById('chatMsg').textContent = data.chatMessageTotal;
   document.getElementById('chatDaily').innerHTML = data.chatLast14Days
     .map(d => `<tr><td>${d.date}</td><td>${d.count}</td></tr>`).join('');
+
+  const transcripts = data.chatTranscripts || [];
+  const transcriptEl = document.getElementById('chatTranscripts');
+  if (transcripts.length === 0) {
+    transcriptEl.innerHTML = '<div style="color:#666;font-size:0.9rem;">No chat questions yet.</div>';
+  } else {
+    transcriptEl.innerHTML = transcripts.map(t => {
+      const d = new Date(t.time);
+      const dateStr = d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+      return `<div style="background:#151515;border:1px solid #2a2a2a;border-radius:8px;padding:12px;margin-bottom:10px;">
+        <div style="color:#777;font-size:0.75rem;margin-bottom:6px;">${dateStr}</div>
+        <div style="color:#FF6B00;font-weight:600;margin-bottom:6px;">Q: ${t.question}</div>
+        <div style="color:#ccc;">A: ${t.answer}</div>
+      </div>`;
+    }).join('');
+  }
 }
 load();
 </script>
