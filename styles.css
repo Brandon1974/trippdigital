@@ -17,6 +17,64 @@
     --transition: all 0.3s ease;
 }
 
+/* ANIMATIONS - KEYFRAMES */
+@keyframes marqueeSlide {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.3) 0%, rgba(255, 107, 0, 0.1) 40%, transparent 70%);
+        opacity: 0.6;
+    }
+    50% {
+        background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.5) 0%, rgba(255, 107, 0, 0.2) 40%, transparent 70%);
+        opacity: 0.9;
+    }
+}
+
+@keyframes floatBob {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes buttonGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.3), inset 0 0 5px rgba(255, 107, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 107, 0, 0.6), inset 0 0 10px rgba(255, 107, 0, 0.2);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes countUp {
+    from { counter-increment: num 0; }
+    to { counter-increment: num var(--target); }
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -69,6 +127,11 @@ p { font-size: 1rem; color: var(--color-text-muted); }
     transform: translateY(-2px);
 }
 
+.btn-primary {
+    position: relative;
+    animation: buttonGlow 2.5s ease-in-out infinite;
+}
+
 .btn-secondary {
     background-color: transparent;
     color: var(--color-text);
@@ -90,6 +153,32 @@ p { font-size: 1rem; color: var(--color-text-muted); }
 
 .btn-service:hover, .btn-cart:hover {
     background-color: var(--color-orange-dark);
+}
+
+/* MARQUEE TICKER */
+.marquee-container {
+    background-color: var(--color-bg-secondary);
+    padding: 16px 0;
+    overflow: hidden;
+    border-bottom: 2px solid var(--color-orange);
+}
+
+.marquee-content {
+    display: flex;
+    gap: 40px;
+    animation: marqueeSlide 20s linear infinite;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+.marquee-item {
+    font-family: var(--font-heading);
+    color: var(--color-orange);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    flex-shrink: 0;
 }
 
 /* NAVBAR */
@@ -207,6 +296,23 @@ p { font-size: 1rem; color: var(--color-text-muted); }
 .hero-title {
     margin-bottom: 30px;
     line-height: 1.1;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    z-index: -1;
+    animation: glowPulse 4s ease-in-out infinite;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(40px);
 }
 
 .hero-title span {
@@ -304,7 +410,13 @@ p { font-size: 1rem; color: var(--color-text-muted); }
     display: flex;
     gap: 20px;
     align-items: flex-start;
+    animation: fadeInUp 0.8s ease-out backwards;
 }
+
+.feature-item:nth-child(1) { animation-delay: 0.1s; }
+.feature-item:nth-child(2) { animation-delay: 0.2s; }
+.feature-item:nth-child(3) { animation-delay: 0.3s; }
+.feature-item:nth-child(4) { animation-delay: 0.4s; }
 
 .feature-icon {
     color: var(--color-orange);
@@ -315,7 +427,12 @@ p { font-size: 1rem; color: var(--color-text-muted); }
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    animation: floatBob 3s ease-in-out infinite;
 }
+
+.feature-item:nth-child(2) .feature-icon { animation-delay: 0.2s; }
+.feature-item:nth-child(3) .feature-icon { animation-delay: 0.4s; }
+.feature-item:nth-child(4) .feature-icon { animation-delay: 0.6s; }
 
 .feature-icon svg {
     width: 36px;
@@ -396,6 +513,16 @@ section {
     padding: 40px;
     transition: var(--transition);
     position: relative;
+    animation: fadeInUp 0.8s ease-out backwards;
+    opacity: 0;
+}
+
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+
+.service-card.visible {
+    opacity: 1;
 }
 
 .service-card:hover {
@@ -471,6 +598,13 @@ section {
     transition: var(--transition);
     display: flex;
     flex-direction: column;
+    animation: fadeInUp 0.7s ease-out backwards;
+    opacity: 0;
+}
+
+.payhip-card.visible {
+    opacity: 1;
+    animation: fadeInUp 0.7s ease-out forwards;
 }
 
 .payhip-card:hover {
@@ -492,6 +626,7 @@ section {
     display: block;
     transition: transform 0.35s ease;
     max-height: 300px;
+    animation: floatBob 4s ease-in-out infinite;
 }
 
 @media (max-width: 768px) {
@@ -564,6 +699,16 @@ section {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    animation: fadeInUp 0.8s ease-out backwards;
+    opacity: 0;
+}
+
+.book-card:nth-child(1) { animation-delay: 0.1s; }
+.book-card:nth-child(2) { animation-delay: 0.2s; }
+.book-card:nth-child(3) { animation-delay: 0.3s; }
+
+.book-card.visible {
+    opacity: 1;
 }
 
 .book-card.featured-book {
@@ -800,6 +945,20 @@ section {
     gap: 20px;
 }
 
+/* ANIMATED COUNTERS */
+.counter {
+    font-family: var(--font-heading);
+    color: var(--color-orange);
+    font-size: 2rem;
+    font-weight: 700;
+    counter-reset: num;
+    --target: 0;
+}
+
+.counter.animate {
+    animation: countUp 2.5s ease-out forwards;
+}
+
 /* TESTIMONIALS SECTION */
 .testimonials-section {
     padding: 80px 40px;
@@ -823,6 +982,16 @@ section {
     border-radius: 4px;
     padding: 32px 28px;
     transition: var(--transition);
+    animation: fadeInUp 0.8s ease-out backwards;
+    opacity: 0;
+}
+
+.testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+.testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+.testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+
+.testimonial-card.visible {
+    opacity: 1;
 }
 
 .testimonial-card:hover {
