@@ -1,15 +1,8 @@
 // get-stats.js
-// Returns aggregate visit stats. Protected with a simple passcode query param.
+// Returns aggregate visit stats. No passcode - open access.
 const { getStore } = require("@netlify/blobs");
 
-const PASSCODE = "trippdigital2026"; // change this to whatever you want
-
 exports.handler = async (event) => {
-  const params = event.queryStringParameters || {};
-  if (params.key !== PASSCODE) {
-    return { statusCode: 401, body: JSON.stringify({ error: "Unauthorized" }) };
-  }
-
   try {
     const store = getStore("site-analytics");
 

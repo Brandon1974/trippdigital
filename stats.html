@@ -10,23 +10,15 @@
   .big { font-size: 48px; font-weight:bold; color:#FF6B00; }
   table { width:100%; border-collapse: collapse; margin-top:10px; }
   td, th { padding:8px; border-bottom:1px solid #333; text-align:left; }
-  input { padding:10px; border-radius:8px; border:1px solid #333; background:#000; color:#fff; width: 250px; }
-  button { padding:10px 16px; border-radius:8px; border:none; background:#FF6B00; color:#000; font-weight:bold; cursor:pointer; margin-left:8px; }
-  #dash { display:none; }
 </style>
 </head>
 <body>
   <h1>TRIPP DIGITAL — Site Stats</h1>
 
-  <div id="login">
-    <input id="key" type="password" placeholder="Enter passcode">
-    <button onclick="load()">View Stats</button>
-  </div>
-
   <div id="dash">
     <div class="card">
       <div>All-time visits</div>
-      <div class="big" id="total">-</div>
+      <div class="big" id="total">Loading...</div>
     </div>
 
     <div class="card">
@@ -52,13 +44,10 @@
 
 <script>
 async function load() {
-  const key = document.getElementById('key').value;
-  const res = await fetch('/.netlify/functions/get-stats?key=' + encodeURIComponent(key));
-  if (!res.ok) { alert('Wrong passcode'); return; }
+  const res = await fetch('/.netlify/functions/get-stats');
+  if (!res.ok) { document.getElementById('total').textContent = 'Error loading stats'; return; }
   const data = await res.json();
 
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('dash').style.display = 'block';
   document.getElementById('total').textContent = data.total;
 
   document.getElementById('daily').innerHTML = data.last14Days
@@ -75,6 +64,7 @@ async function load() {
   document.getElementById('devices').innerHTML = Object.entries(data.deviceCounts)
     .map(([d,c]) => `<tr><td>${d}</td><td>${c}</td></tr>`).join('');
 }
+load();
 </script>
 </body>
 </html>
