@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+*.mp4
+*.png
+*.jpg
+out/
+.DS_Store
+*.log
+*.mp3
+*.wav
