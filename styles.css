@@ -2502,6 +2502,7 @@ section {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    justify-content: center;
     margin-top: 25px;
     padding-top: 25px;
     border-top: 1px solid rgba(255, 107, 0, 0.2);
@@ -2515,23 +2516,37 @@ section {
 
 @media (max-width: 860px) {
     .about-card {
-        grid-template-columns: 1fr;
+        padding: 30px 20px;
         gap: 30px;
-        padding: 40px;
     }
 
     .about-content h3 {
         font-size: 1.5rem;
+        margin-bottom: 15px;
     }
 
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
+    .about-content p {
+        font-size: 0.95rem;
+        margin-bottom: 15px;
     }
+
     .about-photo-wrap {
-        max-width: 340px;
-        margin: 0 auto;
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 25px;
     }
+
+    .about-photo {
+        max-width: 350px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .about-meta {
+        gap: 15px;
+        font-size: 0.85rem;
+    }
+
     .filter-bar {
         gap: 8px;
         margin: -20px 0 40px;
