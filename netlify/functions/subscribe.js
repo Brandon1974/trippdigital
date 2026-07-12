@@ -1,6 +1,17 @@
 const { getStore } = require('@netlify/blobs');
 const nodemailer = require('nodemailer');
 
+function blobsStore(name) {
+  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_API_TOKEN) {
+    return getStore({
+      name,
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_API_TOKEN,
+    });
+  }
+  return getStore(name);
+}
+
 exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -33,7 +44,7 @@ exports.handler = async (event, context) => {
     // Store in Netlify Blobs — wrapped so a storage failure never surfaces as a user error
     let alreadySubscribed = false;
     try {
-      const store = getStore('subscribers');
+      const store = blobsStore('subscribers');
       let list = [];
       const raw = await store.get('list');
       if (raw) list = JSON.parse(raw);

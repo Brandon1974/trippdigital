@@ -2,9 +2,20 @@
 // Logs one visit per call into Netlify Blobs. No cookies, no personal data stored.
 const { getStore } = require("@netlify/blobs");
 
+function blobsStore(name) {
+  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_API_TOKEN) {
+    return getStore({
+      name,
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_API_TOKEN,
+    });
+  }
+  return getStore(name);
+}
+
 exports.handler = async (event) => {
   try {
-    const store = getStore("site-analytics");
+    const store = blobsStore("site-analytics");
 
     const body = JSON.parse(event.body || "{}");
     const page = (body.page || "/").slice(0, 200);

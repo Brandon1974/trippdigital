@@ -2,9 +2,20 @@
 // Returns aggregate visit stats. No passcode - open access.
 const { getStore } = require("@netlify/blobs");
 
+function blobsStore(name) {
+  if (process.env.NETLIFY_SITE_ID && process.env.NETLIFY_API_TOKEN) {
+    return getStore({
+      name,
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_API_TOKEN,
+    });
+  }
+  return getStore(name);
+}
+
 exports.handler = async (event) => {
   try {
-    const store = getStore("site-analytics");
+    const store = blobsStore("site-analytics");
 
     const totalRaw = await store.get("total-count");
     const total = parseInt(totalRaw, 10) || 0;
