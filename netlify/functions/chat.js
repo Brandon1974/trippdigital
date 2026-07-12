@@ -51,15 +51,23 @@ function loadProducts() {
   try {
     const filePath = path.join(__dirname, "../../data/products.json");
     const raw = fs.readFileSync(filePath, "utf8");
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed) || parsed.length === 0) {
+      throw new Error("products.json loaded but empty or invalid");
+    }
+    return parsed;
   } catch (err) {
     console.error("Could not load products.json:", err.message);
-    return [];
+    return null;
   }
 }
 
 function buildSystemPrompt() {
   const products = loadProducts();
+
+  if (!products) {
+    return `You are a customer service assistant for Tripp Digital. Our product catalog failed to load right now. Do NOT invent, guess, or make up any product names, prices, or features. Tell the person you're having a technical issue pulling up the product list and to check trippdigital.com directly or email trippdigital1@gmail.com. Keep it brief and apologetic.`;
+  }
 
   const freeItems = products.filter((p) => p.price.toLowerCase() === "free");
   const paidTools = products.filter((p) => p.type === "tool" && p.price.toLowerCase() !== "free");

@@ -3,6 +3,9 @@
   functions = "netlify/functions"
   publish = "./"
 
+[functions]
+  included_files = ["data/*.json"]
+
 [dev]
   framework = "#custom"
   command = "npm run dev"
