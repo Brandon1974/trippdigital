@@ -109,5 +109,16 @@
         <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">Perfect for anyone who's tried habit trackers before and quit — this one shows your real progress so quitting feels harder than continuing.</p>
         <a href="https://payhip.com/b/G2bgy" target="_blank" rel="noopener noreferrer" class="btn">GET HABIT TRACKER →</a>
     </section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 </body>
 </html>

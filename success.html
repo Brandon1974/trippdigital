@@ -234,5 +234,16 @@
         const orderId = params.get('session_id') || 'Processing...';
         document.getElementById('order-id').textContent = orderId.substring(0, 12) + '...';
     </script>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 </body>
 </html>

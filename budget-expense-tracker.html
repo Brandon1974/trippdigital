@@ -42,5 +42,16 @@
     <section class="pd-hero"><div class="pd-hero-inner"><div><div class="pd-label">BUDGET</div><h1 class="pd-title">Budget & Expense Tracker<br><span class="accent">See Exactly Where Your Money Goes</span></h1><p class="pd-tagline">Every transaction organized in a sortable table. Live totals for income, expenses, and net balance. Month-by-month spending trends and category breakdowns.</p><div class="pd-price">$19.00</div><a href="https://payhip.com/b/X6HOk" target="_blank" rel="noopener noreferrer" class="btn">BUY NOW →</a></div><img src="/images/products/budget-expense-tracker.jpg" alt="Budget Tracker" class="pd-image"></div></section>
     <section class="pd-features"><h2>What You Get</h2><div class="feature-grid"><div class="feature-item"><h3>✓ Unlimited Entries</h3><p>Income and expense entries, unlimited history</p></div><div class="feature-item"><h3>✓ Live Totals</h3><p>Income, expenses, and net balance calculated automatically</p></div><div class="feature-item"><h3>✓ Trend Chart</h3><p>Month-by-month spending visualization</p></div><div class="feature-item"><h3>✓ Category Breakdown</h3><p>See spending by category at a glance</p></div><div class="feature-item"><h3>✓ CSV Export</h3><p>Backup or share your data anytime</p></div><div class="feature-item"><h3>✓ White-Label</h3><p>Your name, logo, accent color</p></div></div></section>
     <section class="pd-cta"><h2>Get a Clear Picture of Your Spending</h2><p style="color: #b0b0b0; margin-bottom: 32px; font-size: 1.05rem;">Perfect for anyone who wants honesty about their money without sketchy apps selling their data.</p><a href="https://payhip.com/b/X6HOk" target="_blank" rel="noopener noreferrer" class="btn">GET BUDGET TRACKER →</a></section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 </body>
 </html>

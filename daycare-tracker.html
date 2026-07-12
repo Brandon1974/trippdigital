@@ -127,5 +127,16 @@ body{background:#0a0a0a;color:#fff;font-family:'Inter',sans-serif;}
 <p>Perfect for home daycares and small centers who need simple enrollment and billing management.</p>
 <a href="https://payhip.com/b/J0PAk" target="_blank" class="btn">GET DAYCARE TRACKER →</a>
 </section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 </body>
 </html>

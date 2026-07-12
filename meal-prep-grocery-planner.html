@@ -77,5 +77,16 @@
         <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">Perfect for busy households and meal preppers who want to save hours every week.</p>
         <a href="https://payhip.com/b/CD7F9" target="_blank" rel="noopener noreferrer" class="btn">GET MEAL PLANNER →</a>
     </section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 </body>
 </html>
