@@ -1,183 +1,331 @@
-# Tripp Digital - Professional Website
+# Tripp Digital — Website & Product Ecosystem
 
-A modern, dark-theme professional website for Tripp Digital, a Virginia Beach-based web agency specializing in affordable websites and digital products.
+A professional, dark-themed website for Tripp Digital — a Virginia Beach-based digital products agency + web solutions provider.
 
-## 🎨 Design Features
+**Live site:** https://trippdigital.com
 
-- **Dark Professional Theme** — Black background with orange #FF6B00 accents
-- **Bebas Neue + Inter Fonts** — Bold, modern typography
-- **Fully Responsive** — Mobile-first design that works on all devices
-- **Stripe Integration** — Seamless payment processing for services and products
-- **Smooth Animations** — Professional micro-interactions and transitions
+---
 
 ## 📁 Project Structure
 
 ```
-trippdigital-website/
-├── index.html                          # Main homepage
+trippdigital/
+├── index.html                          # Main homepage (hero + nav + all sections)
+├── privacy.html                        # Privacy policy
+├── terms.html                          # Terms of service
 ├── success.html                        # Payment success page
-├── styles.css                          # All styling
-├── script.js                           # Frontend functionality
-├── package.json                        # Dependencies
-├── netlify.toml                        # Netlify configuration
-├── .env.example                        # Environment variables template
+├── admin-login.html                    # Admin login interface
+├── admin-dashboard.html                # Admin dashboard
+│
+├── assets/                             # All static assets (organized)
+│   ├── images/
+│   │   ├── branding/                   # Logos, favicons, OG images
+│   │   ├── products/                   # Product screenshots & thumbnails
+│   │   ├── books/                      # Book cover images
+│   │   └── icons/                      # SVG icons (future use)
+│   ├── styles/
+│   │   └── styles.css                  # Main stylesheet (all styling)
+│   └── scripts/
+│       ├── script.js                   # Main frontend functionality
+│       └── chatbot.js                  # Chatbot widget logic
+│
+├── tools/                              # Interactive tools & dashboards
+│   ├── invoice-generator.html          # Invoice & Estimate Generator
+│   ├── budget-expense-tracker.html
+│   ├── lead-crm-tracker.html
+│   ├── social-media-dashboard.html
+│   ├── client-tracking-dashboard.html
+│   ├── kdp-sales-dashboard.html
+│   ├── garden-planner.html
+│   ├── habit-goal-tracker.html
+│   ├── meal-prep-grocery-planner.html
+│   ├── daycare-tracker.html
+│   ├── pickleball-tracker.html
+│   ├── content-calendar.html
+│   ├── lead-finder.html
+│   ├── stats.html
+│   └── tools.html                      # Tools directory/hub
+│
+├── spec-sites/                         # Client showcase sites (web agency)
+│   └── bd-handyman/                    # Example: BD Handyman spec site
+│       └── index.html
+│
+├── data/
+│   └── products.json                   # Product catalog (JSON)
+│
 ├── netlify/
 │   └── functions/
 │       └── create-checkout-session.js  # Stripe checkout serverless function
-└── README.md                           # This file
+│
+├── netlify.toml                        # Netlify build config
+├── package.json                        # Node dependencies
+├── .env.example                        # Environment variables template
+│
+├── CLAUDE.md                           # Internal: Claude Code operating manual
+├── ADMIN.md                            # Internal: Admin panel documentation
+│
+└── [Internal Knowledge System — not deployed]
+    ├── raw/                            # Unprocessed input data
+    │   ├── sessions/                   # Claude conversation exports
+    │   ├── inputs/                     # Voice notes, brain dumps, notes
+    │   └── ecosystem/                  # Facebook group posts, transcripts
+    ├── wiki/                           # Structured knowledge base
+    ├── skills/                         # Reusable task templates
+    ├── output/                         # Generated reports & suggestions
+    └── process/                        # In-flight work (temporary)
 ```
 
-## 🚀 Quick Start
+---
 
-### 1. **Clone or Download**
+## 🎨 Design & Branding
+
+- **Theme:** Dark professional (black background #000000)
+- **Accent Color:** Orange #FF6B00
+- **Fonts:** Bebas Neue (headings) + Inter (body)
+- **Layout:** Responsive (mobile-first)
+- **Animations:** Smooth transitions, intersection observer animations
+
+### Color Variables (styles.css)
+
+```css
+--color-bg: #0a0a0a;
+--color-text: #ffffff;
+--color-orange: #FF6B00;
+--color-border: #1a1a1a;
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install Dependencies
 ```bash
-cd trippdigital-website
 npm install
 ```
 
-### 2. **Set Up Environment Variables**
-Copy `.env.example` to `.env.local`:
+### 2. Set Up Environment Variables
 ```bash
 cp .env.example .env.local
 ```
 
-Add your Stripe keys to `.env.local`:
-- Get your Stripe keys from https://dashboard.stripe.com/
-- Replace `pk_live_YOUR_STRIPE_PUBLISHABLE_KEY` with your publishable key
-- Replace `sk_live_YOUR_STRIPE_SECRET_KEY` with your secret key
+Add your Stripe keys:
+- `STRIPE_PUBLISHABLE_KEY` (from https://dashboard.stripe.com/)
+- `STRIPE_SECRET_KEY`
 
-### 3. **Run Locally**
+### 3. Run Locally
 ```bash
 npm run dev
 # or
 netlify dev
 ```
 
-Visit `http://localhost:8888` in your browser.
+Visit `http://localhost:8888`
+
+---
 
 ## 🌐 Deployment to Netlify
 
-### Step 1: Create a Netlify Account
-1. Go to https://netlify.com
-2. Sign up with GitHub, GitLab, or your email
+### Prerequisites
+- Netlify account (https://netlify.com)
+- GitHub account with this repo
 
-### Step 2: Connect Your Repository
-1. Click "Add new site" → "Import an existing project"
-2. Select your Git provider (GitHub, GitLab, Bitbucket)
-3. Authorize Netlify
-4. Select the repository
-5. Click "Deploy"
+### Steps
 
-### Step 3: Configure Environment Variables
-1. In Netlify dashboard: Go to **Site settings** → **Build & deploy** → **Environment**
-2. Add your environment variables:
-   - `STRIPE_PUBLISHABLE_KEY` = your public key
-   - `STRIPE_SECRET_KEY` = your secret key
-   - `URL` = https://trippdigital.com
+1. **Connect Repository**
+   - Netlify dashboard → "Add new site" → "Import existing project"
+   - Select GitHub and authorize
+   - Select this repo
 
-### Step 4: Connect Your Domain
-1. In Netlify dashboard: Go to **Domain management**
-2. Click "Add custom domain"
-3. Enter: `trippdigital.com`
-4. Follow the DNS setup instructions:
-   - For domain registrar (GoDaddy, Namecheap, etc.):
-     - Go to your DNS settings
-     - Update nameservers to Netlify's nameservers, OR
-     - Add the A record that Netlify provides
-5. Wait for DNS to propagate (5 minutes to 48 hours)
+2. **Configure Environment**
+   - Dashboard → Site settings → Build & deploy → Environment
+   - Add your Stripe keys:
+     - `STRIPE_PUBLISHABLE_KEY`
+     - `STRIPE_SECRET_KEY`
+     - `URL` = https://trippdigital.com
+
+3. **Connect Domain**
+   - Dashboard → Domain management → Add custom domain
+   - Enter: `trippdigital.com`
+   - Update DNS at your registrar OR use Netlify nameservers
+   - Wait for DNS to propagate (5 min - 48 hours)
+
+---
 
 ## 💳 Stripe Integration
 
-### Before Going Live:
-1. Create a Stripe account: https://stripe.com
-2. Test with test keys first:
-   - `pk_test_...` (publishable)
-   - `sk_test_...` (secret)
-3. Once tested, switch to live keys for production
-
-### How Payments Work:
-1. User clicks "SELECT PLAN" or "ADD TO CART"
-2. They review items in the modal
+### Payment Flow
+1. User clicks "SELECT PLAN" or "BUY NOW"
+2. Modal opens with item review
 3. Click "Proceed to Payment"
 4. Redirected to Stripe Checkout
-5. After payment, redirected to `success.html`
+5. After payment → redirected to `success.html`
 
-### Testing Payments:
-Use Stripe test card: `4242 4242 4242 4242`
+### Testing Payments
+Use Stripe test mode:
+- Test card: `4242 4242 4242 4242`
 - Any future expiration date
 - Any 3-digit CVC
 
-## 📝 Customization
+### Going Live
+1. Switch from test keys to live keys in `.env`
+2. Update Netlify environment variables with live keys
+3. Redeploy
+
+---
+
+## 📝 Content Management
 
 ### Update Pricing
-Edit `index.html` and update:
-- Service prices in the Services section
-- Product prices in the Products grid
-- Line item prices in the checkout function
+Edit `index.html`:
+- Service prices (Services section, ~line 169-229)
+- Product prices (Products section, ~line 234-650)
+- Update data in `data/products.json` if using dynamic products
+
+### Update Products
+- Add new product cards in `index.html` Products section
+- OR update `data/products.json` and bind with JavaScript (future enhancement)
+- Place product images in `assets/images/products/`
 
 ### Update Colors
-Edit `styles.css` and modify:
-- `--color-orange: #FF6B00` (change to your brand color)
-- `--color-bg: #0a0a0a` (background)
-- `--color-text: #ffffff` (text)
+Edit `assets/styles/styles.css`:
+```css
+--color-orange: #FF6B00;   /* Brand accent */
+--color-bg: #0a0a0a;       /* Background */
+--color-text: #ffffff;     /* Text */
+```
 
-### Update Content
-Edit `index.html` to update:
-- Business name, email, location
-- Service descriptions and features
-- Product names and descriptions
-- Book titles
-- Social media links
+### Update Copy
+Edit the relevant HTML section in `index.html`:
+- Hero section (line 78-152)
+- Services section (line 165-231)
+- Products section (line 234-650)
+- Books section (line 653-729)
+- About/Contact sections (line 783-809)
 
-## 📱 Mobile Responsive
+---
 
-The site automatically adapts to:
-- Desktop (1400px+)
-- Tablet (1024px)
-- Mobile (768px and below)
+## 🛠️ Customization Tips
 
-All layouts are tested and optimized for touch.
+### Add a New Tool
+1. Create `tools/my-new-tool.html`
+2. Use relative paths: `../assets/styles/styles.css`, `../assets/scripts/script.js`
+3. Add reference in `tools/tools.html` navigation
+4. Link from main `index.html` if needed
 
-## 🔒 Security
+### Add a New Service/Product
+1. Edit `index.html` Services or Products section
+2. Add card HTML with proper classes
+3. Update pricing in the card
+4. Add image to `assets/images/products/`
 
-- Environment variables stored securely in Netlify
-- Stripe handles all payment security
-- No sensitive data stored in code
-- HTTPS enabled by default on Netlify
+### Customize Chatbot
+Edit `assets/scripts/chatbot.js`:
+- Change bot responses
+- Update greeting message
+- Modify styling in `styles.css` (`.chatbot-widget` class)
 
-## 📊 Analytics
+---
 
-Netlify provides free analytics. To view:
-1. Dashboard → **Analytics**
-2. See visitor data, traffic sources, top pages
+## 📊 Analytics & Monitoring
+
+### Netlify Analytics
+- Dashboard → Analytics
+- See visitor counts, top pages, traffic sources
+
+### Track Page Visits
+The site includes a visitor tracking function (see `index.html`, line 942-951):
+```javascript
+fetch('/.netlify/functions/track-visit', {
+  method: 'POST',
+  body: JSON.stringify({
+    page: window.location.pathname,
+    referrer: document.referrer || 'direct'
+  })
+})
+```
 
 Consider adding:
 - Google Analytics
-- Stripe Analytics
-- Email marketing integration
+- Stripe Analytics dashboard
+- Email marketing integration (Mailchimp, ConvertKit, etc.)
 
-## 🛠️ Troubleshooting
+---
+
+## 🔒 Security
+
+- ✅ Environment variables stored securely in Netlify
+- ✅ Stripe handles all payment security (PCI compliant)
+- ✅ No sensitive data in code or git
+- ✅ HTTPS enabled by default on Netlify
+- ✅ `.env.local` is in `.gitignore` (never committed)
+
+---
+
+## 🐛 Troubleshooting
 
 ### Payments not working?
-- Check Stripe keys in `.env.local` and Netlify settings
-- Verify test vs. live keys match
-- Check browser console for errors (F12)
+- Verify Stripe keys in `.env.local` and Netlify settings
+- Check test vs. live keys match your environment
+- Open browser console (F12) and check for errors
+- Verify Stripe API is responding: https://status.stripe.com
 
 ### Domain not connecting?
-- Wait for DNS propagation (can take up to 48 hours)
-- Verify nameservers or A record in your domain registrar
-- In Netlify, verify domain shows as connected
+- DNS can take up to 48 hours to propagate
+- Verify nameservers or A record at your registrar
+- In Netlify, check domain shows as "Connected"
+- Try https://mxtoolbox.com/mxlookup.aspx to check DNS
 
 ### Styles not loading?
 - Hard refresh (Cmd+Shift+R on Mac, Ctrl+Shift+R on Windows)
 - Clear browser cache
-- Check that `styles.css` is in the same folder as `index.html`
+- Verify `assets/styles/styles.css` path is correct
+- Check browser console for 404 errors
 
-## 📧 Support
-
-For Netlify support: https://support.netlify.com
-For Stripe support: https://support.stripe.com
+### Tools broken after reorganization?
+- Verify all `../assets/` relative paths are correct in `/tools/*.html`
+- Check that script and style src attributes point to correct locations
+- Test in browser console: `fetch('../assets/styles/styles.css')` should return the file
 
 ---
 
-**Built with ❤️ for Tripp Digital**
+## 📚 Internal Documentation
+
+This repo includes internal knowledge management (not deployed):
+
+- **CLAUDE.md** — Claude Code operating manual (business context, rules, workflows)
+- **ADMIN.md** — Admin panel documentation
+- **raw/** — Original, unprocessed data (sessions, voice notes, ecosystem captures)
+- **wiki/** — Structured knowledge base (processed, distilled information)
+- **skills/** — Reusable task templates for Claude
+- **output/** — Generated reports, suggestions, changelogs
+- **process/** — In-flight work (temporary staging)
+
+These folders are excluded from Netlify deployment via `netlify.toml` and `.netlifyignore`.
+
+---
+
+## 📞 Support
+
+- **Netlify Support:** https://support.netlify.com
+- **Stripe Support:** https://support.stripe.com
+- **HTML/CSS/JS Questions:** See inline comments in code files
+
+---
+
+## 📋 Feature Roadmap
+
+- [ ] Dynamic product catalog from `data/products.json`
+- [ ] Advanced analytics dashboard
+- [ ] Email newsletter automation
+- [ ] Social media feed integration
+- [ ] Client testimonial management system
+- [ ] Blog / resource center
+- [ ] Advanced inventory management for products
+
+---
+
+## 📄 License
+
+All code and design © 2026 Tripp Digital. All rights reserved.
+
+**Built with ❤️ in Virginia Beach**

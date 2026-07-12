@@ -1,0 +1,15 @@
+# Exclude internal documentation from Netlify deployment
+# These folders contain development/knowledge management files, not website code
+
+raw/
+wiki/
+skills/
+output/
+process/
+
+# Development files
+.env.local
+.env.*.local
+node_modules/
+.DS_Store
+*.log
