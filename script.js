@@ -78,6 +78,90 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// EMBEDDED VIDEO PLAYER CONTROLS
+(function() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const video = document.getElementById('heroVideo');
+    const playOverlay = document.getElementById('playOverlay');
+    const playButtonLarge = document.getElementById('playButtonLarge');
+    const playBtnEmbed = document.getElementById('playBtnEmbed');
+    const progressBar = document.getElementById('progressEmbedBar');
+    const progressFill = document.getElementById('progressFillEmbed');
+    const timeDisplay = document.getElementById('timeEmbed');
+    const fullscreenBtn = document.getElementById('fullscreenEmbed');
+    const videoWrapper = document.querySelector('.video-wrapper');
+
+    if (!video) return;
+
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Play from overlay
+    playButtonLarge.addEventListener('click', (e) => {
+        e.stopPropagation();
+        video.play();
+    });
+
+    // Play from controls
+    playBtnEmbed.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (video.paused) {
+            video.play();
+        } else {
+            video.pause();
+        }
+    });
+
+    // Hide overlay and show controls when playing
+    video.addEventListener('play', () => {
+        playOverlay.classList.add('hidden');
+    });
+
+    video.addEventListener('pause', () => {
+        playOverlay.classList.remove('hidden');
+    });
+
+    // Progress updates
+    video.addEventListener('timeupdate', () => {
+        const percent = (video.currentTime / video.duration) * 100;
+        progressFill.style.width = percent + '%';
+        timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+    });
+
+    // Seek on progress bar click
+    progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        video.currentTime = percent * video.duration;
+    });
+
+    // Fullscreen
+    fullscreenBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (videoWrapper.requestFullscreen) {
+            videoWrapper.requestFullscreen();
+        } else if (videoWrapper.webkitRequestFullscreen) {
+            videoWrapper.webkitRequestFullscreen();
+        }
+    });
+
+    // Hide controls on mouse leave
+    videoWrapper.addEventListener('mouseleave', () => {
+        if (!video.paused) {
+            document.querySelector('.video-controls-embed').style.opacity = '0';
+        }
+    });
+
+    videoWrapper.addEventListener('mouseenter', () => {
+        document.querySelector('.video-controls-embed').style.opacity = '1';
+    });
+})();
+
 // SMOOTH SCROLL FOR ANCHOR LINKS
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
