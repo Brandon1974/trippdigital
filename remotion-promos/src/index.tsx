@@ -24,7 +24,7 @@ const PICKLEBALL_CONFIG = {
     'Share results and compete with friends',
   ],
   price: 12,
-  screenshotPath: 'https://via.placeholder.com/500x300?text=Pickleball+Tracker',
+  screenshotPath: './public/pickleball-placeholder.jpg',
 };
 
 export const PromoVideo: React.FC = () => {

@@ -9,4 +9,7 @@ Config.setFrameRange([0, -1]); // Render full duration
 // For preview server
 Config.setImageFormat('png');
 
+// Use system Chromium if available
+Config.setChromiumExecutablePath('/opt/pw-browsers/chromium');
+
 export default undefined;

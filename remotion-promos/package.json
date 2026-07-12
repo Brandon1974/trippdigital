@@ -5,13 +5,14 @@
   "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "start": "remotion preview src/index.tsx",
-    "preview": "remotion preview src/index.tsx",
-    "build": "remotion render src/index.tsx PromoVideo --codec h264 --crf 28 --output-format mp4 --output-dir ./output",
-    "render": "remotion render src/index.tsx PromoVideo --codec h264 --crf 28 --output-format mp4 --output-dir ./output",
-    "render:hq": "remotion render src/index.tsx PromoVideo --codec h264 --crf 20 --output-format mp4 --output-dir ./output"
+    "start": "npx remotion preview src/index.tsx",
+    "preview": "npx remotion preview src/index.tsx",
+    "build": "npx remotion render src/index.tsx PromoVideo --codec h264 --crf 28 --output-format mp4 --output-dir ./output",
+    "render": "npx remotion render src/index.tsx PromoVideo --codec h264 --crf 28 --output-format mp4 --output-dir ./output",
+    "render:hq": "npx remotion render src/index.tsx PromoVideo --codec h264 --crf 20 --output-format mp4 --output-dir ./output"
   },
   "dependencies": {
+    "@remotion/cli": "^4.0.489",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "remotion": "^4.0.489"
