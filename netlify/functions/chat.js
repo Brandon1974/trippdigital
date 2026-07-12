@@ -44,7 +44,34 @@ async function logChatActivity(isNewConversation) {
 }
 
 
-const systemPrompt = `You are a helpful, upbeat customer service assistant for Tripp Digital, a Virginia Beach-based web agency and digital products business run by Brandon Tripp.
+const fs = require("fs");
+const path = require("path");
+
+function loadProducts() {
+  try {
+    const filePath = path.join(__dirname, "../../data/products.json");
+    const raw = fs.readFileSync(filePath, "utf8");
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("Could not load products.json:", err.message);
+    return [];
+  }
+}
+
+function buildSystemPrompt() {
+  const products = loadProducts();
+
+  const freeItems = products.filter((p) => p.price.toLowerCase() === "free");
+  const paidTools = products.filter((p) => p.type === "tool" && p.price.toLowerCase() !== "free");
+  const guides = products.filter((p) => p.type === "guide" && p.price.toLowerCase() !== "free");
+  const books = products.filter((p) => p.type === "book");
+
+  const formatItem = (p) => {
+    const trial = p.free_trial ? ` (try free first at ${p.link})` : "";
+    return `- ${p.name} — ${p.price}${trial}: ${p.description}`;
+  };
+
+  return `You are a helpful, upbeat customer service assistant for Tripp Digital, a Virginia Beach-based web agency and digital products business run by Brandon Tripp.
 
 About Tripp Digital:
 - Website: trippdigital.com
@@ -56,46 +83,26 @@ Website services:
 - Business Website: $197/month (up to 15 pages, full SEO, blog, payment integration)
 - Premium Website: $297/month (unlimited pages, advanced SEO, e-commerce, custom integrations)
 
-FREE digital tools (promote these often! great low-pressure way for people to try Tripp Digital):
-- Reseller Flip Profit Tracker — free HTML tool for thrifters/resellers to track cost, sale price, and real profit on every flip
-- 5 Ways to Make Money on Facebook — free guide
-- 5 Ways to Make Money on Instagram — free guide
+FREE items (promote these often! great low-pressure way for people to try Tripp Digital):
+${freeItems.map(formatItem).join("\n")}
 
 Paid digital tools & business trackers (single-file HTML tools, instant download, no software installs):
-- Pickleball Score Tracker & Stats App — $12 (try it free first at trippdigital.com/pickleball-tracker.html — live scoring, automatic side-out rules, match history, win/loss stats, CSV export)
-- Rental & Property Tracker — $24 (on Whop)
-- Lead & CRM Tracker
-- Invoice Generator
-- Daycare Enrollment Tracker
-- Garden Planner
-- Budget & Expense Tracker
-- KDP Sales Dashboard
-- Content Calendar
-- Habit & Goal Tracker
-- Meal Prep & Grocery Planner
+${paidTools.map(formatItem).join("\n")}
 
 Paid PDF guides:
-- AI Prompt Vault — $17
-- iPhone Movie Maker — $14
-- $30 An Hour From Home — $17
-- Work From Home Truck Dispatcher
-- How to Make Money on Facebook — $9.99
-- Sweet Potato Harvest System — $9.99 (Vibrant Gardens brand)
-- Dragonfly Garden Blueprint — $7.99 (Vibrant Gardens brand)
-- Collard Greens Mastery — $9.99 (Vibrant Gardens brand)
+${guides.map(formatItem).join("\n")}
 
 Books by Brandon Tripp:
-- Bones: Snake Eyes (Book 1, Traveling Dice Shooter series)
-- Maya: Lost & Found (Book 1.5)
-- Magnet Puzzles Collection, Vols. 1-5 ($11.99 each, paperback, 250 puzzles per volume)
+${books.map(formatItem).join("\n")}
 
 Your goals when chatting:
 - Be friendly, professional, conversational — not salesy or robotic.
-- Whenever it's a natural fit, mention the FREE tools first (especially the Reseller Flip Profit Tracker) as a no-risk way to check out Tripp Digital's quality before buying anything.
+- Whenever it's a natural fit, mention FREE items first as a no-risk way to check out Tripp Digital's quality before buying anything. If a paid item has a free trial link, mention that too.
 - Answer questions about services, products, pricing, features, and how to purchase.
 - General business/entrepreneurship advice is fine too.
 - If someone asks about something you're unsure of, delivery specifics, or anything outside this info, encourage them to email trippdigital1@gmail.com or browse trippdigital.com directly.
 - Keep responses concise: 2-3 sentences max unless more detail is clearly needed.`;
+}
 
 exports.handler = async (event, context) => {
   if (event.httpMethod !== "POST") {
@@ -137,7 +144,7 @@ exports.handler = async (event, context) => {
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
-      system: systemPrompt,
+      system: buildSystemPrompt(),
       messages: claudeMessages,
     });
 

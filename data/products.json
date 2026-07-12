@@ -1,0 +1,218 @@
+[
+  {
+    "name": "Pickleball Score Tracker & Stats App",
+    "price": "$12",
+    "type": "tool",
+    "free_trial": true,
+    "description": "Live scoring, automatic side-out rules, match history, win/loss stats, CSV export. Try free at trippdigital.com/pickleball-tracker.html before buying.",
+    "link": "trippdigital.com/pickleball-tracker.html"
+  },
+  {
+    "name": "Reseller Flip Profit Tracker",
+    "price": "Free",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Free tool for thrifters/resellers to track cost, sale price, and real profit on every flip.",
+    "link": "payhip.com/Tinytripp"
+  },
+  {
+    "name": "5 Ways to Make Money on Facebook",
+    "price": "Free",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Free guide with money-making strategies for Facebook.",
+    "link": "payhip.com/Tinytripp"
+  },
+  {
+    "name": "5 Ways to Make Money on Instagram",
+    "price": "Free",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Free guide with money-making strategies for Instagram.",
+    "link": "payhip.com/Tinytripp"
+  },
+  {
+    "name": "Rental & Property Tracker",
+    "price": "$24",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track rental units, tenants, payments, and property expenses. Sold on Whop.",
+    "link": "whop.com/tripp-digital/rental-property-tracker"
+  },
+  {
+    "name": "Lead & CRM Tracker",
+    "price": "$19",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Manage sales pipeline with unlimited leads, live metrics, conversion rate, CSV export.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Invoice Generator",
+    "price": "varies",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Simple invoice creation and tracking tool.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Daycare Enrollment & Billing Tracker",
+    "price": "varies",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track daycare enrollment, billing, and payments.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Garden Planner",
+    "price": "varies",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Plan and track garden beds, planting schedules, harvests.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Budget & Expense Tracker",
+    "price": "$19",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track budgets, categorize expenses, view spending trends.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "KDP Sales Dashboard",
+    "price": "varies",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track Amazon KDP book sales and royalties.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Content Calendar",
+    "price": "varies",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Plan and organize content posting schedules.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Habit & Goal Tracker",
+    "price": "$19",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track daily habits and progress toward goals.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Meal Prep & Grocery Planner",
+    "price": "$19",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Plan meals and generate grocery lists.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Social Media Dashboard",
+    "price": "$27",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Track social media performance across platforms.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "Client Tracking Dashboard",
+    "price": "$37",
+    "type": "tool",
+    "free_trial": false,
+    "description": "Manage clients, track payments, and grow a service business.",
+    "link": "trippdigital.com"
+  },
+  {
+    "name": "AI Prompt Vault",
+    "price": "$17",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Collection of AI prompts for business and productivity.",
+    "link": "payhip.com/b/JCy58"
+  },
+  {
+    "name": "iPhone Movie Maker",
+    "price": "$14",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Guide to making movies/videos using just an iPhone.",
+    "link": "payhip.com/b/uGKdn"
+  },
+  {
+    "name": "$30 An Hour From Home",
+    "price": "$17",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Guide to remote work opportunities paying around $30/hour.",
+    "link": "payhip.com/Tinytripp"
+  },
+  {
+    "name": "Work From Home Truck Dispatcher",
+    "price": "varies",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Guide to becoming a remote truck dispatcher.",
+    "link": "payhip.com/b/Iar4b"
+  },
+  {
+    "name": "How to Make Money on Facebook",
+    "price": "$9.99",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Full guide to making money using Facebook.",
+    "link": "payhip.com/b/26IDv"
+  },
+  {
+    "name": "Sweet Potato Harvest System",
+    "price": "$9.99",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Vibrant Gardens brand guide to growing and harvesting sweet potatoes.",
+    "link": "payhip.com/b/9EMdW"
+  },
+  {
+    "name": "Dragonfly Garden Blueprint",
+    "price": "$7.99",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Vibrant Gardens brand guide to attracting dragonflies to your garden.",
+    "link": "payhip.com/b/XRQy9"
+  },
+  {
+    "name": "Collard Greens Mastery",
+    "price": "$9.99",
+    "type": "guide",
+    "free_trial": false,
+    "description": "Vibrant Gardens brand guide to growing collard greens.",
+    "link": "payhip.com/b/q4eQZ"
+  },
+  {
+    "name": "Bones: Snake Eyes",
+    "price": "varies",
+    "type": "book",
+    "free_trial": false,
+    "description": "Book 1 of The Traveling Dice Shooter urban fiction series by Brandon Tripp.",
+    "link": "amazon.com"
+  },
+  {
+    "name": "Maya: Lost & Found",
+    "price": "varies",
+    "type": "book",
+    "free_trial": false,
+    "description": "Book 1.5 of The Traveling Dice Shooter series.",
+    "link": "amazon.com"
+  },
+  {
+    "name": "Magnet Puzzles Collection (Vols. 1-5)",
+    "price": "$11.99 each",
+    "type": "book",
+    "free_trial": false,
+    "description": "Magnet logic puzzle books, 250 puzzles per volume, paperback.",
+    "link": "amazon.com"
+  }
+]
