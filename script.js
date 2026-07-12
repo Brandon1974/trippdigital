@@ -123,7 +123,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // ANIMATED COUNTERS
 (function() {
-    const counters = document.querySelectorAll('[data-count]');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const counters = document.querySelectorAll('.counter[data-count]');
     let hasRun = false;
 
     const runCounters = () => {
@@ -133,36 +135,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (!statsSection) return;
 
         const rect = statsSection.getBoundingClientRect();
-        if (rect.top > window.innerHeight) return;
+        if (rect.top > window.innerHeight * 0.85) return;
 
         hasRun = true;
 
-        counters.forEach(counter => {
+        counters.forEach((counter, index) => {
             const target = parseInt(counter.dataset.count);
             const duration = 2500;
             const start = Date.now();
+            const delay = index * 100;
 
-            const animate = () => {
-                const elapsed = Date.now() - start;
-                const progress = Math.min(elapsed / duration, 1);
+            setTimeout(() => {
+                const animate = () => {
+                    const elapsed = Date.now() - start;
+                    const progress = Math.min(elapsed / duration, 1);
 
-                // Easing function for smooth animation
-                const easeOutQuad = 1 - (1 - progress) * (1 - progress);
-                const current = Math.floor(target * easeOutQuad);
+                    // Easing function for smooth animation
+                    const easeOutQuad = 1 - (1 - progress) * (1 - progress);
+                    const current = Math.floor(target * easeOutQuad);
 
-                counter.textContent = current.toLocaleString();
+                    counter.textContent = current.toLocaleString();
 
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    counter.textContent = target.toLocaleString();
-                }
-            };
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
 
-            animate();
+                animate();
+            }, delay);
         });
     };
 
     window.addEventListener('scroll', runCounters, { passive: true });
-    runCounters(); // Run on load
+    // Run on load if stats section is visible
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runCounters);
+    } else {
+        runCounters();
+    }
 })();
