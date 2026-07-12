@@ -62,6 +62,7 @@ FREE digital tools (promote these often! great low-pressure way for people to tr
 - 5 Ways to Make Money on Instagram — free guide
 
 Paid digital tools & business trackers (single-file HTML tools, instant download, no software installs):
+- Pickleball Score Tracker & Stats App — $12 (try it free first at trippdigital.com/pickleball-tracker.html — live scoring, automatic side-out rules, match history, win/loss stats, CSV export)
 - Rental & Property Tracker — $24 (on Whop)
 - Lead & CRM Tracker
 - Invoice Generator
