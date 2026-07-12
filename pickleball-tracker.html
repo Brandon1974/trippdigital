@@ -62,6 +62,11 @@
 
   .export-btn{width:100%;padding:14px;background:transparent;border:1px solid var(--accent);color:var(--accent);border-radius:8px;font-weight:600;margin-top:10px;cursor:pointer;}
 
+  .hero-photo{position:relative;width:100%;max-width:480px;margin:0 auto;overflow:hidden;border-bottom:3px solid var(--accent);}
+  .hero-photo img{width:100%;display:block;}
+  .hero-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(0,0,0,0.85), transparent);padding:20px 16px 14px;}
+  .hero-overlay h1{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;letter-spacing:1px;}
+  .hero-overlay p{font-size:0.85rem;color:#ddd;margin-top:4px;}
   .brand-footer{text-align:center;color:#555;font-size:0.75rem;padding:30px 20px;}
 </style>
 </head>
@@ -71,6 +76,14 @@
   <div class="logo">TRIPP <span class="accent">DIGITAL</span></div>
   <nav><a href="/">← Back to site</a></nav>
 </header>
+
+<div class="hero-photo">
+  <img src="/images/products/pickleball-real-players.jpg" alt="Two players in a pickleball match">
+  <div class="hero-overlay">
+    <h1>PICKLEBALL SCORE TRACKER</h1>
+    <p>Never lose track of the score again — tap to score, it does the rest.</p>
+  </div>
+</div>
 
 <div class="tabs">
   <div class="tab active" data-view="play">PLAY</div>
