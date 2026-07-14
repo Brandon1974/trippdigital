@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Professional website for Tripp Digital - Virginia Beach Web Agency",
   "main": "index.html",
+  "bin": {
+    "no-website-finder": "./bin/no-website-finder.js"
+  },
   "scripts": {
     "dev": "netlify dev",
     "start": "npm run dev",
