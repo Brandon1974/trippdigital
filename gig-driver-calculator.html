@@ -533,29 +533,29 @@
                 </div>
             </div>
 
-            <div class="verdict" id="verdict">
-                <div class="verdict-text" id="verdictText">Is It Worth It?</div>
+            <div class="verdict" id="verdict" style="display: none;">
+                <div class="verdict-text" id="verdictText">UNLOCK FULL RESULTS</div>
                 <div class="verdict-detail" id="verdictDetail"></div>
             </div>
 
-            <div class="result-item">
-                <div>
-                    <div class="result-label">Your NET PROFIT</div>
-                    <div class="result-value" id="resultNetProfit">$0.00</div>
-                </div>
-                <div>
-                    <div class="result-label">Effective Hourly Rate (Est.)</div>
-                    <div class="result-value" id="resultHourlyRate">$0.00/hr</div>
+            <div class="paywall-container" id="paywall">
+                <div style="text-align: center; background: #0a0a0a; border: 2px solid #FF6B00; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
+                    <h3 style="color: #FF6B00; font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">✓ We Can Calculate That</h3>
+                    <p style="color: #cccccc; margin-bottom: 20px; font-size: 1rem;">Your offer details have been processed. Ready to see your exact profit, hourly rate, and detailed breakdown?</p>
+                    <a href="https://payhip.com/b/s5RCh" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #FF6B00; color: #000000; padding: 15px 40px; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; font-size: 1rem;">GET FULL CALCULATOR - $14.99</a>
+                    <p style="color: #666666; margin-top: 20px; font-size: 0.85rem;">One-time purchase. Unlimited calculations. Instant results.</p>
                 </div>
             </div>
 
             <div class="info-box">
-                <h3>How This Works</h3>
+                <h3>What You Get with Full Version</h3>
                 <ul>
-                    <li><strong>Gas Cost:</strong> Based on distance, MPG, and current gas prices</li>
-                    <li><strong>Wear & Tear:</strong> IRS standard is ~14¢ per mile (depreciation, maintenance, insurance)</li>
-                    <li><strong>Net Profit:</strong> Offer amount minus all vehicle costs</li>
-                    <li><strong>Note:</strong> This doesn't include platform fees, but shows your actual take-home on this specific offer</li>
+                    <li><strong>Exact Profit Calculator:</strong> Gas costs based on distance, MPG, and current prices</li>
+                    <li><strong>Hourly Rate:</strong> See your actual $/hour on every offer</li>
+                    <li><strong>Quick Verdict:</strong> "Worth It" or "Keep Scrolling" instant decision</li>
+                    <li><strong>Wear & Tear:</strong> Automatic IRS-standard calculations (14¢/mile)</li>
+                    <li><strong>Multiple Platforms:</strong> Uber, DoorDash, Instacart, Amazon Flex, Grubhub & more</li>
+                    <li><strong>Save Offers:</strong> Track your best deals and build profit history</li>
                 </ul>
             </div>
         </div>
@@ -607,69 +607,9 @@
                 return;
             }
 
-            let gasCost = 0;
-            const activeMethod = document.querySelector('.calc-option.active').getAttribute('data-method');
-
-            if (activeMethod === 'distance') {
-                const distance = parseFloat(document.getElementById('totalDistance').value) || 0;
-                const mpg = parseFloat(document.getElementById('vehicleMpg').value) || 25;
-                const gasPrice = parseFloat(document.getElementById('gasPricePerGallon').value) || 3.50;
-                const wearTear = parseFloat(document.getElementById('wearTear').value) || 0.14;
-
-                const gasCostCalc = (distance / mpg) * gasPrice;
-                const wearTearCost = distance * wearTear;
-                gasCost = gasCostCalc + wearTearCost;
-            } else if (activeMethod === 'mpg') {
-                const miles = parseFloat(document.getElementById('milesDriven').value) || 0;
-                const mpg = parseFloat(document.getElementById('vehicleMpg2').value) || 25;
-                const gasPrice = parseFloat(document.getElementById('gasPricePerGallon2').value) || 3.50;
-                const wearTear = parseFloat(document.getElementById('wearTear2').value) || 0.14;
-
-                const gasCostCalc = (miles / mpg) * gasPrice;
-                const wearTearCost = miles * wearTear;
-                gasCost = gasCostCalc + wearTearCost;
-            } else if (activeMethod === 'manual') {
-                gasCost = parseFloat(document.getElementById('manualGasCost').value) || 0;
-            }
-
-            const netProfit = offerAmount - gasCost;
-
-            // Display results
-            document.getElementById('resultOfferAmount').textContent = '$' + offerAmount.toFixed(2);
-            document.getElementById('resultGasCost').textContent = '$' + gasCost.toFixed(2);
-            document.getElementById('resultNetProfit').textContent = '$' + netProfit.toFixed(2);
-
-            // Estimate hourly rate (assuming avg 20 min per offer)
-            const estimatedHours = 0.33; // 20 minutes
-            const hourlyRate = netProfit / estimatedHours;
-            document.getElementById('resultHourlyRate').textContent = '$' + hourlyRate.toFixed(2) + '/hr';
-
-            // Verdict
-            const verdictEl = document.getElementById('verdict');
-            const verdictText = document.getElementById('verdictText');
-            const verdictDetail = document.getElementById('verdictDetail');
-
-            verdictEl.classList.remove('worth-it', 'not-worth-it');
-
-            if (netProfit >= 10) {
-                verdictEl.classList.add('worth-it');
-                verdictText.textContent = '✓ YES — WORTH IT!';
-                verdictDetail.textContent = `You'll make $${netProfit.toFixed(2)} net profit on this offer. That's $${hourlyRate.toFixed(2)}/hr — solid money!`;
-            } else if (netProfit >= 5) {
-                verdictEl.classList.add('worth-it');
-                verdictText.textContent = '✓ MAYBE — CONSIDER IT';
-                verdictDetail.textContent = `$${netProfit.toFixed(2)} net profit is modest ($${hourlyRate.toFixed(2)}/hr). Take it if you're slow, skip if better offers come.`;
-            } else if (netProfit > 0) {
-                verdictEl.classList.add('not-worth-it');
-                verdictText.textContent = '✗ NOT WORTH IT';
-                verdictDetail.textContent = `Only $${netProfit.toFixed(2)} net profit ($${hourlyRate.toFixed(2)}/hr). You can do better — keep scrolling.`;
-            } else {
-                verdictEl.classList.add('not-worth-it');
-                verdictText.textContent = '✗ DEFINITELY NOT';
-                verdictDetail.textContent = `This offer loses you $${Math.abs(netProfit).toFixed(2)}. Reject immediately.`;
-            }
-
-            document.getElementById('results').classList.add('show');
+            // Show paywall instead of full results
+            document.getElementById('paywall').style.display = 'block';
+            window.scrollTo({ top: document.getElementById('paywall').offsetTop - 100, behavior: 'smooth' });
         }
 
         function resetCalculator() {
@@ -678,6 +618,7 @@
             document.getElementById('milesDriven').value = '';
             document.getElementById('manualGasCost').value = '';
             document.getElementById('results').classList.remove('show');
+            document.getElementById('paywall').style.display = 'none';
         }
 
         // Allow Enter key to calculate
