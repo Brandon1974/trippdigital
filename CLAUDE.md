@@ -227,6 +227,19 @@ If a file sits in `/process` with no recent activity, treat it as stalled and fl
 
 ---
 
+## Active Routines
+
+Persistent cloud-hosted automation tasks that run on schedule. These survive across sessions.
+
+| Routine | ID | Schedule | Email | Purpose |
+|---|---|---|---|---|
+| Pinterest Trend Apps Weekly Check | `trig_01JsaQ7P3LVdKrDntifDYZHW` | Every 7 days at midnight, no expiration | trippdigital1@gmail.com | Checks Pinterest's official trend sources and emails app/tool ideas that fit HTML mini-app format |
+| Netlify Site Usage Monitor | `trig_01R9ihUa5Pe1PnkxN5UKnvdT` | Daily at midnight, no expiration | (manual check) | Daily reminder to check Netlify dashboard for bandwidth/build usage. Site is on `nf_team_dev` plan (not free tier). **Note:** Netlify MCP tools don't expose usage data; enable Netlify billing alerts as a backup |
+
+**To manage routines:** Use trigger IDs above to pause (`update_trigger`), modify schedule, or cancel (`delete_trigger`) via Claude Code MCP tools.
+
+---
+
 ## Self-Improvement Protocol
 
 At the end of any significant work session:
@@ -238,4 +251,4 @@ The system improves every time it is used. The goal is that each session leaves 
 
 ---
 
-*Last updated: 2026-06-29*
+*Last updated: 2026-07-12*

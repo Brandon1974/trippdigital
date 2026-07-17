@@ -61,6 +61,32 @@ async function logConversationTranscript(userMessage, assistantMessage) {
   }
 }
 
+async function submitChatToNetlifyForms(userMessage) {
+  try {
+    // Submit chat message as a Netlify Form submission
+    // This triggers Netlify's built-in form notifications
+    const formName = "chat-messages";
+    const now = new Date();
+
+    const formData = new URLSearchParams();
+    formData.append("form-name", formName);
+    formData.append("message", userMessage.slice(0, 500));
+    formData.append("timestamp", now.toISOString());
+
+    // Submit to Netlify forms endpoint
+    const response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: formData.toString(),
+    });
+
+    console.log("Chat message submitted to Netlify Forms");
+  } catch (err) {
+    console.error("Netlify Forms submission failed:", err.message);
+    // Don't block chat response if form submission fails
+  }
+}
+
 
 const fs = require("fs");
 const path = require("path");
@@ -181,6 +207,9 @@ exports.handler = async (event, context) => {
       ? latestUserMessage.content
       : JSON.stringify(latestUserMessage.content);
     logConversationTranscript(userText, assistantMessage);
+
+    // Submit to Netlify Forms (fire and forget, triggers email notifications)
+    submitChatToNetlifyForms(userText);
 
     return {
       statusCode: 200,
