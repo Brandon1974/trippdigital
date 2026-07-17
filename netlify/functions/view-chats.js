@@ -12,6 +12,25 @@ function blobsStore(name) {
 }
 
 exports.handler = async (event, context) => {
+  const headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 200, headers, body: "" };
+  }
+
+  if (event.httpMethod !== "GET") {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: "Method not allowed" }),
+    };
+  }
+
   try {
     const store = blobsStore("site-analytics");
 
@@ -27,7 +46,7 @@ exports.handler = async (event, context) => {
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
+      headers,
       body: JSON.stringify({
         totalMessages: parseInt(totalMsgs, 10) || 0,
         totalConversations: parseInt(convs, 10) || 0,
@@ -39,7 +58,8 @@ exports.handler = async (event, context) => {
     console.error("Error retrieving chats:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: error.message }),
+      headers,
+      body: JSON.stringify({ error: error.message, details: error.stack }),
     };
   }
 };
