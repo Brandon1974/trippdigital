@@ -1,5 +1,6 @@
 const Anthropic = require("@anthropic-ai/sdk");
 const { getStore } = require("@netlify/blobs");
+const nodemailer = require("nodemailer");
 
 const client = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
@@ -88,6 +89,63 @@ async function submitChatToNetlifyForms(userMessage) {
 }
 
 
+async function getChatLogs() {
+  try {
+    const store = blobsStore("site-analytics");
+    const now = new Date();
+    const dayKey = `chatlog:${now.toISOString().slice(0, 10)}`;
+    const chats = (await store.get(dayKey, { type: "json" })) || [];
+    const totalMsgs = await store.get("chat-message-count");
+    const convs = await store.get("chat-conversation-count");
+    return {
+      totalMessages: parseInt(totalMsgs, 10) || 0,
+      totalConversations: parseInt(convs, 10) || 0,
+      today: now.toISOString().slice(0, 10),
+      todaysChats: chats,
+    };
+  } catch (err) {
+    console.error("Failed to get chat logs:", err.message);
+    return null;
+  }
+}
+
+async function sendChatLogsEmail(chats, recipientEmail) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const chatList = chats.todaysChats
+      .map((chat, i) => `${i + 1}. [${chat.time}]\n   Q: ${chat.question}\n   A: ${chat.answer}`)
+      .join("\n\n");
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: recipientEmail,
+      subject: `Tripp Digital Chat Logs - ${chats.today}`,
+      html: `
+        <h2>Your Chat Activity for ${chats.today}</h2>
+        <p><strong>Total Messages Today:</strong> ${chats.todaysChats.length}</p>
+        <p><strong>Total Messages (All Time):</strong> ${chats.totalMessages}</p>
+        <p><strong>Total Conversations:</strong> ${chats.totalConversations}</p>
+        <hr>
+        <h3>Today's Chats:</h3>
+        ${chats.todaysChats.length === 0 ? "<p>No chats yet today.</p>" : `<pre>${chatList}</pre>`}
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    return true;
+  } catch (err) {
+    console.error("Failed to send email:", err.message);
+    return false;
+  }
+}
+
 const fs = require("fs");
 const path = require("path");
 
@@ -153,7 +211,9 @@ Your goals when chatting:
 - Answer questions about services, products, pricing, features, and how to purchase.
 - General business/entrepreneurship advice is fine too.
 - If someone asks about something you're unsure of, delivery specifics, or anything outside this info, encourage them to email trippdigital1@gmail.com or browse trippdigital.com directly.
-- Keep responses concise: 2-3 sentences max unless more detail is clearly needed.`;
+- Keep responses concise: 2-3 sentences max unless more detail is clearly needed.
+
+SPECIAL: If Brandon (the owner) asks you to show his chats, email chats, or check chat logs, let him know you can fetch that information for him and will provide a summary or email it to him.`;
 }
 
 exports.handler = async (event, context) => {
@@ -189,6 +249,60 @@ exports.handler = async (event, context) => {
       content: msg.content,
     }));
 
+    const latestUserMessage = claudeMessages[claudeMessages.length - 1];
+    const userText = typeof latestUserMessage.content === "string"
+      ? latestUserMessage.content
+      : JSON.stringify(latestUserMessage.content);
+
+    // Check if user is asking about their chats
+    const chatKeywords = ["show my chats", "show chats", "email chats", "check my chats", "my chat logs", "chat logs"];
+    const isAskingAboutChats = chatKeywords.some(keyword => userText.toLowerCase().includes(keyword));
+
+    // Handle chat log requests
+    if (isAskingAboutChats) {
+      const chats = await getChatLogs();
+      if (!chats) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            message: "Sorry, I couldn't retrieve your chat logs right now. Please try again in a moment.",
+            stop_reason: "end_turn",
+          }),
+        };
+      }
+
+      // Check if they want it emailed
+      const shouldEmail = userText.toLowerCase().includes("email");
+      let message = `Here's your chat activity for ${chats.today}:\n\n`;
+      message += `Total Messages Today: ${chats.todaysChats.length}\n`;
+      message += `Total Messages (All Time): ${chats.totalMessages}\n`;
+      message += `Total Conversations: ${chats.totalConversations}\n\n`;
+
+      if (chats.todaysChats.length === 0) {
+        message += "No chats logged yet today.";
+      } else {
+        message += "Today's Chats:\n";
+        chats.todaysChats.forEach((chat, i) => {
+          message += `\n${i + 1}. [${chat.time}]\nQ: ${chat.question}\nA: ${chat.answer}`;
+        });
+      }
+
+      if (shouldEmail && process.env.EMAIL_USER && process.env.EMAIL_PASSWORD) {
+        const emailSent = await sendChatLogsEmail(chats, process.env.EMAIL_USER);
+        if (emailSent) {
+          message += `\n\nI've also emailed these chat logs to ${process.env.EMAIL_USER}`;
+        }
+      }
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          message: message,
+          stop_reason: "end_turn",
+        }),
+      };
+    }
+
     // track usage - fire and forget, never blocks the response
     const isNewConversation = claudeMessages.length === 1;
     logChatActivity(isNewConversation);
@@ -202,10 +316,6 @@ exports.handler = async (event, context) => {
 
     const assistantMessage = response.content[0].text;
 
-    const latestUserMessage = claudeMessages[claudeMessages.length - 1];
-    const userText = typeof latestUserMessage.content === "string"
-      ? latestUserMessage.content
-      : JSON.stringify(latestUserMessage.content);
     logConversationTranscript(userText, assistantMessage);
 
     // Submit to Netlify Forms (fire and forget, triggers email notifications)
