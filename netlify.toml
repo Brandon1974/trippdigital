@@ -10,3 +10,5 @@
   framework = "#custom"
   command = "npm run dev"
 
+# Netlify Functions are bundled from netlify/functions directory
+
