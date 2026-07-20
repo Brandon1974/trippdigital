@@ -495,7 +495,7 @@ section {
     padding: 120px 40px;
 }
 
-.services-section, .products-section, .books-section {
+.services-section, .affiliate-section, .products-section, .books-section {
     background-color: var(--color-bg);
 }
 
@@ -581,6 +581,77 @@ section {
 
 .service-features li:last-child {
     border-bottom: none;
+}
+
+/* AFFILIATE SECTION */
+.affiliate-section {
+    background-color: var(--color-bg);
+}
+
+.affiliate-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.affiliate-card {
+    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, rgba(255, 107, 0, 0.05) 100%);
+    border: 2px solid var(--color-orange);
+    border-radius: 16px;
+    padding: 60px;
+    box-shadow: 0 8px 32px rgba(255, 107, 0, 0.2);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.affiliate-card h3 {
+    color: var(--color-orange);
+    font-size: 2rem;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.affiliate-benefits {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+    .affiliate-benefits {
+        grid-template-columns: 1fr;
+    }
+}
+
+.benefit-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    min-width: 60px;
+    text-align: center;
+}
+
+.benefit-text h4 {
+    color: var(--color-text);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.benefit-text p {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.affiliate-card .btn-primary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 18px 40px;
+    font-size: 1.1rem;
 }
 
 /* PAYHIP PRODUCTS GRID */
