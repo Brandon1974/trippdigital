@@ -13,7 +13,7 @@
 
 [build.environment]
   # Keys to ignore for secrets scanning (these are false positives)
-  SECRETS_SCAN_OMIT_KEYS = "ADMIN_PASSWORD,ANTHROPIC_API_KEY,BLOG_STORAGE_TOKEN,NETLIFY_SITE_ID"
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_PASSWORD,ANTHROPIC_API_KEY,BLOG_STORAGE_TOKEN,NETLIFY_SITE_ID,EMAIL_USER,EMAIL_PASSWORD"
 
 # Netlify Functions are bundled from netlify/functions directory
 
