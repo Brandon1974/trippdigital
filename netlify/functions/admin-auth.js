@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 
-// In production, use environment variables for the admin password
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+// Admin password must be set via environment variable
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 function generateToken() {
     return crypto.randomBytes(32).toString('hex');
