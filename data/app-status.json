@@ -1,0 +1,15 @@
+{
+  "pickleball-tracker": true,
+  "budget-expense-tracker": true,
+  "garden-planner": true,
+  "habit-goal-tracker": true,
+  "meal-prep-grocery-planner": true,
+  "social-media-dashboard": true,
+  "client-tracking-dashboard": true,
+  "kdp-sales-dashboard": true,
+  "content-calendar": true,
+  "invoice-generator": true,
+  "lead-crm-tracker": true,
+  "gig-driver-calculator": true,
+  "daycare-tracker": true
+}
