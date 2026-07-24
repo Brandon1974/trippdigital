@@ -628,6 +628,17 @@
             }
         });
     </script>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
 <script src="/app-status-check.js" data-app="gig-driver-calculator"></script>
 </body>
 </html>
