@@ -271,6 +271,24 @@ exports.handler = async (event, context) => {
         };
       }
 
+      // Check if they're asking for old chats
+      const isAskingForOldChats = userText.toLowerCase().includes("old") ||
+                                  userText.toLowerCase().includes("previous") ||
+                                  userText.toLowerCase().includes("earlier") ||
+                                  userText.toLowerCase().includes("last week") ||
+                                  userText.toLowerCase().includes("last month") ||
+                                  userText.toLowerCase().includes("history");
+
+      if (isAskingForOldChats) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify({
+            message: `I appreciate you asking, but I only have access to today's chat history. I don't have access to retrieve your full chat history across all previous conversations.\n\nIf you need a complete record of all your chats with Tripp Digital, I'd recommend reaching out to Brandon directly at trippdigital1@gmail.com — he can pull that information for you or set up a way to export your chat logs.\n\nFor now, I can show you today's chats if you'd like!`,
+            stop_reason: "end_turn",
+          }),
+        };
+      }
+
       // Check if they want it emailed
       const shouldEmail = userText.toLowerCase().includes("email");
       let message = `Here's your chat activity for ${chats.today}:\n\n`;
