@@ -1,0 +1,12 @@
+# Core video & image processing
+moviepy==1.0.3
+pillow>=9.0.0
+numpy>=1.21.0
+opencv-python>=4.5.0
+
+# Offline text-to-speech (no API key required)
+pyttsx3>=2.90
+
+# imageio pinned for moviepy 1.x compatibility
+imageio>=2.9.0
+imageio-ffmpeg>=0.4.5
