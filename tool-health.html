@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tripp Digital — Tool Health Check</title>
+<style>
+  :root{
+    --bg:#0D0D0D;
+    --panel:#161616;
+    --panel-2:#1E1E1E;
+    --orange:#FF6B00;
+    --orange-dim:#b34c00;
+    --green:#3CCB6F;
+    --yellow:#E8B400;
+    --red:#E14B4B;
+    --text:#F2F2F2;
+    --text-dim:#9A9A9A;
+    --border:#2A2A2A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:720px;margin:0 auto;}
+  header{margin-bottom:24px;}
+  .eyebrow{
+    color:var(--orange);
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  h1{
+    font-size:26px;
+    margin:0 0 6px;
+    letter-spacing:-0.02em;
+  }
+  .sub{color:var(--text-dim);font-size:14px;line-height:1.5;margin:0;}
+
+  .summary{
+    display:flex;
+    gap:10px;
+    margin:20px 0 24px;
+    flex-wrap:wrap;
+  }
+  .pill{
+    flex:1;
+    min-width:100px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+  }
+  .pill .n{font-size:22px;font-weight:700;}
+  .pill .l{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+  .pill.ok .n{color:var(--green);}
+  .pill.due .n{color:var(--yellow);}
+  .pill.late .n{color:var(--red);}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:12px;
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .card-name{font-size:16px;font-weight:600;}
+  .card-url{
+    font-size:12px;
+    color:var(--text-dim);
+    word-break:break-all;
+    margin-top:2px;
+  }
+  .status-dot{
+    width:10px;height:10px;border-radius:50%;
+    flex-shrink:0;margin-top:4px;
+  }
+  .status-dot.ok{background:var(--green);}
+  .status-dot.due{background:var(--yellow);}
+  .status-dot.late{background:var(--red);}
+
+  .card-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:12px;
+    font-size:12px;
+    color:var(--text-dim);
+  }
+  .last-checked{font-weight:600;color:var(--text);}
+
+  .btn{
+    background:var(--orange);
+    color:#0D0D0D;
+    border:none;
+    border-radius:8px;
+    padding:8px 14px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn:active{background:var(--orange-dim);}
+  .btn.secondary{
+    background:transparent;
+    border:1px solid var(--border);
+    color:var(--text);
+  }
+
+  .add-form{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:20px;
+    padding:16px;
+    background:var(--panel-2);
+    border:1px dashed var(--border);
+    border-radius:12px;
+  }
+  .add-form input, .add-form select{
+    background:var(--bg);
+    border:1px solid var(--border);
+    color:var(--text);
+    border-radius:8px;
+    padding:10px 12px;
+    font-size:14px;
+  }
+  .add-form label{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:-4px;}
+
+  .footer-note{
+    margin-top:24px;
+    font-size:12px;
+    color:var(--text-dim);
+    line-height:1.6;
+    border-top:1px solid var(--border);
+    padding-top:16px;
+  }
+  a{color:var(--orange);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Tripp Digital · Internal</div>
+    <h1>Tool Health Check</h1>
+    <p class="sub">One place to see which live tools haven't been manually tested recently. Green = checked within 14 days. Yellow = due. Red = 30+ days, check now.</p>
+  </header>
+
+  <div class="summary" id="summary"></div>
+
+  <div id="cards"></div>
+
+  <div class="add-form" id="addForm">
+    <label>Tool name</label>
+    <input id="newName" placeholder="e.g. Invoice & Estimate Generator" />
+    <label>Live URL</label>
+    <input id="newUrl" placeholder="e.g. invoice-estimate-generator-demo.netlify.app" />
+    <button class="btn" onclick="addTool()">Add tool</button>
+  </div>
+
+  <div class="footer-note">
+    Data is stored in this browser only (localStorage). To make this shared across devices or team members, this can be wired to your existing Netlify Blobs setup — same store you're already using for analytics/chat logging. Ask Claude to connect it next.
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'trippdigital_tool_health';
+
+const defaultTools = [
+  { name: 'Invoice & Estimate Generator', url: 'invoice-estimate-generator-demo.netlify.app', lastChecked: null },
+  { name: 'Client Tracking Dashboard', url: 'client-tracking-dashboard-demo.netlify.app', lastChecked: null },
+  { name: 'Reseller Flip Profit Tracker', url: 'reseller-flip-profit-tracker-demo.netlify.app', lastChecked: null },
+  { name: 'Debt Payoff Calculator', url: 'payhip.com/b/4xc2V', lastChecked: null },
+  { name: 'The Everyday Planner', url: 'payhip.com/b/Po3sC', lastChecked: null },
+  { name: 'Regional Planting Calendar', url: 'payhip.com/b/uU6Cb', lastChecked: null },
+  { name: 'Little Warriors Daycare Site', url: 'littlewarriorsdaycare.com', lastChecked: null }
+];
+
+function loadTools(){
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    try { return JSON.parse(raw); } catch(e){ /* fall through */ }
+  }
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultTools));
+  return defaultTools;
+}
+
+function saveTools(tools){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tools));
+}
+
+function daysSince(dateStr){
+  if(!dateStr) return Infinity;
+  const then = new Date(dateStr);
+  const now = new Date();
+  return Math.floor((now - then) / (1000*60*60*24));
+}
+
+function statusFor(days){
+  if(days <= 14) return 'ok';
+  if(days <= 30) return 'due';
+  return 'late';
+}
+
+function statusLabel(status, days){
+  if(days === Infinity) return 'Never checked';
+  if(status === 'ok') return `Checked ${days}d ago`;
+  if(status === 'due') return `Due — ${days}d ago`;
+  return `Overdue — ${days}d ago`;
+}
+
+function render(){
+  const tools = loadTools();
+  const cardsEl = document.getElementById('cards');
+  const summaryEl = document.getElementById('summary');
+  cardsEl.innerHTML = '';
+
+  let okCount=0, dueCount=0, lateCount=0;
+
+  tools.forEach((tool, idx) => {
+    const days = daysSince(tool.lastChecked);
+    const status = statusFor(days);
+    if(status==='ok') okCount++;
+    else if(status==='due') dueCount++;
+    else lateCount++;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="card-name">${tool.name}</div>
+          <div class="card-url">${tool.url}</div>
+        </div>
+        <div class="status-dot ${status}"></div>
+      </div>
+      <div class="card-meta">
+        <span class="last-checked">${statusLabel(status, days)}</span>
+        <button class="btn secondary" onclick="markChecked(${idx})">Mark checked today</button>
+      </div>
+    `;
+    cardsEl.appendChild(card);
+  });
+
+  summaryEl.innerHTML = `
+    <div class="pill ok"><div class="n">${okCount}</div><div class="l">Up to date</div></div>
+    <div class="pill due"><div class="n">${dueCount}</div><div class="l">Due soon</div></div>
+    <div class="pill late"><div class="n">${lateCount}</div><div class="l">Overdue</div></div>
+  `;
+}
+
+function markChecked(idx){
+  const tools = loadTools();
+  tools[idx].lastChecked = new Date().toISOString();
+  saveTools(tools);
+  render();
+}
+
+function addTool(){
+  const name = document.getElementById('newName').value.trim();
+  const url = document.getElementById('newUrl').value.trim();
+  if(!name || !url) return;
+  const tools = loadTools();
+  tools.push({ name, url, lastChecked: null });
+  saveTools(tools);
+  document.getElementById('newName').value = '';
+  document.getElementById('newUrl').value = '';
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
