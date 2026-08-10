@@ -60,6 +60,16 @@
       <div>Recent chat questions (last 7 days)</div>
       <div id="chatTranscripts" style="margin-top:10px;"></div>
     </div>
+
+    <div class="card">
+      <div>Demo funnel — opens → try → buy clicks</div>
+      <table>
+        <thead>
+          <tr><th>Tool</th><th>Opens</th><th>Interactions</th><th>Buy clicks</th><th>Conv. rate</th></tr>
+        </thead>
+        <tbody id="demoFunnel"></tbody>
+      </table>
+    </div>
   </div>
 
 <script>
@@ -103,6 +113,21 @@ async function load() {
         <div style="color:#ccc;">A: ${t.answer}</div>
       </div>`;
     }).join('');
+  }
+
+  const demoRes = await fetch('/.netlify/functions/get-demo-stats');
+  if (demoRes.ok) {
+    const demoData = await demoRes.json();
+    const rows = Object.entries(demoData.tools || {}).map(([name, t]) => {
+      return `<tr>
+        <td>${name}</td>
+        <td>${t.open}</td>
+        <td>${t.interact}</td>
+        <td>${t.buy_click}</td>
+        <td>${t.conversionRate}%</td>
+      </tr>`;
+    }).join('');
+    document.getElementById('demoFunnel').innerHTML = rows || '<tr><td colspan="5" style="color:#666;">No demo activity yet.</td></tr>';
   }
 }
 load();
