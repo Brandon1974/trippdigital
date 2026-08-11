@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Everyday Planner — Live Demo | Tripp Digital</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --panel2:#1c1c1c; --accent:#FF6B00; --accent-dim:#b34c00; --green:#3CCB6F; --yellow:#E8B400; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .demo-banner{background:var(--accent);color:#000;text-align:center;padding:10px 16px;font-weight:700;font-size:13px;position:sticky;top:0;z-index:200;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:37px;z-index:100;}
+  .nav-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .buy-link{background:var(--accent);color:#000;padding:8px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;}
+  .tab{background:var(--panel);border:1px solid var(--border);color:var(--dim);padding:10px 14px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;}
+  .tab.active{background:var(--accent);color:#000;border-color:var(--accent);}
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
+  .card h3{font-size:14px;margin-bottom:14px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+
+  /* TODAY */
+  .priority-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1a1a1a;}
+  .priority-row.done .p-text{text-decoration:line-through;color:#555;}
+  .p-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--accent);cursor:pointer;flex-shrink:0;}
+  .p-check.checked{background:var(--accent);}
+  .hour-row{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #1a1a1a;font-size:13px;}
+  .hour-time{color:var(--dim);width:60px;flex-shrink:0;}
+  .hour-input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:6px 10px;font-size:13px;}
+
+  /* WEEK */
+  .week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+  @media(max-width:700px){.week-grid{grid-template-columns:1fr;}}
+  .week-day{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:10px;}
+  .week-day .d{font-size:11px;color:var(--accent);text-transform:uppercase;margin-bottom:6px;font-weight:700;}
+  .week-day textarea{width:100%;background:transparent;border:none;color:var(--text);font-size:12px;resize:none;min-height:70px;font-family:'Inter',sans-serif;}
+
+  /* MONTH */
+  .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .month-cell{background:var(--panel2);border:1px solid var(--border);border-radius:6px;min-height:60px;padding:6px;font-size:11px;position:relative;}
+  .month-cell .num{color:var(--dim);}
+  .month-cell .note{color:var(--accent);font-size:10px;margin-top:4px;}
+  .month-cell.empty{background:transparent;border:none;}
+
+  /* HABITS */
+  .habit-row{display:grid;grid-template-columns:1.2fr repeat(7,1fr) 60px;gap:6px;align-items:center;padding:10px 0;border-bottom:1px solid #1a1a1a;font-size:12px;}
+  .habit-day{width:24px;height:24px;border-radius:6px;border:2px solid var(--border);cursor:pointer;margin:0 auto;}
+  .habit-day.done{background:var(--green);border-color:var(--green);}
+  .day-header{display:grid;grid-template-columns:1.2fr repeat(7,1fr) 60px;gap:6px;color:var(--dim);font-size:10px;text-transform:uppercase;padding-bottom:8px;text-align:center;}
+  .day-header div:first-child{text-align:left;}
+  .streak{color:var(--accent);font-weight:700;text-align:center;}
+
+  /* BUDGET */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+  .stat{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;}
+  .stat .l{font-size:10px;color:var(--dim);text-transform:uppercase;margin-bottom:4px;}
+  .stat .v{font-size:18px;font-weight:700;}
+  .stat.income .v{color:var(--green);}
+  .stat.expense .v{color:#E14B4B;}
+  .stat.balance .v{color:var(--accent);}
+  .budget-form{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-bottom:14px;}
+  @media(max-width:700px){.budget-form{grid-template-columns:1fr 1fr;} .stats{grid-template-columns:1fr 1fr;}}
+  .budget-form input,.budget-form select{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  td{padding:8px 6px;border-bottom:1px solid #1a1a1a;}
+  .amt-pos{color:var(--green);font-weight:600;}
+  .amt-neg{color:#E14B4B;font-weight:600;}
+
+  /* GOALS */
+  .goal-row{margin-bottom:16px;}
+  .goal-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;}
+  .goal-bar-bg{background:#0a0a0a;border-radius:6px;height:10px;overflow:hidden;}
+  .goal-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-dim));border-radius:6px;}
+
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px;}
+
+  .upgrade-banner{background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-top:24px;}
+  .upgrade-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:8px;letter-spacing:1px;}
+  .upgrade-banner p{color:var(--dim);font-size:13px;margin-bottom:14px;}
+  .upgrade-btn{background:var(--accent);color:#000;padding:12px 28px;border:none;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-decoration:none;display:inline-block;cursor:pointer;}
+  .reset-note{text-align:center;color:#555;font-size:11px;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO MODE — Sample data only. Nothing you add here is saved. Refresh resets everything.</div>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <a href="https://payhip.com/b/Po3sC" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">GET IT — $7.99 →</a>
+</div></nav>
+
+<div class="wrap">
+  <h1>The Everyday Planner</h1>
+  <p class="sub">Today, Week, Month, Habits, Budget, Goals — all in one place. Click through every tab below.</p>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="today">📅 Today</div>
+    <div class="tab" data-tab="week">🗓️ Week</div>
+    <div class="tab" data-tab="month">📆 Month</div>
+    <div class="tab" data-tab="habits">🔥 Habits</div>
+    <div class="tab" data-tab="budget">💰 Budget</div>
+    <div class="tab" data-tab="goals">🎯 Goals</div>
+  </div>
+
+  <!-- TODAY -->
+  <div class="panel active" id="panel-today">
+    <div class="card">
+      <h3>Top Priorities</h3>
+      <div id="priorityList"></div>
+    </div>
+    <div class="card">
+      <h3>Hourly Schedule</h3>
+      <div id="hourList"></div>
+    </div>
+  </div>
+
+  <!-- WEEK -->
+  <div class="panel" id="panel-week">
+    <div class="card">
+      <h3>This Week</h3>
+      <div class="week-grid" id="weekGrid"></div>
+    </div>
+  </div>
+
+  <!-- MONTH -->
+  <div class="panel" id="panel-month">
+    <div class="card">
+      <h3>August 2026</h3>
+      <div class="month-grid" id="monthGrid"></div>
+    </div>
+  </div>
+
+  <!-- HABITS -->
+  <div class="panel" id="panel-habits">
+    <div class="card">
+      <h3>7-Day Habit Grid</h3>
+      <div class="day-header"><div>Habit</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div><div>S</div><div>Streak</div></div>
+      <div id="habitList"></div>
+    </div>
+  </div>
+
+  <!-- BUDGET -->
+  <div class="panel" id="panel-budget">
+    <div class="stats">
+      <div class="stat income"><div class="l">Income</div><div class="v" id="bIncome">$0</div></div>
+      <div class="stat expense"><div class="l">Expenses</div><div class="v" id="bExpense">$0</div></div>
+      <div class="stat balance"><div class="l">Balance</div><div class="v" id="bBalance">$0</div></div>
+    </div>
+    <div class="card">
+      <h3>Log a Transaction</h3>
+      <div class="budget-form">
+        <input type="text" id="bDesc" placeholder="Description">
+        <input type="number" id="bAmt" placeholder="Amount">
+        <select id="bType"><option value="expense">Expense</option><option value="income">Income</option></select>
+        <button class="add-btn" onclick="addBudget()">+ Add</button>
+      </div>
+      <table><tbody id="bTable"></tbody></table>
+    </div>
+  </div>
+
+  <!-- GOALS -->
+  <div class="panel" id="panel-goals">
+    <div class="card">
+      <h3>Your Goals</h3>
+      <div id="goalList"></div>
+    </div>
+  </div>
+
+  <div class="upgrade-banner">
+    <h3>Like what you see?</h3>
+    <p>Get the full Everyday Planner — everything saves permanently in your browser, on any device, forever.</p>
+    <a href="https://payhip.com/b/Po3sC" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">GET THE FULL VERSION — $7.99 →</a>
+  </div>
+
+  <p class="reset-note">This demo resets every time you refresh the page. Your purchased copy saves everything, permanently, on your own device.</p>
+</div>
+
+<script>
+  const TOOL_ID = "everyday-planner";
+  function trackDemo(eventName){
+    try{
+      fetch('/.netlify/functions/track-demo', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+      });
+    }catch(e){}
+  }
+  trackDemo('open');
+
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+      trackDemo('interact');
+    });
+  });
+
+  // TODAY - priorities
+  let priorities = [
+    { text: "Finish client proposal", done: true },
+    { text: "Call the bank", done: false },
+    { text: "Pack for weekend trip", done: false }
+  ];
+  function renderPriorities(){
+    document.getElementById('priorityList').innerHTML = priorities.map((p,i)=>`
+      <div class="priority-row ${p.done?'done':''}">
+        <div class="p-check ${p.done?'checked':''}" onclick="togglePriority(${i})"></div>
+        <div class="p-text">${p.text}</div>
+      </div>`).join('');
+  }
+  function togglePriority(i){ priorities[i].done = !priorities[i].done; trackDemo('interact'); renderPriorities(); }
+
+  // TODAY - hourly schedule
+  const hours = ["7 AM","8 AM","9 AM","10 AM","11 AM","12 PM","1 PM","2 PM","3 PM","4 PM","5 PM","6 PM"];
+  const hourData = { "9 AM":"Team standup", "12 PM":"Lunch with Sam", "3 PM":"Client call" };
+  document.getElementById('hourList').innerHTML = hours.map(h=>`
+    <div class="hour-row"><div class="hour-time">${h}</div><input class="hour-input" value="${hourData[h]||''}" placeholder="—" oninput="trackDemo('interact')"></div>`).join('');
+
+  // WEEK
+  const weekDays = ["MON","TUE","WED","THU","FRI","SAT","SUN"];
+  const weekNotes = { MON: "Gym 6am\nProject deadline", TUE: "Dentist 2pm", WED: "", THU: "Team lunch", FRI: "Ship the report", SAT: "Farmers market", SUN: "Rest day" };
+  document.getElementById('weekGrid').innerHTML = weekDays.map(d=>`
+    <div class="week-day"><div class="d">${d}</div><textarea oninput="trackDemo('interact')">${weekNotes[d]||''}</textarea></div>`).join('');
+
+  // MONTH
+  const monthNotes = { 3: "Rent due", 8: "Mom's bday", 15: "Payday", 22: "Dentist", 28: "Trip starts" };
+  let monthHTML = '';
+  const firstDayOffset = 5; // August 2026 starts on Saturday-ish placeholder
+  for(let i=0;i<firstDayOffset;i++) monthHTML += `<div class="month-cell empty"></div>`;
+  for(let d=1; d<=31; d++){
+    monthHTML += `<div class="month-cell"><div class="num">${d}</div>${monthNotes[d] ? `<div class="note">${monthNotes[d]}</div>` : ''}</div>`;
+  }
+  document.getElementById('monthGrid').innerHTML = monthHTML;
+
+  // HABITS
+  let habits = [
+    { name: "Drink Water", days: [true,true,false,true,true,false,false] },
+    { name: "Read 20 min", days: [true,false,true,true,false,false,false] },
+    { name: "No Sugar", days: [true,true,true,false,false,false,false] }
+  ];
+  function calcStreak(days){
+    let streak = 0;
+    for(let i=days.length-1;i>=0;i--){ if(days[i]) streak++; else break; }
+    return streak;
+  }
+  function renderHabits(){
+    document.getElementById('habitList').innerHTML = habits.map((h,hi)=>`
+      <div class="habit-row">
+        <div>${h.name}</div>
+        ${h.days.map((d,di)=>`<div class="habit-day ${d?'done':''}" onclick="toggleHabit(${hi},${di})"></div>`).join('')}
+        <div class="streak">${calcStreak(h.days)}🔥</div>
+      </div>`).join('');
+  }
+  function toggleHabit(hi,di){ habits[hi].days[di] = !habits[hi].days[di]; trackDemo('interact'); renderHabits(); }
+
+  // BUDGET
+  let budget = [
+    { desc: "Paycheck", type: "income", amt: 2400 },
+    { desc: "Rent", type: "expense", amt: 950 },
+    { desc: "Groceries", type: "expense", amt: 180 }
+  ];
+  function renderBudget(){
+    const income = budget.filter(b=>b.type==='income').reduce((s,b)=>s+b.amt,0);
+    const expense = budget.filter(b=>b.type==='expense').reduce((s,b)=>s+b.amt,0);
+    document.getElementById('bIncome').textContent = '$'+income.toLocaleString();
+    document.getElementById('bExpense').textContent = '$'+expense.toLocaleString();
+    document.getElementById('bBalance').textContent = '$'+(income-expense).toLocaleString();
+    document.getElementById('bTable').innerHTML = budget.map(b=>`
+      <tr><td>${b.desc}</td><td style="text-align:right;" class="${b.type==='income'?'amt-pos':'amt-neg'}">${b.type==='income'?'+':'-'}$${b.amt}</td></tr>`).join('');
+  }
+  function addBudget(){
+    const desc = document.getElementById('bDesc').value.trim();
+    const amt = parseFloat(document.getElementById('bAmt').value);
+    const type = document.getElementById('bType').value;
+    if(!desc || !amt) return;
+    budget.push({ desc, type, amt });
+    document.getElementById('bDesc').value=''; document.getElementById('bAmt').value='';
+    trackDemo('interact');
+    renderBudget();
+  }
+
+  // GOALS
+  let goals = [
+    { name: "Save $5,000", pct: 62 },
+    { name: "Read 12 Books This Year", pct: 41 },
+    { name: "Run a 5K", pct: 80 }
+  ];
+  document.getElementById('goalList').innerHTML = goals.map(g=>`
+    <div class="goal-row">
+      <div class="goal-top"><span>${g.name}</span><span>${g.pct}%</span></div>
+      <div class="goal-bar-bg"><div class="goal-bar-fill" style="width:${g.pct}%;"></div></div>
+    </div>`).join('');
+
+  renderPriorities();
+  renderHabits();
+  renderBudget();
+</script>
+
+</body>
+</html>
