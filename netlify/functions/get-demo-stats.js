@@ -22,6 +22,7 @@ const TOOLS = [
   "budget-expense-tracker",
   "gig-driver-calculator",
   "pickleball-tracker",
+  "daily-command-center",
 ];
 
 const EVENTS = ["open", "interact", "buy_click"];
