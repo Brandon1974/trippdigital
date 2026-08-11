@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Onboarding Kit Builder — Tripp Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --accent:#FF6B00; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .saved-tag{color:var(--dim);font-size:12px;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:900px){.split{grid-template-columns:1fr;}}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+  .card h3{font-size:13px;margin-bottom:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+  .field{margin-bottom:12px;}
+  .field label{font-size:12px;color:var(--dim);display:block;margin-bottom:5px;}
+  .field input, .field textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;font-family:'Inter',sans-serif;}
+  .field textarea{min-height:70px;resize:vertical;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  .step-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #1a1a1a;}
+  .step-check{width:20px;height:20px;border-radius:5px;border:2px solid var(--accent);cursor:pointer;flex-shrink:0;}
+  .step-check.checked{background:var(--accent);}
+  .step-input{flex:1;background:transparent;border:none;color:var(--text);font-size:13px;}
+  .del-btn{background:none;border:none;color:#555;cursor:pointer;font-size:14px;}
+  .add-line-btn{background:transparent;border:1px dashed var(--border);color:var(--dim);border-radius:6px;padding:8px;width:100%;cursor:pointer;font-size:12px;margin-top:8px;}
+
+  .preview-wrap{position:sticky;top:20px;}
+  .preview{background:#fff;color:#1a1a1a;border-radius:8px;padding:36px;font-family:'Merriweather',serif;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+  .preview h1{font-family:'Merriweather',serif;font-size:1.6rem;color:#1a1a1a;border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:16px;}
+  .preview h2{font-size:1.05rem;color:var(--accent);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.03em;}
+  .preview p{font-size:0.88rem;line-height:1.6;color:#333;margin-bottom:8px;}
+  .preview ul{margin:6px 0 6px 20px;font-size:0.88rem;color:#333;}
+  .preview li{margin-bottom:4px;}
+
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:14px;width:100%;}
+  .logo-upload{background:#0a0a0a;border:1px dashed var(--border);border-radius:6px;padding:12px;text-align:center;cursor:pointer;font-size:13px;color:var(--dim);}
+  .logo-upload input{display:none;}
+  #logoPreview{max-height:50px;margin-top:8px;display:none;}
+
+  @media print{
+    body *{visibility:hidden;}
+    .preview, .preview *{visibility:visible;}
+    .preview{position:absolute;left:0;top:0;width:100%;box-shadow:none;max-height:none;overflow:visible;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="#" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <span class="saved-tag" id="savedTag">Saved in this browser</span>
+</div></nav>
+
+<div class="wrap">
+  <h1>Client Onboarding Kit Builder</h1>
+  <p class="sub">Fill in your info — everything saves automatically. Export as PDF and reuse it with every new client.</p>
+
+  <div class="split">
+    <div>
+      <div class="card">
+        <h3>Your Logo (optional)</h3>
+        <label class="logo-upload" for="logoInput">Click to upload your logo</label>
+        <input type="file" id="logoInput" accept="image/*" onchange="handleLogo(event)">
+        <img id="logoPreview">
+      </div>
+
+      <div class="card">
+        <h3>Business Info</h3>
+        <div class="field"><label>Business Name</label><input type="text" id="fBiz" oninput="update()"></div>
+        <div class="row2">
+          <div class="field"><label>Your Name</label><input type="text" id="fName" oninput="update()"></div>
+          <div class="field"><label>Contact Email</label><input type="text" id="fEmail" oninput="update()"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Welcome Message</h3>
+        <div class="field"><textarea id="fWelcome" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Onboarding Steps (tap to check off)</h3>
+        <div id="stepList"></div>
+        <button class="add-line-btn" onclick="addStep()">+ Add Step</button>
+      </div>
+
+      <div class="card">
+        <h3>What We Need From You</h3>
+        <div class="field"><textarea id="fNeeds" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>What Happens Next</h3>
+        <div class="field"><textarea id="fNext" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Export</h3>
+        <button class="add-btn" onclick="window.print()">🖨️ Export as PDF (Print)</button>
+        <p style="color:#666;font-size:12px;margin-top:10px;">Click, then choose "Save as PDF" in the print dialog.</p>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview" id="preview"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FIELDS = ['fBiz','fName','fEmail','fWelcome','fNeeds','fNext'];
+  const STORAGE_KEY = 'client_onboarding_data';
+  let steps = [];
+
+  function save(){
+    const data = {};
+    FIELDS.forEach(id => data[id] = document.getElementById(id).value);
+    data.steps = steps;
+    data.logo = document.getElementById('logoPreview').src || '';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      document.getElementById('fBiz').value = "Your Business Name";
+      document.getElementById('fName').value = "Your Name";
+      document.getElementById('fEmail').value = "you@yourbusiness.com";
+      document.getElementById('fWelcome').value = "Welcome aboard! We're excited to get started on your project. This packet walks you through exactly what happens next, so there's no guessing.";
+      document.getElementById('fNeeds').value = "Logo files, brand colors, access to any existing accounts, and 2-3 examples of things you like.";
+      document.getElementById('fNext').value = "We'll review everything you send and reach out within 2 business days to schedule your kickoff call.";
+      steps = [
+        { text: "Sign contract & pay deposit", done: false },
+        { text: "Complete intake questionnaire", done: false },
+        { text: "Share brand assets (logo, colors)", done: false },
+        { text: "Kickoff call scheduled", done: false },
+        { text: "First draft delivered", done: false }
+      ];
+      return;
+    }
+    try{
+      const data = JSON.parse(raw);
+      FIELDS.forEach(id => { if(data[id] !== undefined) document.getElementById(id).value = data[id]; });
+      steps = data.steps || [];
+      if(data.logo){
+        document.getElementById('logoPreview').src = data.logo;
+        document.getElementById('logoPreview').style.display = 'block';
+      }
+    }catch(e){}
+  }
+
+  function handleLogo(event){
+    const file = event.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+      document.getElementById('logoPreview').src = e.target.result;
+      document.getElementById('logoPreview').style.display = 'block';
+      update();
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function renderSteps(){
+    document.getElementById('stepList').innerHTML = steps.map((s,i)=>`
+      <div class="step-row">
+        <div class="step-check ${s.done?'checked':''}" onclick="toggleStep(${i})"></div>
+        <input class="step-input" value="${s.text}" onchange="editStep(${i},this.value)">
+        <button class="del-btn" onclick="removeStep(${i})">✕</button>
+      </div>`).join('');
+  }
+  function toggleStep(i){ steps[i].done = !steps[i].done; renderSteps(); update(); }
+  function editStep(i,val){ steps[i].text = val; update(); }
+  function addStep(){ steps.push({ text: "New step", done: false }); renderSteps(); update(); }
+  function removeStep(i){ steps.splice(i,1); renderSteps(); update(); }
+
+  function update(){
+    const v = id => document.getElementById(id).value || '—';
+    const logoSrc = document.getElementById('logoPreview').src;
+    const logoHTML = (logoSrc && document.getElementById('logoPreview').style.display !== 'none') ? `<img src="${logoSrc}" style="max-height:60px;margin-bottom:12px;">` : '';
+
+    document.getElementById('preview').innerHTML = `
+      ${logoHTML}
+      <h1>Welcome to ${v('fBiz')}!</h1>
+      <p style="color:#888;">${v('fName')} · ${v('fEmail')}</p>
+
+      <h2>A Message From Us</h2><p>${v('fWelcome')}</p>
+      <h2>Your Onboarding Steps</h2>
+      <ul>${steps.map(s=>`<li>${s.done ? '✅' : '☐'} ${s.text}</li>`).join('')}</ul>
+      <h2>What We Need From You</h2><p>${v('fNeeds')}</p>
+      <h2>What Happens Next</h2><p>${v('fNext')}</p>
+    `;
+    save();
+    const tag = document.getElementById('savedTag');
+    tag.textContent = 'Saved ✓';
+    clearTimeout(window._savedTimeout);
+    window._savedTimeout = setTimeout(()=>{ tag.textContent = 'Saved in this browser'; }, 1500);
+  }
+
+  load();
+  renderSteps();
+  update();
+</script>
+
+</body>
+</html>
