@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Plan Builder — Live Demo | Tripp Digital</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --accent:#FF6B00; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .demo-banner{background:var(--accent);color:#000;text-align:center;padding:10px 16px;font-weight:700;font-size:13px;position:sticky;top:0;z-index:200;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:37px;z-index:100;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .buy-link{background:var(--accent);color:#000;padding:8px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:900px){.split{grid-template-columns:1fr;}}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+  .card h3{font-size:13px;margin-bottom:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+  .field{margin-bottom:12px;}
+  .field label{font-size:12px;color:var(--dim);display:block;margin-bottom:5px;}
+  .field input, .field textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;font-family:'Inter',sans-serif;}
+  .field textarea{min-height:80px;resize:vertical;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  .fin-row{display:grid;grid-template-columns:2fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;}
+  .fin-row input{background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 10px;font-size:13px;}
+  .del-btn{background:none;border:none;color:#555;cursor:pointer;font-size:14px;}
+  .add-line-btn{background:transparent;border:1px dashed var(--border);color:var(--dim);border-radius:6px;padding:8px;width:100%;cursor:pointer;font-size:12px;margin-top:8px;}
+
+  .preview-wrap{position:sticky;top:100px;}
+  .preview{background:#fff;color:#1a1a1a;border-radius:8px;padding:36px;font-family:'Merriweather',serif;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+  .preview h1{font-family:'Merriweather',serif;font-size:1.6rem;color:#1a1a1a;border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:16px;}
+  .preview h2{font-size:1.05rem;color:var(--accent);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.03em;}
+  .preview p{font-size:0.88rem;line-height:1.6;color:#333;margin-bottom:8px;}
+  .preview table{width:100%;border-collapse:collapse;margin-top:6px;font-size:0.85rem;}
+  .preview td{padding:6px;border-bottom:1px solid #eee;}
+  .preview .total-row td{font-weight:700;border-top:2px solid #333;}
+
+  .locked{position:relative;opacity:0.5;cursor:not-allowed;}
+  .locked::after{content:"🔒 Full version only";position:absolute;top:-8px;right:0;background:#000;color:var(--accent);font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--accent);}
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:14px;width:100%;}
+
+  .upgrade-banner{background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-top:24px;}
+  .upgrade-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:8px;letter-spacing:1px;}
+  .upgrade-banner p{color:var(--dim);font-size:13px;margin-bottom:14px;}
+  .upgrade-btn{background:var(--accent);color:#000;padding:12px 28px;border:none;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-decoration:none;display:inline-block;cursor:pointer;}
+  .reset-note{text-align:center;color:#555;font-size:11px;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO MODE — Nothing you type here is saved. Refresh resets everything.</div>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <a href="https://payhip.com/b/S3lp2" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">BUY $17 →</a>
+</div></nav>
+
+<div class="wrap">
+  <h1>Business Plan Builder</h1>
+  <p class="sub">Fill in the fields, watch your business plan build itself — including a live startup costs table that totals automatically.</p>
+
+  <div class="split">
+    <div>
+      <div class="card">
+        <h3>Business Info</h3>
+        <div class="field"><label>Business Name</label><input type="text" id="fBiz" value="Tripp Digital" oninput="update()"></div>
+        <div class="row2">
+          <div class="field"><label>Owner Name</label><input type="text" id="fOwner" value="Brandon Tripp" oninput="update()"></div>
+          <div class="field"><label>Location</label><input type="text" id="fLocation" value="Virginia Beach, VA" oninput="update()"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Executive Summary</h3>
+        <div class="field"><textarea id="fSummary" oninput="update()">Tripp Digital builds and sells live interactive web tools that replace outdated PDFs and spreadsheets, serving small business owners and freelancers.</textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Products & Services</h3>
+        <div class="field"><textarea id="fProducts" oninput="update()">Live web apps for invoicing, client tracking, budgeting, and business planning — sold as one-time purchases, no subscriptions.</textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Target Market</h3>
+        <div class="field"><textarea id="fMarket" oninput="update()">Freelancers, small business owners, and solopreneurs who are tired of clunky spreadsheets and expensive SaaS subscriptions.</textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Startup Costs</h3>
+        <div id="finLines"></div>
+        <button class="add-line-btn" onclick="addFinLine()">+ Add Cost Line</button>
+      </div>
+
+      <div class="card">
+        <h3 style="display:flex;justify-content:space-between;">
+          <span>Export</span>
+        </h3>
+        <button class="add-btn locked" disabled>Export as PDF</button>
+        <p style="color:#666;font-size:12px;margin-top:10px;">PDF export, competitive analysis, and 3-year financial projections are unlocked in the full $17 version.</p>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview" id="preview"></div>
+    </div>
+  </div>
+
+  <div class="upgrade-banner">
+    <h3>Like what you see?</h3>
+    <p>Get the full version — export a print-ready PDF, plus competitive analysis and 3-year financial projections.</p>
+    <a href="https://payhip.com/b/S3lp2" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">GET THE FULL VERSION — $17 →</a>
+  </div>
+
+  <p class="reset-note">This demo resets every time you refresh the page. Your purchased copy lets you export and reuse it forever.</p>
+</div>
+
+<script>
+  const TOOL_ID = "business-plan-builder";
+  function trackDemo(eventName){
+    try{
+      fetch('/.netlify/functions/track-demo', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+      });
+    }catch(e){}
+  }
+  trackDemo('open');
+
+  let finLines = [
+    { item: "Website & Hosting", amt: 500 },
+    { item: "Software & Tools", amt: 1200 },
+    { item: "Marketing & Ads", amt: 2000 },
+    { item: "Legal & Licensing", amt: 800 }
+  ];
+
+  function renderFinLines(){
+    document.getElementById('finLines').innerHTML = finLines.map((f,i)=>`
+      <div class="fin-row">
+        <input type="text" value="${f.item}" onchange="updateLine(${i},'item',this.value)">
+        <input type="number" value="${f.amt}" onchange="updateLine(${i},'amt',this.value)">
+        <button class="del-btn" onclick="removeLine(${i})">✕</button>
+      </div>`).join('');
+  }
+  function updateLine(i, field, val){
+    finLines[i][field] = field === 'amt' ? parseFloat(val)||0 : val;
+    update();
+  }
+  function addFinLine(){
+    finLines.push({ item: "New line item", amt: 0 });
+    trackDemo('interact');
+    renderFinLines();
+    update();
+  }
+  function removeLine(i){
+    finLines.splice(i,1);
+    trackDemo('interact');
+    renderFinLines();
+    update();
+  }
+
+  let interactFired = false;
+  function update(){
+    if(!interactFired){ trackDemo('interact'); interactFired = true; }
+    const v = id => document.getElementById(id).value || '—';
+    const total = finLines.reduce((s,f)=>s+f.amt,0);
+
+    document.getElementById('preview').innerHTML = `
+      <h1>${v('fBiz')} — Business Plan</h1>
+      <p style="color:#888;">${v('fOwner')} · ${v('fLocation')}</p>
+
+      <h2>Executive Summary</h2><p>${v('fSummary')}</p>
+      <h2>Products & Services</h2><p>${v('fProducts')}</p>
+      <h2>Target Market</h2><p>${v('fMarket')}</p>
+
+      <h2>Startup Costs</h2>
+      <table>
+        ${finLines.map(f=>`<tr><td>${f.item}</td><td style="text-align:right;">$${f.amt.toLocaleString()}</td></tr>`).join('')}
+        <tr class="total-row"><td>Total Startup Costs</td><td style="text-align:right;">$${total.toLocaleString()}</td></tr>
+      </table>
+    `;
+  }
+
+  renderFinLines();
+  update();
+</script>
+
+</body>
+</html>

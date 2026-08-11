@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Plan Builder — Tripp Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --accent:#FF6B00; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .saved-tag{color:var(--dim);font-size:12px;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:900px){.split{grid-template-columns:1fr;}}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+  .card h3{font-size:13px;margin-bottom:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+  .field{margin-bottom:12px;}
+  .field label{font-size:12px;color:var(--dim);display:block;margin-bottom:5px;}
+  .field input, .field textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;font-family:'Inter',sans-serif;}
+  .field textarea{min-height:80px;resize:vertical;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+
+  .fin-row{display:grid;grid-template-columns:2fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;}
+  .fin-row input{background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 10px;font-size:13px;}
+  .del-btn{background:none;border:none;color:#555;cursor:pointer;font-size:14px;}
+  .add-line-btn{background:transparent;border:1px dashed var(--border);color:var(--dim);border-radius:6px;padding:8px;width:100%;cursor:pointer;font-size:12px;margin-top:8px;}
+
+  .comp-row{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:8px;margin-bottom:8px;align-items:center;}
+  .comp-row input{background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 10px;font-size:13px;}
+
+  .proj-table{width:100%;border-collapse:collapse;}
+  .proj-table th{font-size:11px;color:var(--dim);text-align:left;padding:6px;text-transform:uppercase;}
+  .proj-table td{padding:4px;}
+  .proj-table input{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:4px;padding:6px 8px;font-size:12px;}
+
+  .preview-wrap{position:sticky;top:20px;}
+  .preview{background:#fff;color:#1a1a1a;border-radius:8px;padding:36px;font-family:'Merriweather',serif;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+  .preview h1{font-family:'Merriweather',serif;font-size:1.6rem;color:#1a1a1a;border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:16px;}
+  .preview h2{font-size:1.05rem;color:var(--accent);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.03em;}
+  .preview p{font-size:0.88rem;line-height:1.6;color:#333;margin-bottom:8px;}
+  .preview table{width:100%;border-collapse:collapse;margin-top:6px;font-size:0.85rem;}
+  .preview td, .preview th{padding:6px;border-bottom:1px solid #eee;text-align:left;}
+  .preview .total-row td{font-weight:700;border-top:2px solid #333;}
+
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:14px;width:100%;}
+
+  @media print{
+    body *{visibility:hidden;}
+    .preview, .preview *{visibility:visible;}
+    .preview{position:absolute;left:0;top:0;width:100%;box-shadow:none;max-height:none;overflow:visible;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="#" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <span class="saved-tag" id="savedTag">Saved in this browser</span>
+</div></nav>
+
+<div class="wrap">
+  <h1>Business Plan Builder</h1>
+  <p class="sub">Fill in your info — everything saves automatically. Export as PDF when ready.</p>
+
+  <div class="split">
+    <div>
+      <div class="card">
+        <h3>Business Info</h3>
+        <div class="field"><label>Business Name</label><input type="text" id="fBiz" oninput="update()"></div>
+        <div class="row2">
+          <div class="field"><label>Owner Name</label><input type="text" id="fOwner" oninput="update()"></div>
+          <div class="field"><label>Location</label><input type="text" id="fLocation" oninput="update()"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Executive Summary</h3>
+        <div class="field"><textarea id="fSummary" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Products & Services</h3>
+        <div class="field"><textarea id="fProducts" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Target Market</h3>
+        <div class="field"><textarea id="fMarket" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Competitive Analysis</h3>
+        <div id="compLines"></div>
+        <button class="add-line-btn" onclick="addCompLine()">+ Add Competitor</button>
+      </div>
+
+      <div class="card">
+        <h3>Marketing & Sales Strategy</h3>
+        <div class="field"><textarea id="fMarketing" oninput="update()"></textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Startup Costs</h3>
+        <div id="finLines"></div>
+        <button class="add-line-btn" onclick="addFinLine()">+ Add Cost Line</button>
+      </div>
+
+      <div class="card">
+        <h3>3-Year Financial Projections ($)</h3>
+        <table class="proj-table">
+          <tr><th></th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+          <tr><td>Revenue</td><td><input id="revY1" oninput="update()"></td><td><input id="revY2" oninput="update()"></td><td><input id="revY3" oninput="update()"></td></tr>
+          <tr><td>Expenses</td><td><input id="expY1" oninput="update()"></td><td><input id="expY2" oninput="update()"></td><td><input id="expY3" oninput="update()"></td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Export</h3>
+        <button class="add-btn" onclick="window.print()">🖨️ Export as PDF (Print)</button>
+        <p style="color:#666;font-size:12px;margin-top:10px;">Click, then choose "Save as PDF" in the print dialog.</p>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview" id="preview"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const FIELDS = ['fBiz','fOwner','fLocation','fSummary','fProducts','fMarket','fMarketing','revY1','revY2','revY3','expY1','expY2','expY3'];
+  const STORAGE_KEY = 'business_plan_data';
+  let finLines = [];
+  let compLines = [];
+
+  function save(){
+    const data = {};
+    FIELDS.forEach(id => data[id] = document.getElementById(id).value);
+    data.finLines = finLines;
+    data.compLines = compLines;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      document.getElementById('fBiz').value = "Your Business Name";
+      document.getElementById('fOwner').value = "Your Name";
+      document.getElementById('fLocation').value = "City, State";
+      document.getElementById('fSummary').value = "Briefly describe what your business does and why it matters.";
+      document.getElementById('fProducts').value = "List your core products or services.";
+      document.getElementById('fMarket').value = "Describe who your ideal customer is.";
+      document.getElementById('fMarketing').value = "Describe how you'll reach and convert customers.";
+      document.getElementById('revY1').value = "50000"; document.getElementById('revY2').value = "120000"; document.getElementById('revY3').value = "220000";
+      document.getElementById('expY1').value = "35000"; document.getElementById('expY2').value = "70000"; document.getElementById('expY3').value = "120000";
+      finLines = [ { item: "Website & Hosting", amt: 500 }, { item: "Software & Tools", amt: 1200 } ];
+      compLines = [ { name: "Competitor A", strength: "Established brand", weakness: "Higher pricing" } ];
+      return;
+    }
+    try{
+      const data = JSON.parse(raw);
+      FIELDS.forEach(id => { if(data[id] !== undefined) document.getElementById(id).value = data[id]; });
+      finLines = data.finLines || [];
+      compLines = data.compLines || [];
+    }catch(e){}
+  }
+
+  function renderFinLines(){
+    document.getElementById('finLines').innerHTML = finLines.map((f,i)=>`
+      <div class="fin-row">
+        <input type="text" value="${f.item}" onchange="updateFinLine(${i},'item',this.value)">
+        <input type="number" value="${f.amt}" onchange="updateFinLine(${i},'amt',this.value)">
+        <button class="del-btn" onclick="removeFinLine(${i})">✕</button>
+      </div>`).join('');
+  }
+  function updateFinLine(i,f,v){ finLines[i][f] = f==='amt'?parseFloat(v)||0:v; update(); }
+  function addFinLine(){ finLines.push({item:"New line item",amt:0}); renderFinLines(); update(); }
+  function removeFinLine(i){ finLines.splice(i,1); renderFinLines(); update(); }
+
+  function renderCompLines(){
+    document.getElementById('compLines').innerHTML = compLines.map((c,i)=>`
+      <div class="comp-row">
+        <input type="text" value="${c.name}" placeholder="Competitor" onchange="updateCompLine(${i},'name',this.value)">
+        <input type="text" value="${c.strength}" placeholder="Their strength" onchange="updateCompLine(${i},'strength',this.value)">
+        <input type="text" value="${c.weakness}" placeholder="Their weakness" onchange="updateCompLine(${i},'weakness',this.value)">
+        <button class="del-btn" onclick="removeCompLine(${i})">✕</button>
+      </div>`).join('');
+  }
+  function updateCompLine(i,f,v){ compLines[i][f] = v; update(); }
+  function addCompLine(){ compLines.push({name:"",strength:"",weakness:""}); renderCompLines(); update(); }
+  function removeCompLine(i){ compLines.splice(i,1); renderCompLines(); update(); }
+
+  function update(){
+    const v = id => document.getElementById(id).value || '—';
+    const total = finLines.reduce((s,f)=>s+f.amt,0);
+
+    document.getElementById('preview').innerHTML = `
+      <h1>${v('fBiz')} — Business Plan</h1>
+      <p style="color:#888;">${v('fOwner')} · ${v('fLocation')}</p>
+
+      <h2>Executive Summary</h2><p>${v('fSummary')}</p>
+      <h2>Products & Services</h2><p>${v('fProducts')}</p>
+      <h2>Target Market</h2><p>${v('fMarket')}</p>
+
+      <h2>Competitive Analysis</h2>
+      <table>
+        <tr><th>Competitor</th><th>Their Strength</th><th>Their Weakness</th></tr>
+        ${compLines.map(c=>`<tr><td>${c.name||'—'}</td><td>${c.strength||'—'}</td><td>${c.weakness||'—'}</td></tr>`).join('')}
+      </table>
+
+      <h2>Marketing & Sales Strategy</h2><p>${v('fMarketing')}</p>
+
+      <h2>Startup Costs</h2>
+      <table>
+        ${finLines.map(f=>`<tr><td>${f.item}</td><td style="text-align:right;">$${f.amt.toLocaleString()}</td></tr>`).join('')}
+        <tr class="total-row"><td>Total</td><td style="text-align:right;">$${total.toLocaleString()}</td></tr>
+      </table>
+
+      <h2>3-Year Financial Projections</h2>
+      <table>
+        <tr><th></th><th>Year 1</th><th>Year 2</th><th>Year 3</th></tr>
+        <tr><td>Revenue</td><td>$${(parseFloat(v('revY1'))||0).toLocaleString()}</td><td>$${(parseFloat(v('revY2'))||0).toLocaleString()}</td><td>$${(parseFloat(v('revY3'))||0).toLocaleString()}</td></tr>
+        <tr><td>Expenses</td><td>$${(parseFloat(v('expY1'))||0).toLocaleString()}</td><td>$${(parseFloat(v('expY2'))||0).toLocaleString()}</td><td>$${(parseFloat(v('expY3'))||0).toLocaleString()}</td></tr>
+      </table>
+    `;
+    save();
+    const tag = document.getElementById('savedTag');
+    tag.textContent = 'Saved ✓';
+    clearTimeout(window._savedTimeout);
+    window._savedTimeout = setTimeout(()=>{ tag.textContent = 'Saved in this browser'; }, 1500);
+  }
+
+  load();
+  renderFinLines();
+  renderCompLines();
+  update();
+</script>
+
+</body>
+</html>
