@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Start a Grant Writing Business — Tripp Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --panel2:#1c1c1c; --accent:#FF6B00; --green:#3CCB6F; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;}
+  .nav-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .saved-tag{color:var(--dim);font-size:12px;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .progress-bar{background:var(--panel);border-radius:10px;height:10px;overflow:hidden;margin-bottom:24px;}
+  .progress-fill{background:var(--accent);height:100%;transition:width 0.3s;}
+  .progress-label{text-align:center;color:var(--dim);font-size:12px;margin-bottom:20px;}
+
+  .step-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+  .step-header{display:flex;align-items:center;gap:14px;padding:18px;cursor:pointer;}
+  .step-num{width:32px;height:32px;border-radius:50%;background:var(--panel2);border:2px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;font-size:14px;}
+  .step-num.done{background:var(--accent);color:#000;}
+  .step-title{flex:1;font-weight:600;font-size:15px;}
+  .step-title.done{color:#666;text-decoration:line-through;}
+  .step-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--accent);flex-shrink:0;cursor:pointer;}
+  .step-check.checked{background:var(--accent);}
+  .step-body{padding:0 18px 18px 64px;display:none;}
+  .step-body.open{display:block;}
+  .step-body p{color:#ccc;font-size:13px;line-height:1.6;margin-bottom:10px;}
+  .example-box{background:#0a0a0a;border-left:3px solid var(--accent);border-radius:6px;padding:12px 14px;margin:10px 0;font-size:13px;color:#bbb;}
+  .example-box strong{color:var(--accent);}
+  .step-link{display:inline-block;background:var(--panel2);color:var(--accent);border:1px solid var(--accent);padding:8px 16px;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;margin-top:8px;}
+  .notes-field{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:10px;font-size:13px;min-height:60px;margin-top:10px;font-family:'Inter',sans-serif;}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="#" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <span class="saved-tag" id="savedTag">Progress saved</span>
+</div></nav>
+
+<div class="wrap">
+  <h1>How to Start a Grant Writing Business</h1>
+  <p class="sub">Work through each step at your own pace. Your progress and notes save automatically.</p>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+  <div class="progress-label" id="progressLabel">0 of 10 steps complete</div>
+
+  <div id="stepList"></div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'grant_writing_guide_progress';
+
+  let steps = [
+    { title: "Understand what grant writers actually do", done: false, notes: "",
+      body: `<p>A grant writer researches funding opportunities and writes proposals on behalf of nonprofits, schools, and small businesses to help them win grant money. You're paid whether or not the grant is won — most charge $500-$3,000 per proposal, or a monthly retainer.</p>
+      <div class="example-box"><strong>Example:</strong> A local food bank needs $15,000 for a new refrigeration unit. They hire you to write the grant proposal for $1,200 flat fee.</div>` },
+
+    { title: "Pick your niche", done: false, notes: "",
+      body: `<p>Don't try to write grants for everyone. Pick 1-2 niches where you have some natural connection or interest — nonprofits, schools, churches, or small business grants are all good starting points.</p>
+      <div class="example-box"><strong>Example:</strong> If you have daycare experience, target early childhood education grants. If you garden, target agricultural/community garden grants.</div>` },
+
+    { title: "Set up your business basics", done: false, notes: "",
+      body: `<p>You don't need an LLC to start, but you do need a way to get paid and a simple way to look professional.</p>
+      <div class="example-box"><strong>Example setup:</strong> A free Google Voice number, a simple one-page website (or even just a LinkedIn profile), and a PayPal or Stripe account to invoice clients.</div>
+      <a href="https://www.stripe.com" target="_blank" rel="noopener noreferrer" class="step-link">Set up Stripe →</a>` },
+
+    { title: "Learn where the grants actually are", done: false, notes: "",
+      body: `<p>Grants.gov is the main federal database. Most states also have their own grant portals, and private foundations list opportunities on their own websites.</p>
+      <div class="example-box"><strong>Example:</strong> Search Grants.gov for "community garden" and you'll find active USDA grants your future clients could apply for.</div>
+      <a href="https://www.grants.gov" target="_blank" rel="noopener noreferrer" class="step-link">Browse Grants.gov →</a>` },
+
+    { title: "Write one practice proposal", done: false, notes: "",
+      body: `<p>Before you pitch anyone, write one full practice proposal for a fictional or real local nonprofit. This becomes your portfolio sample.</p>
+      <div class="example-box"><strong>Example:</strong> Pick a real grant listed on Grants.gov and write a mock proposal responding to it — even if you never submit it, it proves you can do the work.</div>` },
+
+    { title: "Find your first client", done: false, notes: "",
+      body: `<p>Start local. Nonprofits, churches, and small community organizations are the easiest first clients because they often don't have in-house grant writers.</p>
+      <div class="example-box"><strong>Example:</strong> Search "[your city] nonprofits" on Google, find 10 small organizations, and reach out offering a free 15-minute consultation to review their current funding situation.</div>` },
+
+    { title: "Price your services", done: false, notes: "",
+      body: `<p>Common pricing models: flat fee per proposal ($500-$3,000 depending on complexity), hourly ($30-$75/hr), or a retainer for ongoing work ($500-$2,000/month).</p>
+      <div class="example-box"><strong>Example:</strong> For your first 2-3 clients, charge a lower flat fee ($400-$600) to build your portfolio and testimonials, then raise your rates.</div>` },
+
+    { title: "Write and submit your first real proposal", done: false, notes: "",
+      body: `<p>Use the practice proposal you wrote in Step 5 as your template. Adjust it to fit the real client's mission, need, and the specific grant's requirements.</p>
+      <div class="example-box"><strong>Example:</strong> Always follow the funder's exact formatting rules — font size, page limits, required attachments. Many proposals get rejected for formatting alone, before anyone reads the content.</div>` },
+
+    { title: "Ask for referrals and reviews", done: false, notes: "",
+      body: `<p>After you deliver (win or not), ask your client for a written testimonial and if they know anyone else who might need grant writing help.</p>
+      <div class="example-box"><strong>Example:</strong> "Would you be willing to write a short testimonial about working together? And do you know any other organizations that might need help with grants?"</div>` },
+
+    { title: "Scale to a steady client pipeline", done: false, notes: "",
+      body: `<p>Once you have 3-5 happy clients, focus on repeatable outreach: a simple website with your testimonials, LinkedIn posts about grants you've helped win, and consistent outreach to new nonprofits.</p>
+      <div class="example-box"><strong>Example:</strong> Set a goal of reaching out to 5 new potential clients every week, even once you're busy — this keeps your pipeline full instead of feast-or-famine.</div>` }
+  ];
+
+  function save(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(steps));
+  }
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      try{
+        const saved = JSON.parse(raw);
+        saved.forEach((s,i)=>{ if(steps[i]){ steps[i].done = s.done; steps[i].notes = s.notes || ""; steps[i].open = s.open; } });
+      }catch(e){}
+    }
+  }
+
+  function renderSteps(){
+    document.getElementById('stepList').innerHTML = steps.map((s,i)=>`
+      <div class="step-card">
+        <div class="step-header" onclick="toggleOpen(${i})">
+          <div class="step-num ${s.done?'done':''}">${i+1}</div>
+          <div class="step-title ${s.done?'done':''}">${s.title}</div>
+          <div class="step-check ${s.done?'checked':''}" onclick="event.stopPropagation();toggleDone(${i})"></div>
+        </div>
+        <div class="step-body ${s.open?'open':''}" id="body-${i}">
+          ${s.body}
+          <textarea class="notes-field" placeholder="Your notes for this step..." onchange="updateNotes(${i}, this.value)">${s.notes||''}</textarea>
+        </div>
+      </div>`).join('');
+    updateProgress();
+  }
+
+  function toggleOpen(i){ steps[i].open = !steps[i].open; save(); renderSteps(); }
+  function toggleDone(i){ steps[i].done = !steps[i].done; save(); renderSteps(); }
+  function updateNotes(i,val){ steps[i].notes = val; save(); }
+  function updateProgress(){
+    const doneCount = steps.filter(s=>s.done).length;
+    document.getElementById('progressFill').style.width = (doneCount/10*100)+'%';
+    document.getElementById('progressLabel').textContent = `${doneCount} of 10 steps complete`;
+  }
+
+  load();
+  renderSteps();
+</script>
+
+</body>
+</html>
