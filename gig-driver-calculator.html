@@ -533,29 +533,39 @@
                 </div>
             </div>
 
+            <div class="result-item">
+                <div>
+                    <div class="result-label">Net Profit</div>
+                    <div class="result-value" id="resultNetProfit">$0.00</div>
+                </div>
+                <div>
+                    <div class="result-label">Profit Margin</div>
+                    <div class="result-value" id="resultMargin">0%</div>
+                </div>
+            </div>
+
             <div class="verdict" id="verdict" style="display: none;">
-                <div class="verdict-text" id="verdictText">UNLOCK FULL RESULTS</div>
+                <div class="verdict-text" id="verdictText"></div>
                 <div class="verdict-detail" id="verdictDetail"></div>
             </div>
 
-            <div class="paywall-container" id="paywall">
+            <div class="paywall-container" id="paywall" style="display:none;">
                 <div style="text-align: center; background: #0a0a0a; border: 2px solid #FF6B00; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
-                    <h3 style="color: #FF6B00; font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">✓ We Can Calculate That</h3>
-                    <p style="color: #cccccc; margin-bottom: 20px; font-size: 1rem;">Your offer details have been processed. Ready to see your exact profit, hourly rate, and detailed breakdown?</p>
-                    <a href="https://payhip.com/b/s5RCh" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #FF6B00; color: #000000; padding: 15px 40px; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; font-size: 1rem;">GET FULL CALCULATOR - $14.99</a>
-                    <p style="color: #666666; margin-top: 20px; font-size: 0.85rem;">One-time purchase. Unlimited calculations. Instant results.</p>
+                    <h3 style="color: #FF6B00; font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">Want to Track Your Best Offers?</h3>
+                    <p style="color: #cccccc; margin-bottom: 20px; font-size: 1rem;">This free calculator shows your real profit on every offer. Upgrade to save offers, see your hourly rate, and build a profit history across all your gigs.</p>
+                    <a href="https://payhip.com/b/s5RCh" target="_blank" rel="noopener noreferrer" onclick="trackDemo('buy_click')" style="display: inline-block; background: #FF6B00; color: #000000; padding: 15px 40px; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; font-size: 1rem;">GET FULL VERSION - $14.99</a>
+                    <p style="color: #666666; margin-top: 20px; font-size: 0.85rem;">One-time purchase. Unlimited saved offers. No subscription.</p>
                 </div>
             </div>
 
             <div class="info-box">
                 <h3>What You Get with Full Version</h3>
                 <ul>
-                    <li><strong>Exact Profit Calculator:</strong> Gas costs based on distance, MPG, and current prices</li>
-                    <li><strong>Hourly Rate:</strong> See your actual $/hour on every offer</li>
-                    <li><strong>Quick Verdict:</strong> "Worth It" or "Keep Scrolling" instant decision</li>
-                    <li><strong>Wear & Tear:</strong> Automatic IRS-standard calculations (14¢/mile)</li>
-                    <li><strong>Multiple Platforms:</strong> Uber, DoorDash, Instacart, Amazon Flex, Grubhub & more</li>
-                    <li><strong>Save Offers:</strong> Track your best deals and build profit history</li>
+                    <li><strong>Hourly Rate Tracking:</strong> Log your time per offer to see your real $/hour</li>
+                    <li><strong>Save Offers:</strong> Build a history of every offer you've calculated</li>
+                    <li><strong>Profit Reports:</strong> See your best and worst platforms over time</li>
+                    <li><strong>Multiple Platforms:</strong> Compare Uber, DoorDash, Instacart, Amazon Flex, Grubhub side by side</li>
+                    <li><strong>Works Offline:</strong> No account, no subscription, your data stays on your device</li>
                 </ul>
             </div>
         </div>
@@ -564,7 +574,7 @@
         <div class="cta-section">
             <h2>Love This Calculator?</h2>
             <p>Get the full "Is It Worth It" tool with additional features, saving your favorite offers, and detailed profit reports — just $14.99</p>
-            <a href="https://payhip.com/b/s5RCh" class="btn-payhip" target="_blank" rel="noopener noreferrer">Get Full Version →</a>
+            <a href="https://payhip.com/b/s5RCh" class="btn-payhip" target="_blank" rel="noopener noreferrer" onclick="trackDemo('buy_click')">Get Full Version →</a>
             <p style="margin-top: 20px; font-size: 0.9rem; color: #999999;">Or explore more money-making tools at <strong>payhip.com/Tinytripp</strong></p>
         </div>
     </div>
@@ -599,6 +609,34 @@
             });
         });
 
+        function getActiveMethod() {
+            const active = document.querySelector('.calc-option.active');
+            return active ? active.getAttribute('data-method') : 'distance';
+        }
+
+        function calculateGasCost() {
+            const method = getActiveMethod();
+            let gasCost = 0;
+
+            if (method === 'distance') {
+                const distance = parseFloat(document.getElementById('totalDistance').value) || 0;
+                const gasPrice = parseFloat(document.getElementById('gasPricePerGallon').value) || 3.50;
+                const mpg = parseFloat(document.getElementById('vehicleMpg').value) || 25;
+                const wearTear = parseFloat(document.getElementById('wearTear').value) || 0.14;
+                gasCost = (distance / mpg) * gasPrice + (distance * wearTear);
+            } else if (method === 'mpg') {
+                const miles = parseFloat(document.getElementById('milesDriven').value) || 0;
+                const mpg = parseFloat(document.getElementById('vehicleMpg2').value) || 25;
+                const gasPrice = parseFloat(document.getElementById('gasPricePerGallon2').value) || 3.50;
+                const wearTear = parseFloat(document.getElementById('wearTear2').value) || 0.14;
+                gasCost = (miles / mpg) * gasPrice + (miles * wearTear);
+            } else if (method === 'manual') {
+                gasCost = parseFloat(document.getElementById('manualGasCost').value) || 0;
+            }
+
+            return gasCost;
+        }
+
         function calculateProfit() {
             const offerAmount = parseFloat(document.getElementById('offerAmount').value) || 0;
 
@@ -607,9 +645,38 @@
                 return;
             }
 
-            // Show paywall instead of full results
+            const gasCost = calculateGasCost();
+            const netProfit = offerAmount - gasCost;
+            const margin = offerAmount > 0 ? (netProfit / offerAmount) * 100 : 0;
+
+            document.getElementById('resultOfferAmount').textContent = '$' + offerAmount.toFixed(2);
+            document.getElementById('resultGasCost').textContent = '$' + gasCost.toFixed(2);
+            document.getElementById('resultNetProfit').textContent = '$' + netProfit.toFixed(2);
+            document.getElementById('resultMargin').textContent = margin.toFixed(0) + '%';
+
+            const verdictEl = document.getElementById('verdict');
+            const verdictText = document.getElementById('verdictText');
+            const verdictDetail = document.getElementById('verdictDetail');
+
+            verdictEl.style.display = 'block';
+            if (netProfit <= 0) {
+                verdictEl.className = 'verdict not-worth-it';
+                verdictText.textContent = 'NOT WORTH IT';
+                verdictDetail.textContent = "This offer would cost you money after gas and wear. Skip it.";
+            } else if (margin < 60) {
+                verdictEl.className = 'verdict not-worth-it';
+                verdictText.textContent = 'BORDERLINE';
+                verdictDetail.textContent = "You'll clear $" + netProfit.toFixed(2) + ", but gas is eating a big chunk of this offer.";
+            } else {
+                verdictEl.className = 'verdict worth-it';
+                verdictText.textContent = 'WORTH IT';
+                verdictDetail.textContent = "You'll clear $" + netProfit.toFixed(2) + " after gas and wear on this offer.";
+            }
+
+            document.getElementById('results').classList.add('show');
             document.getElementById('paywall').style.display = 'block';
-            window.scrollTo({ top: document.getElementById('paywall').offsetTop - 100, behavior: 'smooth' });
+            trackDemo('interact');
+            window.scrollTo({ top: document.getElementById('results').offsetTop - 100, behavior: 'smooth' });
         }
 
         function resetCalculator() {
@@ -638,6 +705,19 @@
           referrer: document.referrer || "direct"
         })
       }).catch(() => {});
+    </script>
+    <script>
+      const TOOL_ID = "gig-driver-calculator";
+      function trackDemo(eventName){
+        try{
+          fetch('/.netlify/functions/track-demo', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+          });
+        }catch(e){}
+      }
+      trackDemo('open');
     </script>
 <script src="/app-status-check.js" data-app="gig-driver-calculator"></script>
 </body>
