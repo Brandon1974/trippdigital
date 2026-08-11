@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debt Payoff Calculator — Snowball & Avalanche | Tripp Digital</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#F4F7FB; --panel:#FFFFFF; --border:#E2E8F0; --blue:#1D4ED8; --blue-dim:#1E3A8A; --green:#16A34A; --red:#DC2626; --text:#0F172A; --dim:#64748B; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Poppins',sans-serif;padding-bottom:60px;}
+  .nav{background:#fff;border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:0;z-index:100;}
+  .nav-inner{max-width:900px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:60px;}
+  .logo{font-weight:800;font-size:1.2rem;color:var(--blue-dim);text-decoration:none;}
+  .buy-link{background:var(--blue);color:#fff;padding:9px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:13px;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:28px 16px;}
+  h1{font-size:1.7rem;font-weight:700;margin-bottom:6px;color:var(--blue-dim);}
+  .sub{color:var(--dim);font-size:14px;margin-bottom:24px;}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  .card h3{font-size:15px;margin-bottom:14px;color:var(--blue-dim);font-weight:700;}
+
+  .debt-row{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #F1F5F9;font-size:13px;}
+  @media(max-width:700px){.debt-row{grid-template-columns:1fr 1fr;}}
+  .debt-row input{background:#F8FAFC;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:8px 10px;font-size:13px;width:100%;}
+  .del-btn{background:none;border:none;color:#CBD5E1;cursor:pointer;font-size:16px;}
+  .add-btn{background:var(--blue);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-weight:600;cursor:pointer;font-size:13px;margin-top:10px;}
+
+  .method-toggle{display:flex;gap:10px;margin-bottom:18px;}
+  .method-btn{flex:1;padding:12px;border-radius:10px;border:2px solid var(--border);background:#fff;cursor:pointer;text-align:center;font-weight:600;font-size:14px;color:var(--dim);}
+  .method-btn.active{border-color:var(--blue);color:var(--blue);background:#EFF6FF;}
+
+  .extra-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .extra-row label{font-size:13px;color:var(--dim);white-space:nowrap;}
+  .extra-row input{background:#F8FAFC;border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-size:14px;width:140px;}
+
+  .calc-btn{width:100%;background:var(--blue);color:#fff;border:none;border-radius:10px;padding:16px;font-weight:700;font-size:16px;cursor:pointer;}
+
+  .results{display:none;}
+  .results.show{display:block;}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:18px;}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;}
+  .stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;}
+  .stat .v{font-size:20px;font-weight:800;color:var(--blue-dim);}
+  @media(max-width:700px){.stats{grid-template-columns:1fr;}}
+
+  .payoff-order{margin-top:10px;}
+  .order-item{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#F8FAFC;border-radius:10px;margin-bottom:8px;font-size:14px;}
+  .order-num{width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0;}
+  .order-name{font-weight:600;margin-left:10px;}
+  .order-detail{color:var(--dim);font-size:12px;}
+
+  .upgrade-banner{background:linear-gradient(135deg,var(--blue-dim),var(--blue));border-radius:14px;padding:24px;text-align:center;margin-top:24px;color:#fff;}
+  .upgrade-banner h3{font-size:1.3rem;margin-bottom:8px;font-weight:700;}
+  .upgrade-banner p{opacity:0.9;font-size:13px;margin-bottom:16px;}
+  .upgrade-btn{background:#fff;color:var(--blue-dim);padding:13px 30px;border:none;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;display:inline-block;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="logo">Tripp Digital</a>
+  <a href="https://payhip.com/b/4xc2V" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">SAVE MY PLAN — $9.99 →</a>
+</div></nav>
+
+<div class="wrap">
+  <h1>Debt Payoff Calculator</h1>
+  <p class="sub">Snowball vs. Avalanche — enter your debts below and see your real payoff date, free.</p>
+
+  <div class="card">
+    <h3>Your Debts</h3>
+    <div id="debtList"></div>
+    <button class="add-btn" onclick="addDebt()">+ Add a Debt</button>
+  </div>
+
+  <div class="card">
+    <h3>Choose Your Method</h3>
+    <div class="method-toggle">
+      <div class="method-btn active" data-method="snowball" onclick="selectMethod('snowball')">Snowball (smallest balance first)</div>
+      <div class="method-btn" data-method="avalanche" onclick="selectMethod('avalanche')">Avalanche (highest interest first)</div>
+    </div>
+    <div class="extra-row">
+      <label>Extra monthly payment ($)</label>
+      <input type="number" id="extraPayment" value="100">
+    </div>
+    <button class="calc-btn" onclick="calculatePayoff()">Calculate My Payoff Plan</button>
+  </div>
+
+  <div class="results" id="results">
+    <div class="stats">
+      <div class="stat"><div class="l">Debt-Free Date</div><div class="v" id="payoffDate">—</div></div>
+      <div class="stat"><div class="l">Months to Freedom</div><div class="v" id="payoffMonths">—</div></div>
+      <div class="stat"><div class="l">Total Interest Paid</div><div class="v" id="totalInterest">—</div></div>
+    </div>
+    <div class="card">
+      <h3>Your Payoff Order</h3>
+      <div class="payoff-order" id="payoffOrder"></div>
+    </div>
+  </div>
+
+  <div class="upgrade-banner">
+    <h3>Save Your Plan & Track Your Progress</h3>
+    <p>The free calculator gives you the math. The full version saves your debts permanently, tracks your progress month to month, and lets you update balances as you pay them down — for one small one-time payment.</p>
+    <a href="https://payhip.com/b/4xc2V" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">GET THE FULL VERSION — $9.99 →</a>
+  </div>
+</div>
+
+<script>
+  const TOOL_ID = "debt-payoff-calculator";
+  function trackDemo(eventName){
+    try{
+      fetch('/.netlify/functions/track-demo', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+      });
+    }catch(e){}
+  }
+  trackDemo('open');
+
+  let debts = [
+    { name: "Credit Card", balance: 4200, rate: 22.9, minPay: 120 },
+    { name: "Car Loan", balance: 9800, rate: 6.5, minPay: 240 },
+    { name: "Student Loan", balance: 15000, rate: 5.0, minPay: 180 }
+  ];
+  let method = 'snowball';
+
+  function renderDebts(){
+    document.getElementById('debtList').innerHTML = debts.map((d,i)=>`
+      <div class="debt-row">
+        <input type="text" value="${d.name}" onchange="updateDebt(${i},'name',this.value)" placeholder="Debt name">
+        <input type="number" value="${d.balance}" onchange="updateDebt(${i},'balance',this.value)" placeholder="Balance">
+        <input type="number" value="${d.rate}" step="0.1" onchange="updateDebt(${i},'rate',this.value)" placeholder="APR %">
+        <input type="number" value="${d.minPay}" onchange="updateDebt(${i},'minPay',this.value)" placeholder="Min payment">
+        <button class="del-btn" onclick="removeDebt(${i})">✕</button>
+      </div>`).join('');
+  }
+
+  function updateDebt(i, field, val){
+    debts[i][field] = field === 'name' ? val : parseFloat(val) || 0;
+  }
+
+  function addDebt(){
+    debts.push({ name: "New Debt", balance: 1000, rate: 15, minPay: 50 });
+    trackDemo('interact');
+    renderDebts();
+  }
+
+  function removeDebt(i){
+    debts.splice(i,1);
+    trackDemo('interact');
+    renderDebts();
+  }
+
+  function selectMethod(m){
+    method = m;
+    document.querySelectorAll('.method-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelector(`[data-method="${m}"]`).classList.add('active');
+    trackDemo('interact');
+  }
+
+  function calculatePayoff(){
+    const extra = parseFloat(document.getElementById('extraPayment').value) || 0;
+    let workingDebts = debts.map(d => ({...d, balance: d.balance}));
+
+    // Order debts based on method
+    let order;
+    if(method === 'snowball'){
+      order = [...workingDebts].sort((a,b) => a.balance - b.balance);
+    } else {
+      order = [...workingDebts].sort((a,b) => b.rate - a.rate);
+    }
+
+    let totalInterestPaid = 0;
+    let month = 0;
+    let extraPool = extra;
+    let payoffOrder = [];
+    const maxMonths = 600;
+
+    while(order.some(d => d.balance > 0) && month < maxMonths){
+      month++;
+      let monthlyExtra = extraPool;
+
+      for(let d of order){
+        if(d.balance <= 0) continue;
+        const monthlyRate = (d.rate / 100) / 12;
+        const interest = d.balance * monthlyRate;
+        totalInterestPaid += interest;
+        d.balance += interest;
+
+        let payment = d.minPay;
+        if(monthlyExtra > 0 && d.balance <= payment + monthlyExtra){
+          payment = d.balance;
+          monthlyExtra -= (payment - d.minPay > 0 ? payment - d.minPay : 0);
+        } else if(monthlyExtra > 0 && order.findIndex(x=>x.balance>0) === order.indexOf(d)){
+          payment += monthlyExtra;
+          monthlyExtra = 0;
+        }
+
+        d.balance -= payment;
+        if(d.balance <= 0.5 && !payoffOrder.includes(d.name)){
+          d.balance = 0;
+          payoffOrder.push(d.name);
+        }
+      }
+    }
+
+    const years = Math.floor(month / 12);
+    const remMonths = month % 12;
+    const now = new Date();
+    const payoffDate = new Date(now.getFullYear(), now.getMonth() + month, 1);
+
+    document.getElementById('payoffDate').textContent = payoffDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    document.getElementById('payoffMonths').textContent = month + ' mo' + (years > 0 ? ` (${years}y ${remMonths}mo)` : '');
+    document.getElementById('totalInterest').textContent = '$' + Math.round(totalInterestPaid).toLocaleString();
+
+    document.getElementById('payoffOrder').innerHTML = order.map((d,i)=>`
+      <div class="order-item">
+        <div style="display:flex;align-items:center;">
+          <div class="order-num">${i+1}</div>
+          <div class="order-name">${d.name}</div>
+        </div>
+        <div class="order-detail">$${debts.find(x=>x.name===d.name)?.balance.toLocaleString() || d.balance} · ${d.rate}% APR</div>
+      </div>`).join('');
+
+    document.getElementById('results').classList.add('show');
+    trackDemo('interact');
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  renderDebts();
+</script>
+
+</body>
+</html>
