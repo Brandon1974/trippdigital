@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garden Planner — Live Demo | Tripp Digital</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --panel2:#1c1c1c; --accent:#FF6B00; --accent-dim:#b34c00; --green:#3CCB6F; --yellow:#E8B400; --red:#E14B4B; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .demo-banner{background:var(--accent);color:#000;text-align:center;padding:10px 16px;font-weight:700;font-size:13px;position:sticky;top:0;z-index:200;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:37px;z-index:100;}
+  .nav-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .buy-link{background:var(--accent);color:#000;padding:8px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
+  .card h3{font-size:14px;margin-bottom:14px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+
+  .plant-row{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid #1a1a1a;font-size:13px;}
+  @media(max-width:700px){.plant-row{grid-template-columns:1fr;gap:6px;}}
+  .plant-name{font-weight:600;}
+  .plant-note{color:var(--dim);font-size:11px;margin-top:2px;}
+  .status-badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:.03em;cursor:pointer;}
+  .status-planned{background:#2a2a2a;color:#aaa;}
+  .status-planted{background:#3a2a00;color:var(--yellow);}
+  .status-growing{background:#1a3a1a;color:var(--green);}
+  .status-harvested{background:var(--accent);color:#000;}
+  .plant-date{color:var(--dim);font-size:12px;}
+  .del-btn{background:none;border:none;color:#555;cursor:pointer;font-size:14px;}
+
+  .add-form{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:8px;margin-bottom:16px;}
+  @media(max-width:700px){.add-form{grid-template-columns:1fr 1fr;}}
+  .add-form input,.add-form select{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;}
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:13px;}
+
+  .cal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  @media(max-width:700px){.cal-grid{grid-template-columns:repeat(2,1fr);}}
+  .cal-month{background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:12px;}
+  .cal-month .m{font-size:11px;color:var(--dim);text-transform:uppercase;margin-bottom:6px;}
+  .cal-month .plants{font-size:12px;color:var(--accent);}
+
+  .locked{position:relative;opacity:0.5;cursor:not-allowed;}
+  .locked::after{content:"🔒 Full version only";position:absolute;top:-8px;right:0;background:#000;color:var(--accent);font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--accent);}
+
+  .upgrade-banner{background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-top:24px;}
+  .upgrade-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:8px;letter-spacing:1px;}
+  .upgrade-banner p{color:var(--dim);font-size:13px;margin-bottom:14px;}
+  .upgrade-btn{background:var(--accent);color:#000;padding:12px 28px;border:none;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-decoration:none;display:inline-block;cursor:pointer;}
+  .reset-note{text-align:center;color:#555;font-size:11px;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO MODE — Sample data only. Nothing you add here is saved. Refresh resets everything.</div>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <a href="https://payhip.com/b/3jqLI" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">BUY $19 →</a>
+</div></nav>
+
+<div class="wrap">
+  <h1>Garden Planner</h1>
+  <p class="sub">Live interactive demo — click any status badge to cycle it, add a plant, try it out. Nothing is saved; this resets when you refresh.</p>
+
+  <div class="card">
+    <h3>Your Plants (tap a status to cycle it)</h3>
+    <div id="plantList"></div>
+    <div class="add-form">
+      <input type="text" id="newPlant" placeholder="Plant name">
+      <input type="text" id="newDate" placeholder="Plant date (e.g. May 10)">
+      <input type="text" id="newNote" placeholder="Notes (sun, spacing...)">
+      <button class="add-btn" onclick="addPlant()">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Monthly Calendar</h3>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <div class="card">
+    <h3 style="display:flex;justify-content:space-between;">
+      <span>Export</span>
+    </h3>
+    <button class="add-btn locked" disabled>Export to CSV</button>
+    <p style="color:#666;font-size:12px;margin-top:10px;">CSV export, white-label branding, and permanent saving are unlocked in the full $19 version.</p>
+  </div>
+
+  <div class="upgrade-banner">
+    <h3>Like what you see?</h3>
+    <p>Get the full version — unlimited plants, permanent saving, CSV export, and white-label settings with your own name, logo, and color.</p>
+    <a href="https://payhip.com/b/3jqLI" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">GET THE FULL VERSION — $19 →</a>
+  </div>
+
+  <p class="reset-note">This demo resets every time you refresh the page. Your purchased copy saves everything, permanently, on your own device.</p>
+</div>
+
+<script>
+  const TOOL_ID = "garden-planner";
+  function trackDemo(eventName){
+    try{
+      fetch('/.netlify/functions/track-demo', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+      });
+    }catch(e){}
+  }
+  trackDemo('open');
+
+  const statuses = ['planned','planted','growing','harvested'];
+  const statusLabels = { planned: 'Planned', planted: 'Planted', growing: 'Growing', harvested: 'Harvested' };
+
+  let plants = [
+    { name: "Tomatoes", date: "May 10", note: "Full sun, 18in spacing, water daily", status: "growing" },
+    { name: "Basil", date: "May 12", note: "Partial sun, near tomatoes", status: "growing" },
+    { name: "Peppers", date: "May 15", note: "Full sun, water every 2 days", status: "planted" },
+    { name: "Lettuce", date: "Apr 20", note: "Shade in afternoon, keep moist", status: "harvested" },
+    { name: "Zucchini", date: "June 1", note: "Full sun, needs lots of room", status: "planned" }
+  ];
+
+  function renderPlants(){
+    document.getElementById('plantList').innerHTML = plants.map((p,i)=>`
+      <div class="plant-row">
+        <div><div class="plant-name">${p.name}</div><div class="plant-note">${p.note}</div></div>
+        <div class="plant-date">${p.date}</div>
+        <div class="status-badge status-${p.status}" onclick="cycleStatus(${i})">${statusLabels[p.status]}</div>
+        <button class="del-btn" onclick="removePlant(${i})">✕</button>
+      </div>`).join('');
+  }
+
+  function cycleStatus(i){
+    const idx = statuses.indexOf(plants[i].status);
+    plants[i].status = statuses[(idx+1) % statuses.length];
+    trackDemo('interact');
+    renderPlants();
+  }
+
+  function addPlant(){
+    const name = document.getElementById('newPlant').value.trim();
+    const date = document.getElementById('newDate').value.trim() || 'TBD';
+    const note = document.getElementById('newNote').value.trim() || 'No notes yet';
+    if(!name) return;
+    plants.push({ name, date, note, status: 'planned' });
+    document.getElementById('newPlant').value = '';
+    document.getElementById('newDate').value = '';
+    document.getElementById('newNote').value = '';
+    trackDemo('interact');
+    renderPlants();
+  }
+
+  function removePlant(i){
+    plants.splice(i,1);
+    trackDemo('interact');
+    renderPlants();
+  }
+
+  const months = ["Mar","Apr","May","Jun","Jul","Aug"];
+  const monthPlants = {
+    Mar: "Start seeds indoors",
+    Apr: "Lettuce, peas",
+    May: "Tomatoes, basil, peppers",
+    Jun: "Zucchini, corn",
+    Jul: "Harvest lettuce, peas",
+    Aug: "Harvest tomatoes, peppers"
+  };
+  document.getElementById('calGrid').innerHTML = months.map(m=>`
+    <div class="cal-month"><div class="m">${m}</div><div class="plants">${monthPlants[m]}</div></div>`).join('');
+
+  renderPlants();
+</script>
+
+</body>
+</html>
