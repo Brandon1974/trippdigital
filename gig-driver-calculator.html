@@ -549,6 +549,8 @@
                 <div class="verdict-detail" id="verdictDetail"></div>
             </div>
 
+            <p style="text-align:center;color:#888;font-size:0.85rem;margin-top:-10px;">You have <strong id="calcsRemaining" style="color:#FF6B00;">3</strong> free calculations left today.</p>
+
             <div class="paywall-container" id="paywall" style="display:none;">
                 <div style="text-align: center; background: #0a0a0a; border: 2px solid #FF6B00; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
                     <h3 style="color: #FF6B00; font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">Want to Track Your Best Offers?</h3>
@@ -556,6 +558,12 @@
                     <a href="https://payhip.com/b/s5RCh" target="_blank" rel="noopener noreferrer" onclick="trackDemo('buy_click')" style="display: inline-block; background: #FF6B00; color: #000000; padding: 15px 40px; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; font-size: 1rem;">GET FULL VERSION - $14.99</a>
                     <p style="color: #666666; margin-top: 20px; font-size: 0.85rem;">One-time purchase. Unlimited saved offers. No subscription.</p>
                 </div>
+            </div>
+
+            <div id="limitReached" style="display:none; text-align: center; background: #0a0a0a; border: 2px solid #FF6B00; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
+                <h3 style="color: #FF6B00; font-size: 1.3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;">You've Used Your 3 Free Calculations</h3>
+                <p style="color: #cccccc; margin-bottom: 20px; font-size: 1rem;">Get unlimited calculations, hourly rate tracking, and offer history — for the price of one gig.</p>
+                <a href="https://payhip.com/b/s5RCh" target="_blank" rel="noopener noreferrer" onclick="trackDemo('buy_click')" style="display: inline-block; background: #FF6B00; color: #000000; padding: 15px 40px; border-radius: 6px; text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;">GET UNLIMITED - $14.99</a>
             </div>
 
             <div class="info-box">
@@ -637,13 +645,25 @@
             return gasCost;
         }
 
+        let freeCalcsUsed = 0;
+        const FREE_CALC_LIMIT = 3;
+
         function calculateProfit() {
+            if (freeCalcsUsed >= FREE_CALC_LIMIT) {
+                document.getElementById('results').classList.remove('show');
+                document.getElementById('limitReached').style.display = 'block';
+                document.getElementById('limitReached').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                return;
+            }
+
             const offerAmount = parseFloat(document.getElementById('offerAmount').value) || 0;
 
             if (offerAmount <= 0) {
                 alert('Please enter a valid offer amount');
                 return;
             }
+
+            freeCalcsUsed++;
 
             const gasCost = calculateGasCost();
             const netProfit = offerAmount - gasCost;
@@ -675,6 +695,7 @@
 
             document.getElementById('results').classList.add('show');
             document.getElementById('paywall').style.display = 'block';
+            document.getElementById('calcsRemaining').textContent = (FREE_CALC_LIMIT - freeCalcsUsed);
             trackDemo('interact');
             window.scrollTo({ top: document.getElementById('results').offsetTop - 100, behavior: 'smooth' });
         }
