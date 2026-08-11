@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raised Bed Planner — Tripp Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --accent:#FF6B00; --green:#3CCB6F; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;}
+  .nav-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .saved-tag{color:var(--dim);font-size:12px;}
+
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
+  .card h3{font-size:14px;margin-bottom:14px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:14px;}
+  @media(max-width:700px){.row3{grid-template-columns:1fr;}}
+  .field label{font-size:12px;color:var(--dim);display:block;margin-bottom:5px;}
+  .field input, .field select, .field textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;font-family:'Inter',sans-serif;}
+
+  .result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  @media(max-width:700px){.result-grid{grid-template-columns:1fr;}}
+  .result-box{background:#0a0a0a;border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
+  .result-box .l{font-size:11px;color:var(--dim);text-transform:uppercase;margin-bottom:6px;}
+  .result-box .v{font-size:20px;font-weight:700;color:var(--accent);}
+
+  .zone-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  @media(max-width:700px){.zone-grid{grid-template-columns:repeat(2,1fr);}}
+  .zone-month{background:#0a0a0a;border:1px solid var(--border);border-radius:8px;padding:10px;}
+  .zone-month .m{font-size:11px;color:var(--accent);text-transform:uppercase;margin-bottom:4px;font-weight:700;}
+  .zone-month .plants{font-size:11px;color:var(--dim);}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{text-align:left;color:var(--dim);padding:8px 6px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;}
+  td{padding:10px 6px;border-bottom:1px solid #1a1a1a;}
+  .good{color:var(--green);}
+  .bad{color:#E14B4B;}
+
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:14px;width:100%;}
+
+  @media print{
+    body *{visibility:hidden;}
+    .print-area, .print-area *{visibility:visible;}
+    .print-area{position:absolute;left:0;top:0;width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="#" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <span class="saved-tag" id="savedTag">Saved in this browser</span>
+</div></nav>
+
+<div class="wrap">
+  <h1>Raised Bed Planner</h1>
+  <p class="sub">Real calculators for bed size, soil mix, and your zone's planting calendar, plus companion planting and pest reference.</p>
+
+  <div class="card">
+    <h3>Bed Size & Soil Calculator</h3>
+    <div class="row3">
+      <div class="field"><label>Bed Length (ft)</label><input type="number" id="bLength" oninput="update()"></div>
+      <div class="field"><label>Bed Width (ft)</label><input type="number" id="bWidth" oninput="update()"></div>
+      <div class="field"><label>Bed Height (in)</label><input type="number" id="bHeight" oninput="update()"></div>
+    </div>
+    <div class="result-grid">
+      <div class="result-box"><div class="l">Square Footage</div><div class="v" id="rSqft">—</div></div>
+      <div class="result-box"><div class="l">Soil Needed</div><div class="v" id="rSoil">—</div></div>
+      <div class="result-box"><div class="l">Bags of Soil (2cu ft)</div><div class="v" id="rBags">—</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Your Zone's Planting Calendar</h3>
+    <div class="field" style="margin-bottom:14px;">
+      <label>Select Your Growing Zone</label>
+      <select id="zoneSelect" onchange="update()">
+        <option value="5">Zone 5 (Cold — Midwest/Northeast)</option>
+        <option value="7">Zone 7 (Mild — Mid-Atlantic)</option>
+        <option value="8">Zone 8 (Warm — Virginia/Coastal South)</option>
+        <option value="10">Zone 10 (Hot — Florida/South Texas)</option>
+      </select>
+    </div>
+    <div class="zone-grid" id="zoneGrid"></div>
+  </div>
+
+  <div class="card">
+    <h3>Companion Planting Chart</h3>
+    <table>
+      <tr><th>Plant</th><th>Plant With</th><th>Avoid</th></tr>
+      <tr><td>Tomatoes</td><td class="good">Basil, carrots, marigold</td><td class="bad">Corn, cabbage</td></tr>
+      <tr><td>Peppers</td><td class="good">Basil, onions</td><td class="bad">Fennel</td></tr>
+      <tr><td>Squash</td><td class="good">Corn, beans, nasturtium</td><td class="bad">Potatoes</td></tr>
+      <tr><td>Lettuce</td><td class="good">Carrots, radish</td><td class="bad">Broccoli</td></tr>
+      <tr><td>Beans</td><td class="good">Corn, squash, cucumbers</td><td class="bad">Onions, garlic</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Common Pests & Diseases</h3>
+    <table>
+      <tr><th>Problem</th><th>Signs</th><th>Fix</th></tr>
+      <tr><td>Aphids</td><td>Curled leaves, sticky residue</td><td>Neem oil spray, ladybugs</td></tr>
+      <tr><td>Blossom End Rot</td><td>Black spots on tomato bottoms</td><td>Consistent watering, add calcium</td></tr>
+      <tr><td>Powdery Mildew</td><td>White powder on leaves</td><td>Improve air flow, remove affected leaves</td></tr>
+      <tr><td>Squash Bugs</td><td>Wilting vines, yellow spots</td><td>Hand-pick eggs, row covers early season</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>My Garden Notes</h3>
+    <div class="field"><textarea id="notesArea" oninput="update()" style="min-height:120px;" placeholder="Track what you planted, when, and how it did..."></textarea></div>
+  </div>
+
+  <div class="card">
+    <h3>Export</h3>
+    <button class="add-btn" onclick="window.print()">🖨️ Export as PDF (Print)</button>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'raised_bed_data';
+  const FIELDS = ['bLength','bWidth','bHeight','zoneSelect','notesArea'];
+
+  const zoneCalendars = {
+    5: { Mar:"Start seeds indoors", Apr:"Peas, lettuce", May:"Tomatoes (after last frost)", Jun:"Beans, squash", Jul:"Harvest lettuce", Aug:"Harvest tomatoes" },
+    7: { Feb:"Start seeds indoors", Mar:"Peas, lettuce, spinach", Apr:"Tomatoes, peppers", May:"Beans, squash, corn", Jun:"Harvest lettuce", Jul:"Harvest tomatoes" },
+    8: { Feb:"Start seeds indoors", Mar:"Lettuce, peas", Apr:"Tomatoes, basil, peppers", May:"Squash, corn, beans", Jun:"Harvest lettuce, peas", Jul:"Harvest tomatoes, peppers" },
+    10: { Jan:"Tomatoes, peppers", Feb:"Beans, squash", Mar:"Harvest early crops", Apr:"Melons, okra", May:"Harvest tomatoes", Jun:"Sweet potatoes" }
+  };
+
+  function save(){
+    const data = {};
+    FIELDS.forEach(id => data[id] = document.getElementById(id).value);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  }
+  function load(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      document.getElementById('bLength').value = 8;
+      document.getElementById('bWidth').value = 4;
+      document.getElementById('bHeight').value = 12;
+      document.getElementById('zoneSelect').value = "8";
+      return;
+    }
+    try{
+      const data = JSON.parse(raw);
+      FIELDS.forEach(id => { if(data[id] !== undefined) document.getElementById(id).value = data[id]; });
+    }catch(e){}
+  }
+
+  function update(){
+    const length = parseFloat(document.getElementById('bLength').value) || 0;
+    const width = parseFloat(document.getElementById('bWidth').value) || 0;
+    const heightIn = parseFloat(document.getElementById('bHeight').value) || 0;
+
+    const sqft = length * width;
+    const cuft = sqft * (heightIn / 12);
+    const bags = Math.ceil(cuft / 2);
+
+    document.getElementById('rSqft').textContent = sqft.toFixed(0) + ' sq ft';
+    document.getElementById('rSoil').textContent = cuft.toFixed(1) + ' cu ft';
+    document.getElementById('rBags').textContent = bags + ' bags';
+
+    const zone = document.getElementById('zoneSelect').value;
+    const cal = zoneCalendars[zone];
+    document.getElementById('zoneGrid').innerHTML = Object.entries(cal).map(([m,p])=>`
+      <div class="zone-month"><div class="m">${m}</div><div class="plants">${p}</div></div>`).join('');
+
+    save();
+    const tag = document.getElementById('savedTag');
+    tag.textContent = 'Saved ✓';
+    clearTimeout(window._savedTimeout);
+    window._savedTimeout = setTimeout(()=>{ tag.textContent = 'Saved in this browser'; }, 1500);
+  }
+
+  load();
+  update();
+</script>
+
+</body>
+</html>
