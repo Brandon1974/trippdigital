@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daycare Parent Handbook Builder — Live Demo | Tripp Digital</title>
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0a0a0a; --panel:#141414; --accent:#FF6B00; --text:#f2f2f2; --dim:#9a9a9a; --border:#262626; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;padding-bottom:60px;}
+  .demo-banner{background:var(--accent);color:#000;text-align:center;padding:10px 16px;font-weight:700;font-size:13px;position:sticky;top:0;z-index:200;}
+  .nav{background:rgba(10,10,10,0.95);border-bottom:1px solid var(--border);padding:0 20px;position:sticky;top:37px;z-index:100;}
+  .nav-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;}
+  .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;color:#fff;text-decoration:none;}
+  .logo .accent{color:var(--accent);}
+  .buy-link{background:var(--accent);color:#000;padding:8px 18px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;}
+
+  .wrap{max-width:1200px;margin:0 auto;padding:24px 16px;}
+  h1{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:1px;margin-bottom:4px;}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px;}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @media(max-width:900px){.split{grid-template-columns:1fr;}}
+
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:14px;}
+  .card h3{font-size:13px;margin-bottom:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.05em;}
+  .field{margin-bottom:12px;}
+  .field label{font-size:12px;color:var(--dim);display:block;margin-bottom:5px;}
+  .field input, .field textarea{width:100%;background:#0a0a0a;border:1px solid var(--border);color:var(--text);border-radius:6px;padding:9px 10px;font-size:13px;font-family:'Inter',sans-serif;}
+  .field textarea{min-height:70px;resize:vertical;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+  .preview-wrap{position:sticky;top:100px;}
+  .preview{background:#fff;color:#1a1a1a;border-radius:8px;padding:36px;font-family:'Merriweather',serif;max-height:80vh;overflow-y:auto;box-shadow:0 8px 30px rgba(0,0,0,0.4);}
+  .preview h1{font-family:'Merriweather',serif;font-size:1.8rem;color:#1a1a1a;border-bottom:3px solid var(--accent);padding-bottom:12px;margin-bottom:16px;}
+  .preview h2{font-size:1.1rem;color:var(--accent);margin:20px 0 8px;}
+  .preview p{font-size:0.9rem;line-height:1.6;color:#333;margin-bottom:8px;}
+  .preview .meta{color:#888;font-size:0.8rem;margin-bottom:20px;}
+  .preview .placeholder{color:#bbb;font-style:italic;}
+
+  .locked{position:relative;opacity:0.5;cursor:not-allowed;}
+  .locked::after{content:"🔒 Full version only";position:absolute;top:-8px;right:0;background:#000;color:var(--accent);font-size:10px;padding:2px 6px;border-radius:4px;border:1px solid var(--accent);}
+  .add-btn{background:var(--accent);color:#000;border:none;border-radius:6px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:14px;width:100%;}
+
+  .upgrade-banner{background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-top:24px;}
+  .upgrade-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;margin-bottom:8px;letter-spacing:1px;}
+  .upgrade-banner p{color:var(--dim);font-size:13px;margin-bottom:14px;}
+  .upgrade-btn{background:var(--accent);color:#000;padding:12px 28px;border:none;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-decoration:none;display:inline-block;cursor:pointer;}
+  .reset-note{text-align:center;color:#555;font-size:11px;margin-top:16px;}
+</style>
+</head>
+<body>
+
+<div class="demo-banner">DEMO MODE — Nothing you type here is saved. Refresh resets everything.</div>
+
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="logo">TRIPP <span class="accent">DIGITAL</span></a>
+  <a href="https://payhip.com/b/ji5NU" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">BUY $12 →</a>
+</div></nav>
+
+<div class="wrap">
+  <h1>Daycare Parent Handbook Builder</h1>
+  <p class="sub">Fill in the fields on the left, watch your real handbook build itself on the right. Print or export when you're done.</p>
+
+  <div class="split">
+    <div>
+      <div class="card">
+        <h3>Basic Info</h3>
+        <div class="field"><label>Daycare Name</label><input type="text" id="fName" value="Little Warriors Daycare" oninput="update()"></div>
+        <div class="row2">
+          <div class="field"><label>Director Name</label><input type="text" id="fDirector" value="Jane Smith" oninput="update()"></div>
+          <div class="field"><label>Phone</label><input type="text" id="fPhone" value="(757) 555-0199" oninput="update()"></div>
+        </div>
+        <div class="field"><label>Address</label><input type="text" id="fAddress" value="123 Sunshine Lane, Virginia Beach, VA" oninput="update()"></div>
+      </div>
+
+      <div class="card">
+        <h3>Hours & Policies</h3>
+        <div class="row2">
+          <div class="field"><label>Operating Hours</label><input type="text" id="fHours" value="Monday–Friday, 7:00 AM – 6:00 PM" oninput="update()"></div>
+          <div class="field"><label>Late Pickup Fee</label><input type="text" id="fLateFee" value="$1 per minute after 6:00 PM" oninput="update()"></div>
+        </div>
+        <div class="field"><label>Drop-off / Pickup Policy</label><textarea id="fDropoff" oninput="update()">Parents must sign children in and out daily. Only authorized pickup persons listed on file will be permitted to collect your child.</textarea></div>
+        <div class="field"><label>Illness Policy</label><textarea id="fIllness" oninput="update()">Children with a fever of 100.4°F or higher, vomiting, or contagious symptoms must stay home for 24 hours after symptoms clear.</textarea></div>
+      </div>
+
+      <div class="card">
+        <h3>Program Details</h3>
+        <div class="field"><label>Age Groups Served</label><input type="text" id="fAges" value="6 weeks – 5 years" oninput="update()"></div>
+        <div class="field"><label>Daily Schedule Summary</label><textarea id="fSchedule" oninput="update()">7:00 Arrival & Free Play · 9:00 Breakfast · 9:30 Learning Activities · 12:00 Lunch · 1:00 Nap Time · 3:00 Snack & Outdoor Play · 5:00 Wind Down · 6:00 Departure</textarea></div>
+      </div>
+
+      <div class="card">
+        <h3 style="display:flex;justify-content:space-between;">
+          <span>Export</span>
+        </h3>
+        <button class="add-btn locked" disabled>Export as PDF</button>
+        <p style="color:#666;font-size:12px;margin-top:10px;">PDF export, your logo, and custom cover page are unlocked in the full $12 version.</p>
+      </div>
+    </div>
+
+    <div class="preview-wrap">
+      <div class="preview" id="preview"></div>
+    </div>
+  </div>
+
+  <div class="upgrade-banner">
+    <h3>Like what you see?</h3>
+    <p>Get the full version — export a print-ready PDF, add your logo and custom cover, and reuse it every enrollment season.</p>
+    <a href="https://payhip.com/b/ji5NU" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">GET THE FULL VERSION — $12 →</a>
+  </div>
+
+  <p class="reset-note">This demo resets every time you refresh the page. Your purchased copy lets you export and reuse it forever.</p>
+</div>
+
+<script>
+  const TOOL_ID = "daycare-handbook-builder";
+  function trackDemo(eventName){
+    try{
+      fetch('/.netlify/functions/track-demo', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+      });
+    }catch(e){}
+  }
+  trackDemo('open');
+
+  let interactFired = false;
+  function update(){
+    if(!interactFired){ trackDemo('interact'); interactFired = true; }
+
+    const v = id => document.getElementById(id).value || '—';
+
+    document.getElementById('preview').innerHTML = `
+      <h1>${v('fName')} — Parent Handbook</h1>
+      <div class="meta">Director: ${v('fDirector')} · ${v('fPhone')}<br>${v('fAddress')}</div>
+
+      <h2>Hours of Operation</h2>
+      <p>${v('fHours')}</p>
+      <p><strong>Late Pickup:</strong> ${v('fLateFee')}</p>
+
+      <h2>Drop-off & Pickup</h2>
+      <p>${v('fDropoff')}</p>
+
+      <h2>Illness Policy</h2>
+      <p>${v('fIllness')}</p>
+
+      <h2>Ages Served</h2>
+      <p>${v('fAges')}</p>
+
+      <h2>A Typical Day</h2>
+      <p>${v('fSchedule')}</p>
+    `;
+  }
+
+  update();
+</script>
+
+</body>
+</html>
