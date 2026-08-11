@@ -13,7 +13,7 @@
   header{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
   .logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:1px;}
   .logo .accent{color:var(--accent);}
-  nav a{color:#888;text-decoration:none;font-size:0.85rem;}
+  .buy-link{background:var(--accent);color:#000;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:700;font-size:13px;font-family:'Bebas Neue',sans-serif;letter-spacing:0.5px;}
 
   .tabs{display:flex;border-bottom:1px solid var(--border);}
   .tab{flex:1;text-align:center;padding:14px 0;font-weight:600;font-size:0.9rem;color:#888;cursor:pointer;border-bottom:3px solid transparent;}
@@ -68,13 +68,17 @@
   .hero-overlay h1{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;color:#fff;letter-spacing:1px;}
   .hero-overlay p{font-size:0.85rem;color:#ddd;margin-top:4px;}
   .brand-footer{text-align:center;color:#555;font-size:0.75rem;padding:30px 20px;}
+  .upgrade-banner{background:linear-gradient(135deg,#1a1a1a,#000);border:1px solid var(--accent);border-radius:12px;padding:20px;text-align:center;margin-top:20px;}
+  .upgrade-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;margin-bottom:8px;letter-spacing:1px;color:#fff;}
+  .upgrade-banner p{color:#999;font-size:13px;margin-bottom:14px;}
+  .upgrade-btn{background:var(--accent);color:#000;padding:12px 28px;border:none;border-radius:6px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:1px;text-decoration:none;display:inline-block;cursor:pointer;}
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">TRIPP <span class="accent">DIGITAL</span></div>
-  <nav><a href="/">← Back to site</a></nav>
+  <a href="https://payhip.com/b/7noeS" target="_blank" rel="noopener noreferrer" class="buy-link" onclick="trackDemo('buy_click')">$12 — BUY →</a>
 </header>
 
 <div class="hero-photo">
@@ -164,6 +168,12 @@
   <div class="empty-state" id="emptyState" style="display:none">No matches yet — play your first game to start tracking stats!</div>
 
   <button class="export-btn" onclick="exportCSV()">Export Match History (CSV)</button>
+
+  <div class="upgrade-banner">
+    <h3>🏆 Get the Full Version — $12</h3>
+    <p>Own your copy forever. Same tracker, no ads, works offline, yours to keep on any device.</p>
+    <a href="https://payhip.com/b/7noeS" target="_blank" rel="noopener noreferrer" class="upgrade-btn" onclick="trackDemo('buy_click')">BUY NOW — $12 →</a>
+  </div>
 </div>
 
 <div class="brand-footer">Pickleball Score & Stats Tracker · Tripp Digital</div>
@@ -362,6 +372,19 @@ renderHistory();
           referrer: document.referrer || "direct"
         })
       }).catch(() => {});
+    </script>
+    <script>
+      const TOOL_ID = "pickleball-tracker";
+      function trackDemo(eventName){
+        try{
+          fetch('/.netlify/functions/track-demo', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ tool: TOOL_ID, event: eventName })
+          });
+        }catch(e){}
+      }
+      trackDemo('open');
     </script>
 <script src="/app-status-check.js" data-app="pickleball-tracker"></script>
 </body>
