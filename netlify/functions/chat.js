@@ -62,26 +62,34 @@ async function logConversationTranscript(userMessage, assistantMessage) {
   }
 }
 
-async function submitChatToNetlifyForms(userMessage) {
+async function submitChatToNetlifyForms(userMessage, assistantMessage) {
   try {
-    // Submit chat message as a Netlify Form submission
-    // This triggers Netlify's built-in form notifications
+    // Submit chat exchange as a Netlify Form submission
+    // This triggers Netlify's built-in form notifications (email on new submission)
     const formName = "chat-messages";
     const now = new Date();
 
     const formData = new URLSearchParams();
     formData.append("form-name", formName);
     formData.append("message", userMessage.slice(0, 500));
+    formData.append("reply", (assistantMessage || "").slice(0, 800));
     formData.append("timestamp", now.toISOString());
 
-    // Submit to Netlify forms endpoint
-    const response = await fetch("/", {
+    // Must use an absolute URL — serverless functions have no browser location to
+    // resolve a relative path against, so a bare "/" silently fails every time.
+    const siteUrl = process.env.URL || "https://trippdigital.com";
+
+    const response = await fetch(siteUrl, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: formData.toString(),
     });
 
-    console.log("Chat message submitted to Netlify Forms");
+    if (!response.ok) {
+      console.error("Netlify Forms submission returned status:", response.status);
+    } else {
+      console.log("Chat message submitted to Netlify Forms");
+    }
   } catch (err) {
     console.error("Netlify Forms submission failed:", err.message);
     // Don't block chat response if form submission fails
@@ -342,7 +350,7 @@ exports.handler = async (event, context) => {
     logConversationTranscript(userText, assistantMessage);
 
     // Submit to Netlify Forms (fire and forget, triggers email notifications)
-    submitChatToNetlifyForms(userText);
+    submitChatToNetlifyForms(userText, assistantMessage);
 
     return {
       statusCode: 200,

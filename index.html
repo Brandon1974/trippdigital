@@ -1137,10 +1137,10 @@
     </script>
 
     <!-- Hidden form for Netlify Forms email notifications -->
-    <form name="chat-messages" method="POST" style="display: none;">
+    <form name="chat-messages" method="POST" data-netlify="true" style="display: none;">
         <input type="hidden" name="form-name" value="chat-messages">
-        <input type="email" name="email" placeholder="email" style="display: none;">
         <textarea name="message" placeholder="message" style="display: none;"></textarea>
+        <textarea name="reply" placeholder="reply" style="display: none;"></textarea>
         <input type="text" name="timestamp" placeholder="timestamp" style="display: none;">
     </form>
 </body>
