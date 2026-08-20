@@ -94,11 +94,11 @@ async function handlerImpl() {
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
-      auth: { user: process.env.GMAIL_USER, pass: process.env.GMAIL_PASS },
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
     });
 
     await transporter.sendMail({
-      from: process.env.GMAIL_USER,
+      from: process.env.EMAIL_USER,
       to: 'trippdigital1@gmail.com',
       subject: `⚠️ ${broken.length} of your Etsy demo${broken.length > 1 ? 's' : ''} may be broken`,
       text:
