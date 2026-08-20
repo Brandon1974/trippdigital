@@ -114,4 +114,5 @@ async function handlerImpl() {
   }
 }
 
-exports.handler = schedule('@daily', handlerImpl);
+// Runs twice a day: 9am and 9pm UTC (roughly 5am/5pm ET)
+exports.handler = schedule('0 9,21 * * *', handlerImpl);
