@@ -59,8 +59,11 @@ exports.handler = async (event) => {
       chatDays.push({ date: dayKey, count: parseInt(count, 10) || 0 });
 
       if (i < 7) {
-        const transcripts = (await store.get(`chatlog:${dayKey}`, { type: "json" })) || [];
-        recentTranscripts.push(...transcripts);
+        const { blobs } = await store.list({ prefix: `chatlog:${dayKey}:` });
+        for (const b of blobs) {
+          const entry = await store.get(b.key, { type: "json" });
+          if (entry) recentTranscripts.push(entry);
+        }
       }
     }
     // newest first
