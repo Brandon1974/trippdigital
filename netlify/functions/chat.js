@@ -334,9 +334,10 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // track usage - fire and forget, never blocks the response
+    // track usage - must complete before the function returns, or Netlify
+    // freezes the container and kills these in-flight writes
     const isNewConversation = claudeMessages.length === 1;
-    logChatActivity(isNewConversation);
+    await logChatActivity(isNewConversation);
 
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
@@ -347,10 +348,13 @@ exports.handler = async (event, context) => {
 
     const assistantMessage = response.content[0].text;
 
-    logConversationTranscript(userText, assistantMessage);
-
-    // Submit to Netlify Forms (fire and forget, triggers email notifications)
-    submitChatToNetlifyForms(userText, assistantMessage);
+    // Await both so the blob write + form submission finish before the
+    // function returns (Netlify Functions freeze execution immediately
+    // after the response is sent, killing any un-awaited async work).
+    await Promise.all([
+      logConversationTranscript(userText, assistantMessage),
+      submitChatToNetlifyForms(userText, assistantMessage),
+    ]);
 
     return {
       statusCode: 200,
