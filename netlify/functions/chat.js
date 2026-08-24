@@ -48,15 +48,21 @@ async function logConversationTranscript(userMessage, assistantMessage) {
   try {
     const store = blobsStore("site-analytics");
     const now = new Date();
-    const dayKey = `chatlog:${now.toISOString().slice(0, 10)}`;
+    const dateKey = now.toISOString().slice(0, 10);
+    // Each message gets its own unique key instead of all messages for a day
+    // sharing one array. The old approach read-modified-wrote a single shared
+    // key, so two chats landing close together could silently clobber each
+    // other's write. Unique per-message keys remove that race entirely.
+    const uniqueKey = `chatlog:${dateKey}:${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`;
 
-    const existing = (await store.get(dayKey, { type: "json" })) || [];
-    existing.push({
-      time: now.toISOString(),
-      question: userMessage.slice(0, 500),
-      answer: assistantMessage.slice(0, 800),
-    });
-    await store.set(dayKey, JSON.stringify(existing));
+    await store.set(
+      uniqueKey,
+      JSON.stringify({
+        time: now.toISOString(),
+        question: userMessage.slice(0, 500),
+        answer: assistantMessage.slice(0, 800),
+      })
+    );
   } catch (err) {
     console.error("Transcript logging failed:", err.message);
   }
@@ -101,14 +107,23 @@ async function getChatLogs() {
   try {
     const store = blobsStore("site-analytics");
     const now = new Date();
-    const dayKey = `chatlog:${now.toISOString().slice(0, 10)}`;
-    const chats = (await store.get(dayKey, { type: "json" })) || [];
+    const dateKey = now.toISOString().slice(0, 10);
+    const prefix = `chatlog:${dateKey}:`;
+
+    const { blobs } = await store.list({ prefix });
+    const chats = [];
+    for (const b of blobs) {
+      const entry = await store.get(b.key, { type: "json" });
+      if (entry) chats.push(entry);
+    }
+    chats.sort((a, b) => new Date(a.time) - new Date(b.time));
+
     const totalMsgs = await store.get("chat-message-count");
     const convs = await store.get("chat-conversation-count");
     return {
       totalMessages: parseInt(totalMsgs, 10) || 0,
       totalConversations: parseInt(convs, 10) || 0,
-      today: now.toISOString().slice(0, 10),
+      today: dateKey,
       todaysChats: chats,
     };
   } catch (err) {
