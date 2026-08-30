@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Grocery Budget Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF7EF;
+    --card:#FFFFFF;
+    --ink:#21301F;
+    --ink-soft:#5B6B57;
+    --line:#E4DCC8;
+    --green:#3D6B4F;
+    --green-dark:#2A4D38;
+    --tomato:#C1462F;
+    --gold:#E2A33B;
+    --gold-soft:#FBF0DC;
+    --green-soft:#E7F0EA;
+    --tomato-soft:#F8E7E3;
+    --radius:14px;
+    --shadow:0 2px 10px rgba(33,48,31,0.06);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:150px;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:20px 16px 0;}
+
+  header{padding:6px 0 18px;}
+  .brand{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.5rem;
+    letter-spacing:-0.01em;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+    margin:0 0 2px;
+  }
+  .brand span{color:var(--green);}
+  header p.tag{margin:0;color:var(--ink-soft);font-size:0.92rem;}
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:16px;
+    margin-bottom:14px;
+    box-shadow:var(--shadow);
+  }
+
+  .row{display:flex;gap:10px;}
+  .row > *{flex:1;}
+
+  label{
+    display:block;
+    font-size:0.76rem;
+    text-transform:none;
+    color:var(--ink-soft);
+    margin-bottom:5px;
+    font-weight:600;
+  }
+
+  input, select{
+    width:100%;
+    font-family:'Inter',sans-serif;
+    font-size:0.95rem;
+    padding:10px 11px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#FFFDF8;
+    color:var(--ink);
+    outline:none;
+  }
+  input:focus, select:focus{border-color:var(--green);}
+  input::placeholder{color:#B5AF9C;}
+
+  .budget-goal-value{
+    font-family:'Fraunces',serif;
+    font-size:1.6rem;
+    font-weight:600;
+  }
+
+  .state-row{display:flex;gap:10px;align-items:flex-end;}
+  .tax-note{
+    margin-top:10px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    line-height:1.4;
+    background:var(--gold-soft);
+    border-radius:10px;
+    padding:9px 11px;
+  }
+  .tax-note b{color:var(--ink);}
+
+  .add-item-card h3, .list-card h3{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:1.05rem;
+    margin:0 0 12px;
+  }
+
+  .add-grid{
+    display:grid;
+    grid-template-columns:1fr 84px 64px;
+    gap:8px;
+    margin-bottom:10px;
+  }
+
+  button{
+    font-family:'Inter',sans-serif;
+    font-weight:600;
+    border:none;
+    cursor:pointer;
+  }
+  .btn-add{
+    background:var(--green);
+    color:#fff;
+    border-radius:10px;
+    font-size:1.3rem;
+    line-height:1;
+  }
+  .btn-add:active{background:var(--green-dark);}
+
+  .items{list-style:none;margin:0;padding:0;}
+  .items li{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    gap:10px;
+  }
+  .items li:last-child{border-bottom:none;}
+  .item-name{font-weight:600;font-size:0.92rem;}
+  .item-meta{color:var(--ink-soft);font-size:0.8rem;margin-top:1px;}
+  .item-price{font-weight:600;font-size:0.95rem;white-space:nowrap;}
+  .remove-btn{
+    background:none;
+    color:var(--tomato);
+    font-size:1.1rem;
+    padding:4px 6px;
+    border-radius:6px;
+  }
+  .empty-state{
+    text-align:center;
+    color:var(--ink-soft);
+    padding:26px 10px;
+    font-size:0.9rem;
+  }
+
+  .summary-bar{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    box-shadow:0 -4px 18px rgba(33,48,31,0.08);
+    padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+  }
+  .summary-inner{max-width:520px;margin:0 auto;}
+  .summary-line{
+    display:flex;
+    justify-content:space-between;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    margin-bottom:4px;
+  }
+  .summary-total{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-top:8px;
+    padding-top:8px;
+    border-top:1px dashed var(--line);
+  }
+  .summary-total .label{font-family:'Fraunces',serif;font-weight:600;font-size:1rem;}
+  .summary-total .value{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.7rem;
+  }
+  .under{color:var(--green);}
+  .over{color:var(--tomato);}
+  .remaining-pill{
+    display:inline-block;
+    margin-top:6px;
+    font-size:0.78rem;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+  }
+  .remaining-pill.good{background:var(--green-soft);color:var(--green-dark);}
+  .remaining-pill.bad{background:var(--tomato-soft);color:var(--tomato);}
+
+  .actions{display:flex;gap:8px;margin-top:14px;}
+  .actions button{
+    flex:1;
+    padding:10px;
+    border-radius:10px;
+    font-size:0.85rem;
+    background:var(--green-soft);
+    color:var(--green-dark);
+  }
+  .actions button.secondary{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+  }
+
+  footer{
+    max-width:520px;margin:0 auto;
+    padding:6px 16px 20px;
+    color:var(--ink-soft);
+    font-size:0.72rem;
+    text-align:center;
+    line-height:1.5;
+  }
+
+  /* Demo-only additions */
+  .demo-banner{
+    background:var(--green-dark);
+    color:#fff;
+    padding:10px 16px;
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .demo-banner-inner{
+    max-width:520px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    font-size:0.8rem;
+    flex-wrap:wrap;
+  }
+  .demo-banner-inner b{color:var(--gold);}
+  .unlock-link{
+    background:var(--gold);
+    color:var(--green-dark);
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:999px;
+    text-decoration:none;
+    font-size:0.78rem;
+    white-space:nowrap;
+  }
+
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(33,48,31,0.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal-box{
+    background:var(--card);
+    border-radius:18px;
+    padding:26px 22px;
+    max-width:360px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .modal-box h3{
+    font-family:'Fraunces',serif;
+    font-size:1.3rem;
+    margin:0 0 8px;
+  }
+  .modal-box p{
+    color:var(--ink-soft);
+    font-size:0.9rem;
+    line-height:1.5;
+    margin:0 0 18px;
+  }
+  .modal-box a.cta{
+    display:block;
+    background:var(--green);
+    color:#fff;
+    text-decoration:none;
+    font-weight:700;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:10px;
+  }
+  .modal-box button.close{
+    background:none;
+    color:var(--ink-soft);
+    font-size:0.85rem;
+    text-decoration:underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="demo-banner">
+  <div class="demo-banner-inner">
+    <span>🛒 <b>Free Demo</b> — capped at 3 items &amp; export locked</span>
+    <a href="https://payhip.com/Tinytripp" target="_blank" class="unlock-link">Unlock Full Version →</a>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <p class="brand">Grocery<span>Ledger</span></p>
+    <p class="tag">Know your real total before you reach the register.</p>
+  </header>
+
+  <div class="card">
+    <div class="row">
+      <div>
+        <label for="budgetGoal">Trip budget</label>
+        <input type="number" id="budgetGoal" placeholder="200" min="0" inputmode="decimal">
+      </div>
+      <div>
+        <label for="stateSelect">Your state</label>
+        <select id="stateSelect"></select>
+      </div>
+    </div>
+    <div id="taxNote" class="tax-note"></div>
+  </div>
+
+  <div class="card add-item-card">
+    <h3>Add item</h3>
+    <div class="add-grid">
+      <input type="text" id="itemName" placeholder="Item name">
+      <input type="number" id="itemPrice" placeholder="$0.00" min="0" step="0.01" inputmode="decimal">
+      <button class="btn-add" id="addBtn">+</button>
+    </div>
+  </div>
+
+  <div class="card list-card">
+    <h3>Cart</h3>
+    <ul class="items" id="itemsList"></ul>
+    <div id="emptyState" class="empty-state">No items yet — add your first one above.</div>
+    <div class="actions">
+      <button id="exportBtn">Export CSV</button>
+      <button class="secondary" id="clearBtn">Clear cart</button>
+    </div>
+  </div>
+
+  <footer>
+    Tax rates are estimates based on published 2026 state grocery-tax rules and may not reflect local county or city add-ons. Always verify with your local receipt. This app stores your data only in your own browser — nothing is sent anywhere.
+  </footer>
+</div>
+
+<div class="summary-bar">
+  <div class="summary-inner">
+    <div class="summary-line"><span>Subtotal</span><span id="subtotalOut">$0.00</span></div>
+    <div class="summary-line"><span id="taxLabel">Tax</span><span id="taxOut">$0.00</span></div>
+    <div class="summary-total">
+      <span class="label">Total</span>
+      <span class="value" id="totalOut">$0.00</span>
+    </div>
+    <div id="remainingPill" class="remaining-pill good">Set a budget to track remaining</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="upgradeModal">
+  <div class="modal-box">
+    <h3>You've hit the demo limit</h3>
+    <p>The free demo caps out at 3 items and CSV export is locked. Grab the full version for unlimited items, unlimited trips, and full CSV export.</p>
+    <a class="cta" href="https://payhip.com/Tinytripp" target="_blank">Unlock Full Version</a>
+    <button class="close" onclick="document.getElementById('upgradeModal').classList.remove('show')">Keep exploring the demo</button>
+  </div>
+</div>
+
+<script>
+window.DEMO_CAP = 3;
+function showUpgradeModal(){
+  document.getElementById('upgradeModal').classList.add('show');
+}
+
+// ---- State grocery tax data (2026, state-level only; local rates vary) ----
+// rate = state-level tax rate applied specifically to unprepared groceries
+const STATE_TAX = {
+  "Alabama":2.0,"Alaska":0,"Arizona":0,"Arkansas":0,"California":0,"Colorado":0,
+  "Connecticut":0,"Delaware":0,"District of Columbia":0,"Florida":0,"Georgia":0,
+  "Hawaii":4.0,"Idaho":6.0,"Illinois":1.0,"Indiana":0,"Iowa":0,"Kansas":0,
+  "Kentucky":0,"Louisiana":0,"Maine":0,"Maryland":0,"Massachusetts":0,"Michigan":0,
+  "Minnesota":0,"Mississippi":5.0,"Missouri":1.225,"Montana":0,"Nebraska":0,
+  "Nevada":0,"New Hampshire":0,"New Jersey":0,"New Mexico":0,"New York":0,
+  "North Carolina":0,"North Dakota":0,"Ohio":0,"Oklahoma":0,"Oregon":0,
+  "Pennsylvania":0,"Rhode Island":0,"South Carolina":0,"South Dakota":4.2,
+  "Tennessee":4.0,"Texas":0,"Utah":3.0,"Vermont":0,"Virginia":1.0,
+  "Washington":0,"West Virginia":0,"Wisconsin":0,"Wyoming":0
+};
+
+const stateSelect = document.getElementById('stateSelect');
+Object.keys(STATE_TAX).sort().forEach(state=>{
+  const opt = document.createElement('option');
+  opt.value = state;
+  opt.textContent = state;
+  stateSelect.appendChild(opt);
+});
+
+const els = {
+  budgetGoal: document.getElementById('budgetGoal'),
+  taxNote: document.getElementById('taxNote'),
+  itemName: document.getElementById('itemName'),
+  itemPrice: document.getElementById('itemPrice'),
+  addBtn: document.getElementById('addBtn'),
+  itemsList: document.getElementById('itemsList'),
+  emptyState: document.getElementById('emptyState'),
+  subtotalOut: document.getElementById('subtotalOut'),
+  taxOut: document.getElementById('taxOut'),
+  taxLabel: document.getElementById('taxLabel'),
+  totalOut: document.getElementById('totalOut'),
+  remainingPill: document.getElementById('remainingPill'),
+  exportBtn: document.getElementById('exportBtn'),
+  clearBtn: document.getElementById('clearBtn')
+};
+
+const STORE_KEY = 'groceryLedger_v1';
+let state = load() || { budget:'', state:'Virginia', items:[] };
+
+stateSelect.value = state.state;
+els.budgetGoal.value = state.budget;
+
+function load(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function save(){
+  localStorage.setItem(STORE_KEY, JSON.stringify(state));
+}
+
+function fmt(n){
+  return '$' + n.toFixed(2);
+}
+
+function render(){
+  els.itemsList.innerHTML = '';
+  if(state.items.length === 0){
+    els.emptyState.style.display = 'block';
+  } else {
+    els.emptyState.style.display = 'none';
+  }
+
+  state.items.forEach((item, idx)=>{
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div>
+        <div class="item-name">${escapeHtml(item.name)}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span class="item-price">${fmt(item.price)}</span>
+        <button class="remove-btn" data-idx="${idx}">×</button>
+      </div>
+    `;
+    els.itemsList.appendChild(li);
+  });
+
+  els.itemsList.querySelectorAll('.remove-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = parseInt(btn.getAttribute('data-idx'));
+      state.items.splice(idx,1);
+      save(); render();
+    });
+  });
+
+  const subtotal = state.items.reduce((sum,i)=>sum+i.price,0);
+  const rate = STATE_TAX[state.state] || 0;
+  const tax = subtotal * (rate/100);
+  const total = subtotal + tax;
+
+  els.subtotalOut.textContent = fmt(subtotal);
+  els.taxLabel.textContent = `Tax: ${state.state} (${rate}%)`;
+  els.taxOut.textContent = fmt(tax);
+  els.totalOut.textContent = fmt(total);
+  els.totalOut.className = 'value';
+
+  const goal = parseFloat(state.budget);
+  if(!isNaN(goal) && goal > 0){
+    const remaining = goal - total;
+    if(remaining >= 0){
+      els.remainingPill.className = 'remaining-pill good';
+      els.remainingPill.textContent = `${fmt(remaining)} remaining of ${fmt(goal)}`;
+      els.totalOut.classList.add('under');
+    } else {
+      els.remainingPill.className = 'remaining-pill bad';
+      els.remainingPill.textContent = `${fmt(Math.abs(remaining))} over your ${fmt(goal)} budget`;
+      els.totalOut.classList.add('over');
+    }
+  } else {
+    els.remainingPill.className = 'remaining-pill good';
+    els.remainingPill.textContent = 'Set a budget to track remaining';
+  }
+
+  updateTaxNote(rate);
+}
+
+function updateTaxNote(rate){
+  if(rate === 0){
+    els.taxNote.innerHTML = `<b>${state.state}</b> does not apply a state-level sales tax to groceries. Local city or county add-ons may still apply in some areas.`;
+  } else {
+    els.taxNote.innerHTML = `<b>${state.state}</b> applies a ${rate}% state-level tax to groceries. Local add-ons may increase your real rate slightly.`;
+  }
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+els.budgetGoal.addEventListener('input', ()=>{
+  state.budget = els.budgetGoal.value;
+  save(); render();
+});
+
+stateSelect.addEventListener('change', ()=>{
+  state.state = stateSelect.value;
+  save(); render();
+});
+
+els.addBtn.addEventListener('click', addItem);
+els.itemPrice.addEventListener('keydown', e=>{ if(e.key==='Enter') addItem(); });
+els.itemName.addEventListener('keydown', e=>{ if(e.key==='Enter') els.itemPrice.focus(); });
+
+function addItem(){
+  const name = els.itemName.value.trim();
+  const price = parseFloat(els.itemPrice.value);
+  if(!name || isNaN(price) || price < 0) return;
+
+  if(window.DEMO_CAP && state.items.length >= window.DEMO_CAP){
+    if(typeof showUpgradeModal === 'function') showUpgradeModal();
+    return;
+  }
+
+  state.items.push({ name, price });
+  save(); render();
+  els.itemName.value = '';
+  els.itemPrice.value = '';
+  els.itemName.focus();
+}
+
+els.clearBtn.addEventListener('click', ()=>{
+  if(state.items.length && !confirm('Clear all items from your cart?')) return;
+  state.items = [];
+  save(); render();
+});
+
+els.exportBtn.addEventListener('click', ()=>{
+  if(window.DEMO_CAP && typeof showUpgradeModal === 'function'){
+    showUpgradeModal(); return;
+  }
+  let csv = 'Item,Price\n';
+  state.items.forEach(i=>{ csv += `"${i.name.replace(/"/g,'""')}",${i.price.toFixed(2)}\n`; });
+  const subtotal = state.items.reduce((s,i)=>s+i.price,0);
+  const rate = STATE_TAX[state.state] || 0;
+  const tax = subtotal*(rate/100);
+  csv += `\nSubtotal,${subtotal.toFixed(2)}\nTax (${state.state} ${rate}%),${tax.toFixed(2)}\nTotal,${(subtotal+tax).toFixed(2)}\n`;
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'grocery-list.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+render();
+</script>
+</body>
+</html>
