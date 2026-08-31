@@ -49,6 +49,21 @@ const WATCHED_DEMOS = [
     demoUrl: 'https://planting-calendar-demo.netlify.app/',
     expectedLink: 'https://www.etsy.com/listing/4561185485/',
   },
+  {
+    name: 'Knowledge OS Second Brain Dashboard',
+    demoUrl: 'https://knowledge-os-demo.netlify.app/',
+    expectedLink: 'https://www.etsy.com/listing/4562670940/',
+  },
+  {
+    name: 'Reading Tracker App',
+    demoUrl: 'https://reading-tracker-os-demo.netlify.app/',
+    expectedLink: 'https://www.etsy.com/listing/4562342059/',
+  },
+  {
+    name: 'Restaurant Staff Scheduler App',
+    demoUrl: 'https://restaurant-staff-os-demo.netlify.app/',
+    expectedLink: 'https://www.etsy.com/listing/4562688461/',
+  },
 ];
 
 // Phrases that mean the button is a dead placeholder, not a real link.
@@ -131,4 +146,5 @@ async function handlerImpl() {
 
 // Runs twice a day: 9am and 9pm UTC (roughly 5am/5pm ET)
 exports.handler = schedule('0 9,21 * * *', handlerImpl);
+
 
