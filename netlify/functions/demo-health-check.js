@@ -34,6 +34,21 @@ const WATCHED_DEMOS = [
     demoUrl: 'https://trippdigital.com/client-tracking-dashboard.html',
     expectedLink: 'payhip.com/b/Nm184',
   },
+  {
+    name: 'Grocery Budget Calculator',
+    demoUrl: 'https://trippdigital.com/grocery-budget-calculator-demo.html',
+    expectedLink: 'https://www.etsy.com/listing/4566014572/',
+  },
+  {
+    name: 'The Ultimate Wedding Planner',
+    demoUrl: 'https://wedding-planner-demo-tripp.netlify.app/',
+    expectedLink: 'https://www.etsy.com/listing/4561386495/',
+  },
+  {
+    name: 'Regional Planting Calendar',
+    demoUrl: 'https://planting-calendar-demo.netlify.app/',
+    expectedLink: 'https://www.etsy.com/listing/4561185485/',
+  },
 ];
 
 // Phrases that mean the button is a dead placeholder, not a real link.
@@ -116,3 +131,4 @@ async function handlerImpl() {
 
 // Runs twice a day: 9am and 9pm UTC (roughly 5am/5pm ET)
 exports.handler = schedule('0 9,21 * * *', handlerImpl);
+
