@@ -58,7 +58,7 @@ exports.handler = async (event) => {
       const count = await store.get(`chatday:${dayKey}`);
       chatDays.push({ date: dayKey, count: parseInt(count, 10) || 0 });
 
-      if (i < 7) {
+      if (i < 8) {
         const { blobs } = await store.list({ prefix: `chatlog:${dayKey}:` });
         for (const b of blobs) {
           const entry = await store.get(b.key, { type: "json" });
@@ -88,3 +88,4 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 };
+
