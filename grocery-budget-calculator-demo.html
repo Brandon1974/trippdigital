@@ -306,7 +306,7 @@
 
 <div class="demo-banner">
   <div class="demo-banner-inner">
-    <span>🛒 <b>Free Demo</b> — capped at 3 items &amp; export locked</span>
+    <span>🛒 <b>Free Demo</b> — try 1 item, export locked</span>
     <a href="https://payhip.com/Tinytripp" target="_blank" class="unlock-link">Unlock Full Version →</a>
   </div>
 </div>
@@ -370,14 +370,14 @@
 <div class="modal-overlay" id="upgradeModal">
   <div class="modal-box">
     <h3>You've hit the demo limit</h3>
-    <p>The free demo caps out at 3 items and CSV export is locked. Grab the full version for unlimited items, unlimited trips, and full CSV export.</p>
+    <p>The free demo lets you try 1 item so you can see how the calculator works. Grab the full version for unlimited items, unlimited trips, and full CSV export.</p>
     <a class="cta" href="https://payhip.com/Tinytripp" target="_blank">Unlock Full Version</a>
     <button class="close" onclick="document.getElementById('upgradeModal').classList.remove('show')">Keep exploring the demo</button>
   </div>
 </div>
 
 <script>
-window.DEMO_CAP = 3;
+window.DEMO_CAP = 1;
 function showUpgradeModal(){
   document.getElementById('upgradeModal').classList.add('show');
 }
