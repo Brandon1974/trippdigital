@@ -169,6 +169,28 @@ async function sendChatLogsEmail(chats, recipientEmail) {
   }
 }
 
+async function saveCustomProductInquiry(inquiry) {
+  try {
+    const store = blobsStore("site-analytics");
+    const now = new Date();
+    const uniqueKey = `custom-inquiry:${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`;
+
+    await store.set(
+      uniqueKey,
+      JSON.stringify({
+        time: now.toISOString(),
+        email: inquiry.email,
+        description: inquiry.description,
+        type: inquiry.type,
+      })
+    );
+    return true;
+  } catch (err) {
+    console.error("Failed to save custom product inquiry:", err.message);
+    return false;
+  }
+}
+
 const fs = require("fs");
 const path = require("path");
 
@@ -233,6 +255,12 @@ FREE CUSTOM TOOL + AFFILIATE PROGRAM (mention this when someone talks about thei
 - Direct them to fill out the request form here: trippdigital.com/build-my-tool.html — that's where they submit their niche and what they want built.
 - This is separate from just becoming a general affiliate (which anyone can do without a custom build) — the affiliate signup link is https://payhip.com/auth/register/af6a2c08de8c507 if they just want to promote existing products without a custom tool.
 
+CUSTOM PRODUCTS & WEB APPS (handle specially):
+- If someone asks whether Tripp Digital builds custom digital products or web apps (or similar questions about custom builds), answer YES and then say "Great! To help get you connected with Brandon for a custom build, I have a couple quick questions: What are you looking to build?" Wait for their response before asking for their email.
+- Once they've described what they want, ask for their email so Brandon can follow up personally: "Perfect! Can I grab your email so Brandon can reach out and discuss your project?"
+- Do NOT try to answer detailed technical or implementation questions yourself. Your job is just to capture their interest and email.
+- Once you have their email, close the conversation warmly: "Thanks! Brandon will be in touch soon. We're excited to help build this with you!"
+
 Your goals when chatting:
 - Be friendly, professional, conversational — not salesy or robotic.
 - Whenever it's a natural fit, mention FREE items first as a no-risk way to check out Tripp Digital's quality before buying anything. If a paid item has a free trial link, mention that too.
@@ -285,6 +313,28 @@ exports.handler = async (event, context) => {
     // Check if user is asking about their chats
     const chatKeywords = ["show my chats", "show chats", "email chats", "check my chats", "my chat logs", "chat logs"];
     const isAskingAboutChats = chatKeywords.some(keyword => userText.toLowerCase().includes(keyword));
+
+    // Check if user is asking about custom products/apps
+    const customProductKeywords = [
+      "do you build custom",
+      "can you build custom",
+      "custom digital product",
+      "custom web app",
+      "custom tool",
+      "build me a",
+      "build me an",
+      "create a custom",
+      "build something custom",
+      "custom website",
+      "can brandon build",
+      "can you create a custom",
+    ];
+    const isAskingAboutCustom = customProductKeywords.some(keyword => userText.toLowerCase().includes(keyword));
+
+    // Check if message contains an email (simple pattern)
+    const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+    const emailMatch = userText.match(emailPattern);
+    const hasEmail = emailMatch !== null;
 
     // Handle chat log requests
     if (isAskingAboutChats) {
@@ -363,13 +413,27 @@ exports.handler = async (event, context) => {
 
     const assistantMessage = response.content[0].text;
 
-    // Await both so the blob write + form submission finish before the
-    // function returns (Netlify Functions freeze execution immediately
-    // after the response is sent, killing any un-awaited async work).
-    await Promise.all([
+    // Check if this is a custom product inquiry with an email
+    const shouldSaveCustomInquiry = isAskingAboutCustom && hasEmail;
+    const promises = [
       logConversationTranscript(userText, assistantMessage),
       submitChatToNetlifyForms(userText, assistantMessage),
-    ]);
+    ];
+
+    if (shouldSaveCustomInquiry) {
+      const email = emailMatch[0];
+      const inquiry = {
+        email: email,
+        description: userText.replace(email, "").trim(),
+        type: "custom",
+      };
+      promises.push(saveCustomProductInquiry(inquiry));
+    }
+
+    // Await all so the blob write + form submission finish before the
+    // function returns (Netlify Functions freeze execution immediately
+    // after the response is sent, killing any un-awaited async work).
+    await Promise.all(promises);
 
     return {
       statusCode: 200,
