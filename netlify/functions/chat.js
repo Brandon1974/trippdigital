@@ -113,8 +113,15 @@ async function getChatLogs() {
     const { blobs } = await store.list({ prefix });
     const chats = [];
     for (const b of blobs) {
-      const entry = await store.get(b.key, { type: "json" });
-      if (entry) chats.push(entry);
+      try {
+        const entryRaw = await store.get(b.key);
+        if (entryRaw) {
+          const entry = JSON.parse(entryRaw);
+          chats.push(entry);
+        }
+      } catch (e) {
+        // Skip entries that can't be parsed
+      }
     }
     chats.sort((a, b) => new Date(a.time) - new Date(b.time));
 

@@ -38,7 +38,7 @@ exports.handler = async (event, context) => {
     const now = new Date();
     const dayKey = `chatlog:${now.toISOString().slice(0, 10)}`;
 
-    const chats = (await store.get(dayKey, { type: "json" })) || [];
+    const chats = (await store.getJSON(dayKey)) || [];
 
     // Get analytics
     const totalMsgs = await store.get("chat-message-count");

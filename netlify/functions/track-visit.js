@@ -28,7 +28,7 @@ exports.handler = async (event) => {
     const dayKey = now.toISOString().slice(0, 10); // YYYY-MM-DD
 
     // pull today's log (array of visit records), append, save back
-    const existing = await store.get(`day:${dayKey}`, { type: "json" }) || [];
+    const existing = await store.getJSON(`day:${dayKey}`) || [];
     existing.push({
       t: now.toISOString(),
       page,

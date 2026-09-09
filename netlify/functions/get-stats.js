@@ -27,7 +27,7 @@ exports.handler = async (event) => {
       const d = new Date(now);
       d.setDate(d.getDate() - i);
       const dayKey = d.toISOString().slice(0, 10);
-      const log = await store.get(`day:${dayKey}`, { type: "json" }) || [];
+      const log = await store.getJSON(`day:${dayKey}`) || [];
       days.push({ date: dayKey, count: log.length, visits: log });
     }
 
@@ -61,8 +61,15 @@ exports.handler = async (event) => {
       if (i < 8) {
         const { blobs } = await store.list({ prefix: `chatlog:${dayKey}:` });
         for (const b of blobs) {
-          const entry = await store.get(b.key, { type: "json" });
-          if (entry) recentTranscripts.push(entry);
+          try {
+            const entryRaw = await store.get(b.key);
+            if (entryRaw) {
+              const entry = JSON.parse(entryRaw);
+              recentTranscripts.push(entry);
+            }
+          } catch (e) {
+            // Skip entries that can't be parsed
+          }
         }
       }
     }

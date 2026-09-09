@@ -30,7 +30,7 @@ exports.handler = async (event) => {
 
     // per-day per-tool per-event log (array of timestamps)
     const logKey = `log:${tool}:${evt}:${dayKey}`;
-    const existing = (await store.get(logKey, { type: "json" })) || [];
+    const existing = (await store.getJSON(logKey)) || [];
     existing.push(now.toISOString());
     await store.setJSON(logKey, existing);
 
