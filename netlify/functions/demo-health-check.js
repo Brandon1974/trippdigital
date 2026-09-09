@@ -64,6 +64,56 @@ const WATCHED_DEMOS = [
     demoUrl: 'https://restaurant-staff-os-demo.netlify.app/',
     expectedLink: 'https://www.etsy.com/listing/4562688461/',
   },
+  {
+    name: 'Grant Proposal Builder',
+    demoUrl: 'https://trippdigital.com/grant-proposal-builder-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Client Onboarding Kit Builder',
+    demoUrl: 'https://trippdigital.com/client-onboarding-kit-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Invoice & Contract Builder',
+    demoUrl: 'https://trippdigital.com/invoice-contract-bundle-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Daily Command Center',
+    demoUrl: 'https://trippdigital.com/daily-command-center-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Raised Bed Planner',
+    demoUrl: 'https://trippdigital.com/raised-bed-planner-demo.html',
+    expectedLink: 'etsy.com',
+  },
+  {
+    name: 'Budget & Expense Tracker',
+    demoUrl: 'https://trippdigital.com/budget-expense-tracker-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Business Plan Builder',
+    demoUrl: 'https://trippdigital.com/business-plan-builder-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Daycare Parent Handbook Builder',
+    demoUrl: 'https://trippdigital.com/daycare-handbook-builder-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'Garden Planner',
+    demoUrl: 'https://trippdigital.com/garden-planner-demo.html',
+    expectedLink: 'payhip.com',
+  },
+  {
+    name: 'The Everyday Planner',
+    demoUrl: 'https://trippdigital.com/everyday-planner-demo.html',
+    expectedLink: 'payhip.com',
+  },
 ];
 
 // Phrases that mean the button is a dead placeholder, not a real link.
