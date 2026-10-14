@@ -2,21 +2,39 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://trippdigital.com</loc>
-        <lastmod>2026-06-29</lastmod>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://trippdigital.com/social-media-dashboard.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
         <loc>https://trippdigital.com/client-tracking-dashboard.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <lastmod>2026-10-14</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://trippdigital.com/invoice-generator.html</loc>
+        <lastmod>2026-10-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://trippdigital.com/grant-proposal-builder-demo.html</loc>
+        <lastmod>2026-10-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+    <url>
+        <loc>https://trippdigital.com/client-onboarding-kit-demo.html</loc>
+        <lastmod>2026-10-14</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
     <url>
         <loc>https://trippdigital.com/privacy.html</loc>
