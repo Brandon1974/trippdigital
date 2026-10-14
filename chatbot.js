@@ -93,7 +93,7 @@ class ChatBot {
             const errorMessage = {
                 role: 'system',
                 content:
-                    'Sorry, I encountered an error. Please try again or email us at trippdigital@gmail.com',
+                    'Sorry, I encountered an error. Please try again or email us at trippdigital1@gmail.com',
             };
             this.messages.push(errorMessage);
             this.renderMessage(errorMessage);

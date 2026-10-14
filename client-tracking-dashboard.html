@@ -460,5 +460,30 @@
       }).catch(() => {});
     </script>
 <script src="/app-status-check.js" data-app="client-tracking-dashboard"></script>
+    <!-- CHATBOT WIDGET -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-header">
+            <h3>Tripp Digital Assistant</h3>
+            <button id="closeChatbot" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatMessages" class="chatbot-messages"></div>
+        <div class="chatbot-input-area">
+            <form id="chatForm">
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask about our services, products, or anything else..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="chatbot-send">→</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHATBOT TOGGLE BUTTON -->
+    <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <script src="chatbot.js"></script>
 </body>
 </html>
