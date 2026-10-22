@@ -1,0 +1,4 @@
+product_name,price,original_price,description,script_file,slides_folder,cta_text,cta_link,color_theme
+Digital Product Pro,$47,$97,The ultimate productivity tool for modern creators,sales_script.txt,product_images,Get It Now -->,yourproduct.com,#4a9eff
+AI Writing Toolkit,$37,$77,Write faster with AI assistance,scripts/ai_writer.txt,slides/ai_writer,Download Now -->,aiwriting.io,#ff6b4a
+SEO Mastery Course,$67,$197,Rank #1 on Google in 30 days,scripts/seo.txt,slides/seo,Enroll Now -->,seomastery.com,#4aff8a
