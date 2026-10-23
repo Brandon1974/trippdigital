@@ -1,5 +1,5 @@
 ---
-Last updated: 2026-06-28
+Last updated: 2026-10-23
 ---
 
 # Master Index — Tripp Digital Wiki
@@ -31,6 +31,15 @@ Everything about how the site is built, deployed, and managed. Netlify functions
 - Admin panel URL + auth → systems.md
 - AI chatbot model/config → systems.md
 - Product platform handles → systems.md
+
+---
+
+### `wiki/ai-tools-landscape.md` — AI Tools Landscape
+Third-party AI assistants and tools that affect operations or product ideas. Currently: Claude Duet (Anthropic personal assistant — channels, tasks, Make gallery, voice), Zapier MCP workaround for apps with no Claude connector, connector gaps (Payhip/Gumroad/Etsy/Whop/FB), product signals.
+
+**Quick lookup:**
+- Claude Duet features → ai-tools-landscape.md
+- Missing connectors / Zapier MCP → ai-tools-landscape.md
 
 ---
 
