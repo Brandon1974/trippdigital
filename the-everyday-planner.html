@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The Everyday Planner. A live digital planner for your day — not a PDF you print and forget. From Tripp Digital — sold on Payhip. One-time price, instant access.">
+    <meta property="og:title" content="The Everyday Planner | Tripp Digital">
+    <meta property="og:description" content="The Everyday Planner. A live digital planner for your day — not a PDF you print and forget. From Tripp Digital — sold on Payhip. One-time price, instant access.">
+    <meta property="og:url" content="https://trippdigital.com/the-everyday-planner">
+    <title>The Everyday Planner | Tripp Digital</title>
+    <meta name="twitter:image" content="https://trippdigital.com/images/og-image.jpg">
+    <meta name="twitter:description" content="The Everyday Planner. A live digital planner for your day — not a PDF you print and forget. From Tripp Digital — sold on Payhip. One-time price, instant access.">
+    <meta name="twitter:title" content="The Everyday Planner | Tripp Digital">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://trippdigital.com/images/og-image.jpg">
+    <meta property="og:type" content="product">
+    <link rel="canonical" href="https://trippdigital.com/the-everyday-planner">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --pd-bg: #0a0a0a; --pd-bg2: #141414; --pd-accent: #FF6B00; --pd-text: #ffffff; --pd-muted: #b0b0b0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .pd-nav { background: rgba(10,10,10,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; padding: 0 40px; }
+        .pd-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo .accent { color: var(--pd-accent); }
+        .pd-back { color: var(--pd-muted); text-decoration: none; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+        .pd-hero { background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%); border-bottom: 1px solid #222; padding: 72px 40px 64px; }
+        .pd-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .pd-label { display: inline-block; background: var(--pd-accent); color: #000; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; padding: 4px 12px; margin-bottom: 20px; }
+        .pd-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1.05; letter-spacing: 1px; margin-bottom: 20px; }
+        .pd-tagline { font-size: 1.1rem; color: var(--pd-muted); margin-bottom: 32px; }
+        .pd-price { font-size: 2.4rem; font-weight: 700; color: var(--pd-accent); margin-bottom: 24px; }
+        .btn { background: var(--pd-accent); color: #000; padding: 14px 32px; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; cursor: pointer; border-radius: 4px; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #e55a00; }
+        .pd-image { width: 100%; border-radius: 8px; }
+        .pd-features { max-width: 1100px; margin: 60px auto; padding: 0 40px; }
+        .pd-features h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .feature-item { background: var(--pd-bg2); padding: 24px; border-radius: 8px; border: 1px solid #222; }
+        .feature-item h3 { color: var(--pd-accent); margin-bottom: 12px; font-size: 1.1rem; }
+        .feature-item p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-cta { background: var(--pd-bg2); border-top: 1px solid #222; padding: 60px 40px; text-align: center; }
+        .pd-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 24px; }
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-title { font-size: 2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .pd-nav { padding: 0 20px; }
+            .pd-hero { padding: 40px 20px; }
+        }
+    </style>
+    
+    <!-- SEO-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "The Everyday Planner",
+      "description": "The Everyday Planner. A live digital planner for your day — not a PDF you print and forget. From Tripp Digital — sold on Payhip. One-time price, instant access.",
+      "url": "https://trippdigital.com/the-everyday-planner",
+      "image": "https://trippdigital.com/images/og-image.jpg",
+      "brand": {
+        "@type": "Brand",
+        "name": "Tripp Digital"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "https://payhip.com/b/Po3sC",
+        "priceCurrency": "USD",
+        "price": "7.99",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+</head>
+<body>
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">TRIPP <span class="accent">DIGITAL</span></a>
+            <a href="/#products" class="pd-back">← Back to Products</a>
+        </div>
+    </nav>
+
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">DAILY PLANNER</div>
+                <h1 class="pd-title">The Everyday Planner</h1>
+                <p class="pd-tagline">A live digital planner for your day — not a PDF you print and forget.</p>
+                <div class="pd-price">$7.99</div>
+                <a href="https://payhip.com/b/Po3sC" target="_blank" rel="noopener noreferrer" class="btn">BUY NOW →</a>
+                <a href="/everyday-planner-demo" class="btn" style="background:transparent;border:1px solid #FF6B00;color:#FF6B00;margin-left:12px;">TRY THE FREE DEMO →</a>
+            </div>
+            <div class="pd-image" style="background:#141414;border:1px solid #222;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:7rem;min-height:300px;">🗓️</div>
+        </div>
+    </section>
+
+    <section class="pd-features">
+        <h2>What You Get</h2>
+        <div class="feature-grid"><div class="feature-item"><h3>✓ Plan your day in a live digital tool</h3><p>not a static PDF</p></div><div class="feature-item"><h3>✓ Tasks and schedule in one clean view</h3></div><div class="feature-item"><h3>✓ Runs in any browser, phone first</h3></div><div class="feature-item"><h3>✓ Try the free live demo before you buy</h3></div><div class="feature-item"><h3>✓ One-time price</h3><p>no subscription</p></div></div>
+    </section>
+
+    <section class="pd-cta">
+        <h2>Ready to Get The Everyday Planner?</h2>
+        <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">A live digital planner for your day — not a PDF you print and forget.</p>
+        <a href="https://payhip.com/b/Po3sC" target="_blank" rel="noopener noreferrer" class="btn">GET IT NOW →</a>
+    </section>
+        <style>.seo-block{background:#111;border-top:1px solid #222;padding:48px 40px}.seo-inner{max-width:900px;margin:0 auto}.seo-inner p{color:#b0b0b0;font-size:1.02rem;line-height:1.75;margin-bottom:28px}.seo-inner p strong{color:#fff}.seo-rel h2{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:1px;color:#fff;margin-bottom:18px}.seo-rel ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:12px}.seo-rel a{display:inline-block;background:#1a1a1a;border:1px solid #333;color:#fff;text-decoration:none;padding:10px 18px;border-radius:4px;font-size:.95rem}.seo-rel a:hover{border-color:#FF6B00;color:#FF6B00}.seo-all{margin-top:16px}.seo-all a{background:#FF6B00;color:#000;font-weight:600}</style>
+<!-- SEO-BLOCK -->
+<section class="seo-block"><div class="seo-inner"><p>A <strong>digital daily planner</strong> that is actually digital: a live tool that runs in your browser, not a PDF you print once and lose. Plan the day, check things off, and come back tomorrow — try the free demo and feel the difference.</p><nav class="seo-rel"><h2>Related Products</h2><ul><li><a href="/daily-command-center">Daily Command Center — All-In-One Life Planner</a></li><li><a href="/habit-goal-tracker">Habit & Goal Tracker</a></li><li><a href="/budget-expense-tracker">Budget & Expense Tracker</a></li></ul><div class="seo-all"><a href="/#products">Browse All Products →</a></div></nav></div></section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
+
+</body>
+</html>
