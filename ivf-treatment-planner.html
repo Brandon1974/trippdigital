@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="IVF Treatment Planner. A live web app, not a PDF: cycle roadmap, medication and injection schedule, appointments, monitoring and lab log, milestones, two-week-wait journal, costs log and a printable clinic summary — one calm, private place to organize an IVF, IUI or FET treatment cycle. From Tripp Digital.">
+    <meta property="og:title" content="IVF Treatment Planner — Tripp Digital">
+    <meta property="og:description" content="Live Web App, Not a PDF. Medications, injections, monitoring appointments, key dates, two-week-wait notes and costs for an IVF, IUI or FET cycle — organised in one interactive planner that saves on your device.">
+    <meta property="og:url" content="https://trippdigital.com/ivf-treatment-planner">
+    <meta property="og:image" content="https://trippdigital.com/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://trippdigital.com/ivf-treatment-planner">
+    <title>IVF Treatment Planner — Fertility Treatment Planner, IVF Medication Tracker &amp; Cycle Organizer | Live Web App, Not a PDF — Tripp Digital</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --pd-bg: #0a0a0a; --pd-bg2: #141414; --pd-accent: #FF6B00; --pd-text: #ffffff; --pd-muted: #b0b0b0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .pd-nav { background: rgba(10,10,10,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; padding: 0 40px; }
+        .pd-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo .accent { color: var(--pd-accent); }
+        .pd-back { color: var(--pd-muted); text-decoration: none; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+        .pd-hero { background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%); border-bottom: 1px solid #222; padding: 72px 40px 64px; }
+        .pd-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .pd-label { display: inline-block; background: var(--pd-accent); color: #000; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; padding: 4px 12px; margin-bottom: 20px; }
+        .pd-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1.05; letter-spacing: 1px; margin-bottom: 20px; }
+        .pd-tagline { font-size: 1.1rem; color: var(--pd-muted); margin-bottom: 32px; }
+        .pd-price { font-size: 2.4rem; font-weight: 700; color: var(--pd-accent); margin-bottom: 24px; }
+        .btn { background: var(--pd-accent); color: #000; padding: 14px 32px; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; cursor: pointer; border-radius: 4px; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #e55a00; }
+        .btn-ghost { background: transparent; color: var(--pd-text); border: 2px solid var(--pd-accent); margin-left: 12px; }
+        .btn-ghost:hover { background: var(--pd-accent); color: #000; }
+        .pd-buy-row { display: flex; flex-wrap: wrap; gap: 12px; }
+        .pd-buy-row .btn-ghost { margin-left: 0; }
+        .pd-image { width: 100%; border-radius: 8px; }
+        .pd-note { max-width: 1100px; margin: 40px auto 0; padding: 0 40px; }
+        .pd-note-inner { background: var(--pd-bg2); border: 1px solid var(--pd-accent); border-radius: 8px; padding: 24px; }
+        .pd-note-inner h3 { color: var(--pd-accent); margin-bottom: 8px; }
+        .pd-note-inner p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-features { max-width: 1100px; margin: 60px auto; padding: 0 40px; }
+        .pd-features h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .feature-item { background: var(--pd-bg2); padding: 24px; border-radius: 8px; border: 1px solid #222; }
+        .feature-item h3 { color: var(--pd-accent); margin-bottom: 12px; font-size: 1.1rem; }
+        .feature-item p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-cta { background: var(--pd-bg2); border-top: 1px solid #222; padding: 60px 40px; text-align: center; }
+        .pd-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 24px; }
+        .pd-cta .pd-buy-row { justify-content: center; }
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-title { font-size: 2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .pd-nav { padding: 0 20px; }
+            .pd-hero { padding: 40px 20px; }
+            .pd-note { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">TRIPP <span class="accent">DIGITAL</span></a>
+            <a href="/#products" class="pd-back">← Back to Products</a>
+        </div>
+    </nav>
+
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">IVF TREATMENT ORGANIZER</div>
+                <h1 class="pd-title">IVF Treatment Planner<br><span class="accent">Fertility Treatment Planner, IVF Medication Tracker &amp; Cycle Organizer — Live Web App, Not a PDF</span></h1>
+                <p class="pd-tagline">One calm, private place to organize an IVF, IUI, or FET treatment cycle. A treatment cycle means a lot to keep track of — medication names and times, injection schedules, monitoring appointments, lab results as your clinic reports them, key dates like retrieval and transfer, daily notes during the two week wait, and what it all costs. This planner keeps all of it together, in one simple place you control — and saves on your device as you go.</p>
+                <div class="pd-price">$13.99</div>
+                <div class="pd-buy-row">
+                    <a href="https://payhip.com/b/pBiD8" target="_blank" rel="noopener noreferrer" class="btn">BUY ON PAYHIP →</a>
+                    <a href="https://buildwithaihq.gumroad.com/l/xmlok" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">BUY ON GUMROAD →</a>
+                </div>
+            </div>
+            <div class="pd-image" style="background:#141414;border:1px solid #222;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:7rem;min-height:300px;">🗓️</div>
+        </div>
+    </section>
+
+    <div class="pd-note">
+        <div class="pd-note-inner">
+            <h3>⚠ An organizer, not medical advice</h3>
+            <p>This app helps you <strong>keep records and stay organized</strong> — it is a personal organizer only. It does not provide medical advice, diagnosis or treatment, it does not interpret lab or scan results, and it does not replace the instructions of your clinic or care team. Always follow your clinic's instructions, and always double-check medication names, doses and times against your clinic's paperwork. In an emergency, contact your clinic or call your local emergency number. This planner is strictly IVF-treatment-scoped — it is not a pregnancy tracker. Disclosure: the listing images for this product were AI-generated.</p>
+        </div>
+    </div>
+
+    <section class="pd-features">
+        <h2>What You Get — 8 Sections</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>✓ Cycle at a Glance / Roadmap</h3>
+                <p>Cycle type (IVF / IUI / FET / Other), clinic and care team, cycle start date, stimulation, retrieval, transfer and test key dates, a highlighted trigger-shot panel (date, exact time and medication name), roadmap notes, and a live roadmap summary card — autosaves as you type</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Medication &amp; Injection Schedule</h3>
+                <p>Medication name, dose exactly as prescribed on your clinic paperwork, time, method, start and end dates and notes — add, edit or delete entries, check each dose off as done with the time recorded, and undo if you tap by mistake. Your trigger shot is echoed at the top so it is never buried</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Appointments</h3>
+                <p>Date and time, type (clinic visit, monitoring scan, bloodwork, procedure or consultation), title, location, who it is with and notes — automatically sorted soonest-first with Upcoming and Past labels</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Monitoring &amp; Lab Log</h3>
+                <p>Date, type (bloodwork, scan or other), label, and the result notes exactly as your clinic reported them, plus your clinic's next-step notes. You record what you were told — the app does not interpret results</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Milestones</h3>
+                <p>Stimulation start, egg retrieval, embryo report notes, transfer day and test day — each with a check-off, a date, and notes you can edit in place</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Two-Week-Wait Daily Journal</h3>
+                <p>A short daily entry for the wait: day label, date, optional mood and your notes, kept in chronological order</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Costs Log</h3>
+                <p>Item, amount, date, category and notes, with a live running total so you can see what the cycle has cost so far at a glance</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Printable Clinic Summary</h3>
+                <p>A clean printable page that pulls together your key dates, trigger shot, medications table, upcoming appointments, milestones table and costs total — handy to print and take to an appointment</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ 100% Private — Saves On Your Device</h3>
+                <p>Everything saves on your device in your browser's local storage. Nothing is uploaded — no account, no sign-in, no subscription. Your information stays private on your device</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Backup Export &amp; Import</h3>
+                <p>Export a JSON backup file any time and import it back on the same or another device, so your cycle records are never trapped in one browser. Export a backup regularly — clearing browser site data clears the planner on that device</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Sample Data Included</h3>
+                <p>See how it works with clearly labelled sample entries, then clear them when you are ready to start your own cycle</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Works Offline, On Any Device</h3>
+                <p>One single HTML file that opens in any modern browser on phone, tablet and computer — no installation, and no internet needed after download. Mobile-friendly throughout</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pd-cta">
+        <h2>Keep the Whole Cycle in One Calm Place</h2>
+        <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">No more depending on memory or a notebook left in another room. Fill in your roadmap once, log medications, appointments and notes as the cycle happens, and print a clean clinic summary whenever you want a paper copy for an appointment. Works on phone, tablet and computer — just open it and start.</p>
+        <div class="pd-buy-row">
+            <a href="https://payhip.com/b/pBiD8" target="_blank" rel="noopener noreferrer" class="btn">GET IT ON PAYHIP →</a>
+            <a href="https://buildwithaihq.gumroad.com/l/xmlok" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GET IT ON GUMROAD →</a>
+        </div>
+    </section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
+<script src="/app-status-check.js" data-app="ivf-treatment-planner"></script>
+    <!-- CHATBOT WIDGET -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-header">
+            <h3>Tripp Digital Assistant</h3>
+            <button id="closeChatbot" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatMessages" class="chatbot-messages"></div>
+        <div class="chatbot-input-area">
+            <form id="chatForm">
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask about our services, products, or anything else..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="chatbot-send">→</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHATBOT TOGGLE BUTTON -->
+    <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <script src="chatbot.js"></script>
+</body>
+</html>
