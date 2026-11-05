@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Divorce Planner & Organizer. A live web app, not a PDF: case at a glance, deadlines, a 24-item document checklist, assets and debts with live totals, budget now vs after, costs tracker, support payments log, lawyer notes, custody notes and communication log, and a printable attorney packet — one private place to organize a divorce or separation. From Tripp Digital.">
+    <meta property="og:title" content="Divorce Planner & Organizer — Tripp Digital">
+    <meta property="og:description" content="Live Web App, Not a PDF. Deadlines, documents, assets and debts with live totals, budgets, costs, support, lawyer notes and custody logs for a divorce or separation — organised in one interactive planner that saves on your device.">
+    <meta property="og:url" content="https://trippdigital.com/divorce-planner">
+    <meta property="og:image" content="https://trippdigital.com/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://trippdigital.com/divorce-planner">
+    <title>Divorce Planner &amp; Organizer — Divorce Planner, Divorce Organizer &amp; Custody Communication Log | Live Web App, Not a PDF — Tripp Digital</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root { --pd-bg: #0a0a0a; --pd-bg2: #141414; --pd-accent: #FF6B00; --pd-text: #ffffff; --pd-muted: #b0b0b0; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--pd-bg); color: var(--pd-text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+        .pd-nav { background: rgba(10,10,10,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 100; padding: 0 40px; }
+        .pd-nav-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .pd-logo { text-decoration: none; display: flex; gap: 2px; align-items: center; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 2px; }
+        .pd-logo .accent { color: var(--pd-accent); }
+        .pd-back { color: var(--pd-muted); text-decoration: none; transition: color 0.2s; }
+        .pd-back:hover { color: var(--pd-accent); }
+        .pd-hero { background: linear-gradient(160deg, #0a0a0a 0%, #1a1a1a 100%); border-bottom: 1px solid #222; padding: 72px 40px 64px; }
+        .pd-hero-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .pd-label { display: inline-block; background: var(--pd-accent); color: #000; font-size: 0.7rem; font-weight: 700; letter-spacing: 3px; padding: 4px 12px; margin-bottom: 20px; }
+        .pd-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1.05; letter-spacing: 1px; margin-bottom: 20px; }
+        .pd-tagline { font-size: 1.1rem; color: var(--pd-muted); margin-bottom: 32px; }
+        .pd-price { font-size: 2.4rem; font-weight: 700; color: var(--pd-accent); margin-bottom: 24px; }
+        .btn { background: var(--pd-accent); color: #000; padding: 14px 32px; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; cursor: pointer; border-radius: 4px; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #e55a00; }
+        .btn-ghost { background: transparent; color: var(--pd-text); border: 2px solid var(--pd-accent); margin-left: 12px; }
+        .btn-ghost:hover { background: var(--pd-accent); color: #000; }
+        .pd-buy-row { display: flex; flex-wrap: wrap; gap: 12px; }
+        .pd-buy-row .btn-ghost { margin-left: 0; }
+        .pd-image { width: 100%; border-radius: 8px; }
+        .pd-note { max-width: 1100px; margin: 40px auto 0; padding: 0 40px; }
+        .pd-note-inner { background: var(--pd-bg2); border: 1px solid var(--pd-accent); border-radius: 8px; padding: 24px; }
+        .pd-note-inner h3 { color: var(--pd-accent); margin-bottom: 8px; }
+        .pd-note-inner p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-features { max-width: 1100px; margin: 60px auto; padding: 0 40px; }
+        .pd-features h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .feature-item { background: var(--pd-bg2); padding: 24px; border-radius: 8px; border: 1px solid #222; }
+        .feature-item h3 { color: var(--pd-accent); margin-bottom: 12px; font-size: 1.1rem; }
+        .feature-item p { color: var(--pd-muted); font-size: 0.95rem; }
+        .pd-cta { background: var(--pd-bg2); border-top: 1px solid #222; padding: 60px 40px; text-align: center; }
+        .pd-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 24px; }
+        .pd-cta .pd-buy-row { justify-content: center; }
+        @media (max-width: 768px) {
+            .pd-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+            .pd-title { font-size: 2rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .pd-nav { padding: 0 20px; }
+            .pd-hero { padding: 40px 20px; }
+            .pd-note { padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="pd-nav">
+        <div class="pd-nav-inner">
+            <a href="/" class="pd-logo">TRIPP <span class="accent">DIGITAL</span></a>
+            <a href="/#products" class="pd-back">← Back to Products</a>
+        </div>
+    </nav>
+
+    <section class="pd-hero">
+        <div class="pd-hero-inner">
+            <div>
+                <div class="pd-label">DIVORCE ORGANIZER</div>
+                <h1 class="pd-title">Divorce Planner &amp; Organizer<br><span class="accent">Divorce Planner, Divorce Organizer &amp; Custody Communication Log — Live Web App, Not a PDF</span></h1>
+                <p class="pd-tagline">One private place to organize a divorce or separation. There is a lot to keep track of — court deadlines, 24 key documents to gather, assets and debts, what life costs now versus after, fees and support payments, lawyer meetings, custody schedules and every important communication. This organizer keeps all of it together, in one complete file you own — no account, no subscription, nothing uploaded to anyone's server — and saves on your device as you go.</p>
+                <div class="pd-price">$11.99</div>
+                <div class="pd-buy-row">
+                    <a href="https://payhip.com/b/URh4t" target="_blank" rel="noopener noreferrer" class="btn">BUY ON PAYHIP →</a>
+                    <a href="https://buildwithaihq.gumroad.com/l/oisrvl" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">BUY ON GUMROAD →</a>
+                </div>
+            </div>
+            <div class="pd-image" style="background:#141414;border:1px solid #222;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:7rem;min-height:300px;">⚖️</div>
+        </div>
+    </section>
+
+    <div class="pd-note">
+        <div class="pd-note-inner">
+            <h3>⚠ An organizer, not legal advice</h3>
+            <p>Organizer only — not legal, financial, or tax advice. Consult a licensed attorney for advice about your case. This app helps you <strong>keep records and stay organized</strong>; it does not tell you what to file, what anything is worth, or how a case will turn out. Always confirm deadlines and dates with your attorney or the court. Your records are sensitive: everything stays on your device, and you should keep any backup files private.</p>
+        </div>
+    </div>
+
+    <section class="pd-features">
+        <h2>What You Get — 10 Sections</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>✓ Case at a Glance</h3>
+                <p>Your name, the other party, case or docket number, court, county and state, filing date, case stage, next hearing, your attorney's name, firm, phone and email, mediator and other contacts, plus case notes — autosaves as you type</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Deadlines &amp; Key Dates</h3>
+                <p>Add deadlines and key dates with type labels, sorted soonest-first, with a done check-off (and undo) and past-date flags so nothing slips. Confirm every date with your attorney or the court</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Document Checklist — 24 Items</h3>
+                <p>An original 24-item checklist in 5 categories (Identity &amp; Filing, Income &amp; Tax, Bank Accounts &amp; Debts, Property &amp; Insurance, Children &amp; Household), checkboxes with a live progress bar and an "X of 24" counter, plus a notes field for where each document is stored</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Assets &amp; Debts Inventory — Live Totals</h3>
+                <p>Rows for each asset and debt (name, category, value, listed under, notes) with live totals for total assets, total debts and your net position, updated the moment you change a number</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Budget — Now vs. After</h3>
+                <p>10 pre-filled monthly expense rows with editable Now and After amounts, live totals and the difference between the two, plus room for custom rows and your own assumptions notes</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Costs Tracker</h3>
+                <p>Date, item, category, amount, who it was paid to and notes for every cost, with a live running total so you can see what the process has cost so far at a glance</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Support Payments Log</h3>
+                <p>Date, type (child support, spousal support, shared expense or other), paid out or received, amount, payment method and notes — with live paid-out and received totals</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Lawyer Notes &amp; Compare</h3>
+                <p>A compare list for attorneys you are considering (name, firm, phone, consultation and retainer noted, notes) plus meeting and call notes — date, who it was with, topic, what was discussed and next steps</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Custody Notes + Communication Log</h3>
+                <p>Your custody schedule written in your own words, dated custody notes, and a co-parent communication log — date, method, topic and a factual summary of each exchange, kept in order</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Printable Attorney Packet</h3>
+                <p>One click prints a clean summary of everything — case at a glance, open deadlines, document progress, assets and debts with totals, budget, costs, support, lawyer notes, custody notes and the communication log — ready to take to a meeting or save as a PDF</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ 100% Private — Saves On Your Device</h3>
+                <p>Everything saves on your device in your browser's local storage. Nothing is uploaded — no account, no sign-in, no subscription. Your information stays private on your device; keep backup files private too</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Backup Export &amp; Import</h3>
+                <p>Export a JSON backup file any time and import it back on the same or another device, so your records are never trapped in one browser. Export a backup regularly — clearing browser site data clears the planner on that device</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Sample Data Included</h3>
+                <p>See how it works with clearly labelled sample entries, then clear them when you are ready to start your own records</p>
+            </div>
+            <div class="feature-item">
+                <h3>✓ Works Offline, On Any Device</h3>
+                <p>One single HTML file that opens in any modern browser on phone, tablet and computer — no installation, and no internet needed after download. Mobile-friendly throughout</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="pd-cta">
+        <h2>Keep the Whole Case in One Organized Place</h2>
+        <p style="color: var(--pd-muted); margin-bottom: 32px; font-size: 1.05rem;">No more scattered papers, missed dates, or trying to remember what was said. Fill in your case once, log deadlines, documents, money and communications as they happen, and print a clean attorney packet whenever you want a paper copy. Works on phone, tablet and computer — just open it and start.</p>
+        <div class="pd-buy-row">
+            <a href="https://payhip.com/b/URh4t" target="_blank" rel="noopener noreferrer" class="btn">GET IT ON PAYHIP →</a>
+            <a href="https://buildwithaihq.gumroad.com/l/oisrvl" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">GET IT ON GUMROAD →</a>
+        </div>
+    </section>
+    <!-- Visitor tracker -->
+    <script>
+      fetch("/.netlify/functions/track-visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          page: window.location.pathname,
+          referrer: document.referrer || "direct"
+        })
+      }).catch(() => {});
+    </script>
+<script src="/app-status-check.js" data-app="divorce-planner"></script>
+    <!-- CHATBOT WIDGET -->
+    <div id="chatbotWidget" class="chatbot-widget">
+        <div class="chatbot-header">
+            <h3>Tripp Digital Assistant</h3>
+            <button id="closeChatbot" class="chatbot-close">&times;</button>
+        </div>
+        <div id="chatMessages" class="chatbot-messages"></div>
+        <div class="chatbot-input-area">
+            <form id="chatForm">
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Ask about our services, products, or anything else..."
+                    autocomplete="off"
+                >
+                <button type="submit" class="chatbot-send">→</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CHATBOT TOGGLE BUTTON -->
+    <button id="chatbotToggle" class="chatbot-toggle" title="Chat with us">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" width="28" height="28"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <script src="chatbot.js"></script>
+</body>
+</html>
