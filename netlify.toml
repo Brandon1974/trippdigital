@@ -17,3 +17,7 @@
 
 # Netlify Functions are bundled from netlify/functions directory
 
+# Google Analytics: inject the gtag (G-WSN9YS0YEJ) into every page
+[[edge_functions]]
+  path = "/*"
+  function = "ga-tag"
